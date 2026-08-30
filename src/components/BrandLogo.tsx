@@ -8,32 +8,32 @@ interface BrandLogoProps {
   className?: string
 }
 
-export function BrandLogo({ size = 'md', showTagline = true, className = '' }: BrandLogoProps) {
+export function BrandLogo({ size = 'md', showTagline = false, className = '' }: BrandLogoProps) {
   const { language } = useLanguage()
 
   const iconSizes = {
-    sm: 'w-7 h-7 sm:w-8 sm:h-8',
-    md: 'w-8 h-8 sm:w-10 sm:h-10',
-    lg: 'w-10 h-10 sm:w-12 sm:h-12',
+    sm: 'w-6 h-6 sm:w-8 sm:h-8',
+    md: 'w-7 h-7 sm:w-9 sm:h-9',
+    lg: 'w-9 h-9 sm:w-11 sm:h-11',
   }
 
   const textSizes = {
-    sm: 'text-base sm:text-lg',
-    md: 'text-lg sm:text-xl',
-    lg: 'text-xl sm:text-2xl',
+    sm: 'text-sm sm:text-base',
+    md: 'text-[15px] sm:text-lg',
+    lg: 'text-lg sm:text-xl',
   }
 
   return (
-    <div className={`flex items-center gap-2.5 sm:gap-3 group cursor-pointer select-none ${className}`}>
+    <div className={`flex items-center gap-2 sm:gap-2.5 group cursor-pointer select-none ${className}`}>
       
       {/* Bespoke 3D Neural DataPulse Monogram Icon */}
       <motion.div
         whileHover={{ scale: 1.05, rotate: 2 }}
         whileTap={{ scale: 0.95 }}
-        className={`${iconSizes[size]} relative flex items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-1.5 sm:p-2 shadow-[0_4px_16px_rgba(255,107,44,0.18)] border border-slate-800/80 group-hover:border-[#FF6B2C]/60 transition-all duration-300 flex-shrink-0`}
+        className={`${iconSizes[size]} relative flex items-center justify-center rounded-xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-1 sm:p-1.5 shadow-sm border border-slate-800/80 group-hover:border-[#FF6B2C]/60 transition-all duration-300 flex-shrink-0`}
       >
         {/* Ambient Glow inside */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B2C]/20 via-transparent to-[#38BDF8]/20 rounded-xl sm:rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B2C]/20 via-transparent to-[#38BDF8]/20 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity" />
 
         {/* Custom SVG Monogram */}
         <svg viewBox="0 0 100 100" className="w-full h-full relative z-10 overflow-visible" fill="none">
@@ -52,7 +52,7 @@ export function BrandLogo({ size = 'md', showTagline = true, className = '' }: B
           <path
             d="M 50 12 L 84 32 L 84 68 L 50 88 L 16 68 L 16 32 Z"
             stroke="url(#logoNeuralGrad)"
-            strokeWidth="3.5"
+            strokeWidth="4"
             strokeLinejoin="round"
             opacity="0.3"
           />
@@ -60,7 +60,7 @@ export function BrandLogo({ size = 'md', showTagline = true, className = '' }: B
           <path
             d="M 28 68 L 42 30 L 58 30 L 72 68 M 36 55 L 64 55"
             stroke="#FFFFFF"
-            strokeWidth="5"
+            strokeWidth="5.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             opacity="0.9"
@@ -78,7 +78,7 @@ export function BrandLogo({ size = 'md', showTagline = true, className = '' }: B
         </svg>
 
         {/* Live Status LED Dot */}
-        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#FF6B2C] ring-2 ring-white animate-pulse" />
+        <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#FF6B2C] ring-2 ring-white animate-pulse" />
       </motion.div>
 
       {/* Brand Typography */}
@@ -93,8 +93,8 @@ export function BrandLogo({ size = 'md', showTagline = true, className = '' }: B
         </div>
 
         {showTagline && (
-          <div className="hidden sm:flex items-center gap-1.5 mt-1">
-            <span className="text-[10px] font-mono tracking-wider uppercase text-slate-500 font-semibold leading-none">
+          <div className="hidden md:flex items-center gap-1.5 mt-0.5">
+            <span className="text-[9px] font-mono tracking-wider uppercase text-slate-500 font-semibold leading-none">
               {language === 'ar' ? 'هندسة البيانات والذكاء الاصطناعي' : 'Enterprise Data & AI'}
             </span>
             <span className="w-1 h-1 rounded-full bg-emerald-500 animate-ping" />
