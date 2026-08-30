@@ -1,173 +1,208 @@
-import React, { useState, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import {
   Calculator,
+  ArrowRight,
+  ArrowLeft,
+  Sparkles,
+  ShieldCheck,
   MessageCircle,
   ArrowUpRight,
-  CheckCircle2,
-  ShieldCheck,
-  Sparkles,
-  Sliders,
-  Database,
-  Layers,
   Bot,
+  Database,
   DollarSign,
   Activity,
   Check,
   TrendingDown,
   Server,
-  Zap
+  Zap,
+  Building,
+  Layers
 } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { generateWhatsAppLink, WHATSAPP_CONFIG } from '../lib/whatsapp'
 
 export function SmartDataCalculator() {
-  const { language, isRTL } = useLanguage()
+  const { language, isRTL, t } = useLanguage()
 
-  const [companyScale, setCompanyScale] = useState('منشأة متوسطة / متجر متعدد الفروع (Growth)')
-  const [targetSystems, setTargetSystems] = useState<string[]>([
-    'متاجر إلكترونية (سلة / زد / Shopify)',
-    'نظام محاسبي أو ERP (قيود / دفاتر / Odoo)',
-  ])
-  const [selectedServices, setSelectedServices] = useState<string[]>([
-    '1. الذكاء الاصطناعي وبنية RAG الآمنة (منع الهلوسة)',
-    '2. هندسة وأتمتة خطوط البيانات (ETL Pipelines)',
-    '3. تحسين أداء قواعد البيانات وخفض فواتير السحابة (ROI)',
-  ])
-  const [deploymentMethod, setDeploymentMethod] = useState('سحابة خاصة للشركة (Private VPC) + تنبيهات واتساب')
+  // State keyed by clean IDs (ID-based, pure dynamic localization)
+  const [selectedScaleId, setSelectedScaleId] = useState<string>('growth')
+  const [selectedSystemIds, setSelectedSystemIds] = useState<string[]>(['ecom', 'erp'])
+  const [selectedServiceIds, setSelectedServiceIds] = useState<string[]>(['rag', 'etl', 'opt'])
+  const [selectedDeployId, setSelectedDeployId] = useState<string>('vpc')
 
   const scaleOptions = [
     {
       id: 'starter',
-      labelAr: 'شركة ناشئة / متجر إلكتروني (Starter)',
-      labelEn: 'Startup / E-Commerce (Starter)',
+      labelAr: 'شركة ناشئة / متجر واحد (Starter)',
+      labelEn: 'Startup / Single Store (Starter)',
+      labelTr: 'Yeni Girişim / Tek Mağaza (Starter)',
       baseSavingsAr: '5,000 - 12,000 ر.س / شهرياً',
       baseSavingsEn: '$1,500 - $3,500 / mo',
+      baseSavingsTr: '45.000 - 110.000 TL / ay',
     },
     {
       id: 'growth',
-      labelAr: 'منشأة متوسطة / متجر متعدد الفروع (Growth)',
+      labelAr: 'منشأة متوسطة / متعدد الفروع (Growth)',
       labelEn: 'Mid-Market / Multi-Branch (Growth)',
+      labelTr: 'Büyüme Aşaması / Çok Şubeli (Growth)',
       baseSavingsAr: '15,000 - 45,000 ر.س / شهرياً',
       baseSavingsEn: '$4,000 - $12,000 / mo',
+      baseSavingsTr: '140.000 - 400.000 TL / ay',
     },
     {
       id: 'enterprise',
       labelAr: 'شركة كبرى / مجموعة قابضة (Enterprise)',
       labelEn: 'Large Enterprise / Group (Enterprise)',
+      labelTr: 'Büyük Kurumsal / Holding (Enterprise)',
       baseSavingsAr: '60,000 - 200,000+ ر.س / شهرياً',
       baseSavingsEn: '$16,000 - $50,000+ / mo',
+      baseSavingsTr: '550.000 - 1.800.000+ TL / ay',
     },
   ]
 
   const systemsOptions = [
-    { id: 'ecom', labelAr: 'متاجر إلكترونية (سلة / زد / Shopify)', labelEn: 'E-Commerce (Salla/Zid/Shopify)' },
-    { id: 'erp', labelAr: 'نظام محاسبي أو ERP (قيود / دفاتر / Odoo)', labelEn: 'Accounting / ERP (Odoo/SAP)' },
-    { id: 'ads', labelAr: 'حسابات إعلانية (Meta Ads / Google Ads)', labelEn: 'Ad Accounts (Meta/Google)' },
-    { id: 'db', labelAr: 'قواعد بيانات سحابية (Postgres / SQL / Snowflake)', labelEn: 'Cloud DBs (Postgres/SQL/Snowflake)' },
-    { id: 'docs', labelAr: 'وثائق وعقود PDF وجداول Excel داخلية', labelEn: 'Internal PDFs, Docs & Excels' },
+    { id: 'ecom', labelAr: 'متاجر إلكترونية (سلة / زد / Shopify)', labelEn: 'E-Commerce (Salla/Zid/Shopify)', labelTr: 'E-Ticaret (Shopify/Pazaryerleri)' },
+    { id: 'erp', labelAr: 'نظام محاسبي ERP (Odoo / دفاتر)', labelEn: 'Accounting / ERP (Odoo/SAP)', labelTr: 'Muhasebe / ERP (Odoo/SAP/Logo)' },
+    { id: 'ads', labelAr: 'حسابات إعلانية (Meta Ads / Google Ads)', labelEn: 'Ad Accounts (Meta/Google Ads)', labelTr: 'Reklam Hesapları (Meta/Google)' },
+    { id: 'db', labelAr: 'قواعد بيانات سحابية (Postgres / SQL / Snowflake)', labelEn: 'Cloud DBs (Postgres/Snowflake/SQL)', labelTr: 'Bulut Veritabanları (Postgres/Snowflake)' },
+    { id: 'docs', labelAr: 'وثائق وعقود PDF وجداول داخلية', labelEn: 'Internal PDFs, Docs & Excels', labelTr: 'Şirket Belgeleri, PDF ve Tablolar' },
   ]
 
   const serviceOptions = [
     {
       id: 'rag',
-      labelAr: '1. الذكاء الاصطناعي وبنية RAG الآمنة (منع الهلوسة)',
+      labelAr: '1. الذكاء الاصطناعي وبنية RAG الآمنة',
       labelEn: '1. Secure AI & Enterprise RAG',
+      labelTr: '1. Güvenli Yapay Zeka & Kurumsal RAG',
       icon: Bot,
       color: 'text-purple-600',
       badgeAr: 'دقة 100%',
-      badgeEn: '100% Accuracy',
+      badgeEn: '100% Precision',
+      badgeTr: '%100 Doğruluk',
     },
     {
       id: 'etl',
-      labelAr: '2. هندسة وأتمتة خطوط البيانات (ETL Pipelines)',
-      labelEn: '2. Data Engineering & ETL Pipelines',
+      labelAr: '2. هندسة وأتمتة خطوط البيانات (ETL)',
+      labelEn: '2. Automated ETL Pipelines',
+      labelTr: '2. Otomatik ETL Veri Boru Hatları',
       icon: Database,
       color: 'text-blue-600',
       badgeAr: 'تزامن 24/7',
-      badgeEn: '24/7 Ingestion',
+      badgeEn: '24/7 Sync',
+      badgeTr: '7/24 Senkron',
     },
     {
       id: 'opt',
-      labelAr: '3. تحسين أداء قواعد البيانات وخفض فواتير السحابة (ROI)',
-      labelEn: '3. Database & Cloud Optimization (ROI)',
+      labelAr: '3. تحسين قواعد البيانات وخفض تكاليف السحابة (ROI)',
+      labelEn: '3. DB & Cloud Optimization (Measurable ROI)',
+      labelTr: '3. Veritabanı & Bulut Maliyet Tasarrufu',
       icon: DollarSign,
       color: 'text-[#FF6B2C]',
       badgeAr: 'وفر 52%',
-      badgeEn: '52% Savings',
+      badgeEn: '52% ROI',
+      badgeTr: '%52 Tasarruf',
     },
     {
       id: 'dash',
       labelAr: '4. تحليلات العمليات والمراقبة اللحظية (Dashboards)',
-      labelEn: '4. Real-time Analytics & Alerting',
+      labelEn: '4. Real-time Analytics & WhatsApp Alerts',
+      labelTr: '4. Operasyonel Paneller & WhatsApp Alarmları',
       icon: Activity,
       color: 'text-emerald-600',
       badgeAr: 'تنبيهات فورية',
       badgeEn: 'Live Alerts',
+      badgeTr: 'Anlık Alarmlar',
     },
   ]
 
   const deploymentOptions = [
-    { labelAr: 'سحابة خاصة للشركة (Private VPC) + تنبيهات واتساب', labelEn: 'Private VPC + WhatsApp Alerts' },
-    { labelAr: 'ربط مباشر مع قواعد البيانات الحالية (Managed Pipeline)', labelEn: 'Direct Connection to Existing DBs' },
-    { labelAr: 'استشارة فنية وتدقيق شامل للأنظمة (Architecture Audit)', labelEn: 'Technical Audit & Feasibility Study' },
+    {
+      id: 'vpc',
+      labelAr: 'سحابة خاصة للشركة (Private VPC) + تنبيهات واتساب',
+      labelEn: 'Private Company VPC + WhatsApp Alerts',
+      labelTr: 'Özel Şirket Bulutu (Private VPC) + WhatsApp Alarmları',
+    },
+    {
+      id: 'managed',
+      labelAr: 'ربط مباشر بقواعد البيانات الحالية (Managed Pipeline)',
+      labelEn: 'Direct DB Ingestion (Managed Pipeline)',
+      labelTr: 'Mevcut Veritabanlarına Doğrudan Entegrasyon',
+    },
+    {
+      id: 'audit',
+      labelAr: 'استشارة فنية وتدقيق شامل للأنظمة (Architecture Audit)',
+      labelEn: 'Technical Architecture Audit & Feasibility',
+      labelTr: 'Kapsamlı Mimari ve Fizibilite Denetimi',
+    },
   ]
 
-  const toggleSystem = (item: string) => {
-    if (targetSystems.includes(item)) {
-      if (targetSystems.length > 1) setTargetSystems(targetSystems.filter(s => s !== item))
+  const toggleSystem = (id: string) => {
+    if (selectedSystemIds.includes(id)) {
+      if (selectedSystemIds.length > 1) {
+        setSelectedSystemIds(selectedSystemIds.filter(s => s !== id))
+      }
     } else {
-      setTargetSystems([...targetSystems, item])
+      setSelectedSystemIds([...selectedSystemIds, id])
     }
   }
 
-  const toggleService = (item: string) => {
-    if (selectedServices.includes(item)) {
-      if (selectedServices.length > 1) setSelectedServices(selectedServices.filter(s => s !== item))
+  const toggleService = (id: string) => {
+    if (selectedServiceIds.includes(id)) {
+      if (selectedServiceIds.length > 1) {
+        setSelectedServiceIds(selectedServiceIds.filter(s => s !== id))
+      }
     } else {
-      setSelectedServices([...selectedServices, item])
+      setSelectedServiceIds([...selectedServiceIds, id])
     }
   }
 
-  const currentScale = scaleOptions.find(
-    s => (language === 'ar' ? s.labelAr : s.labelEn) === companyScale
-  ) || scaleOptions[1]
+  const currentScale = scaleOptions.find(s => s.id === selectedScaleId) || scaleOptions[1]
+  const currentDeploy = deploymentOptions.find(d => d.id === selectedDeployId) || deploymentOptions[0]
 
-  const generateWhatsAppMessage = () => {
+  // Clean, concise, and 100% dynamic WhatsApp message generation
+  const generateCleanWhatsAppMessage = () => {
+    const scaleText = language === 'ar' ? currentScale.labelAr : language === 'tr' ? currentScale.labelTr : currentScale.labelEn
+    const deployText = language === 'ar' ? currentDeploy.labelAr : language === 'tr' ? currentDeploy.labelTr : currentDeploy.labelEn
+
+    const sysNames = selectedSystemIds
+      .map(id => {
+        const item = systemsOptions.find(s => s.id === id)
+        return item ? (language === 'ar' ? item.labelAr : language === 'tr' ? item.labelTr : item.labelEn) : ''
+      })
+      .filter(Boolean)
+      .join(' + ')
+
+    const srvCount = selectedServiceIds.length
+
     if (language === 'ar') {
-      return `السلام عليكم، قمت بتحديد متطلبات مشروعنا عبر الحاسبة بالموقع:
+      return `السلام عليكم، حددت متطلبات منشأتنا عبر حاسبة الموقع:
+- الحجم: ${scaleText}
+- الأنظمة: ${sysNames}
+- نطاق العمل: ${srvCount} خدمات هندسية (${deployText})
 
-- حجم المنشأة: ${companyScale}
-- الأنظمة الحالية: ${targetSystems.join(' + ')}
-- الخدمات المطلوبة: ${selectedServices.length} خدمات
-- طريقة النشر: ${deploymentMethod}
-
-أود مناقشة خطة التنفيذ ودراسة الجدوى لمنشأتنا.`
+أود بدء استشارة فنية ودراسة جدوى لمشروعنا.`
     } else if (language === 'tr') {
-      return `Merhaba, web sitenizdeki hesaplayıcı üzerinden şirketimiz için veri gereksinimlerimizi belirledim:
+      return `Merhaba, web sitenizdeki hesaplayıcı üzerinden gereksinimlerimizi belirledim:
+- Ölçek: ${scaleText}
+- Sistemler: ${sysNames}
+- Kapsam: ${srvCount} mühendislik hizmeti (${deployText})
 
-- Şirket Ölçeği: ${companyScale}
-- Mevcut Sistemler: ${targetSystems.join(' + ')}
-- İstenen Hizmetler: ${selectedServices.length} temel hizmet
-- Kurulum Modeli: ${deploymentMethod}
-
-Şirketimiz için fizibilite ve uygulama planını görüşmek istiyorum.`
+Uygulama planı ve fizibilite için görüşmek istiyorum.`
     } else {
-      return `Hello, I configured our data requirements via your calculator:
-
-- Company Scale: ${companyScale}
-- Current Systems: ${targetSystems.join(' + ')}
-- Required Services: ${selectedServices.length} services
-- Deployment: ${deploymentMethod}
+      return `Hello, I configured our requirements via your website calculator:
+- Scale: ${scaleText}
+- Systems: ${sysNames}
+- Scope: ${srvCount} core services (${deployText})
 
 I would like to discuss implementation and technical feasibility.`
     }
   }
 
-  const calculatedWhatsAppUrl = generateWhatsAppLink(generateWhatsAppMessage(), language)
+  const calculatedWhatsAppUrl = generateWhatsAppLink(generateCleanWhatsAppMessage(), language)
 
   return (
-    <section id="calculator" className="w-full py-20 sm:py-28 bg-[#FFF6EE] border-b border-orange-100 relative">
+    <section id="calculator" className="w-full py-16 sm:py-28 bg-[#FFF6EE] border-b border-orange-100 relative">
       
       {/* Background Soft Glows */}
       <div className="absolute top-10 right-10 w-80 h-80 bg-orange-200/30 blur-[100px] rounded-full pointer-events-none" />
@@ -176,90 +211,96 @@ I would like to discuss implementation and technical feasibility.`
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-orange-200 shadow-2xs text-[#D9480F] text-xs font-bold font-mono mb-3">
-            <Calculator className="w-3.5 h-3.5 text-[#FF6B2C]" />
-            <span>{language === 'ar' ? 'حاسبة متطلبات المشروع و ROI' : 'Project Scope & ROI Calculator'}</span>
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-orange-200 shadow-2xs text-[#D9480F] text-xs font-bold font-mono mb-2 sm:mb-3">
+            <Calculator className="w-3.5 h-3.5" />
+            <span>{t('calcBadge')}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight font-heading leading-snug">
-            {language === 'ar' ? 'صمم خطة التطوير وقدر الوفر المالي' : 'Configure Scope & Estimate Cost Savings'}
+            {t('calcTitle')}
           </h2>
-          <p className="mt-3 text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
-            {language === 'ar'
-              ? 'حدد أنظمة شركتك والخدمات المطلوبة لتوليد خطة هندسية مفصلة مع تقدير مباشر للعائد الاستثماري والوفر الشهري.'
-              : 'Select your systems and desired capabilities to generate a detailed architecture plan with estimated ROI savings.'}
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+            {t('calcSubtitle')}
           </p>
         </div>
 
-        {/* 2-Column Responsive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Wizard Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/* Left / Main Configuration Panel (7 cols) */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+          {/* Left Column: Interactive Controls */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8" dir={isRTL ? 'rtl' : 'ltr'}>
             
-            {/* Step 1: Scale */}
-            <div className="space-y-2.5">
+            {/* Step 1: Company Scale */}
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-orange-200/80 shadow-xs space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs sm:text-sm font-extrabold text-slate-950 font-heading">
-                  {language === 'ar' ? '1. حجم المنشأة ونطاق العمليات:' : '1. Company Scale & Operations:'}
-                </label>
-                <span className="text-[10px] font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">
-                  {language === 'ar' ? 'خطوة 1 من 4' : 'Step 1 of 4'}
-                </span>
+                <span className="text-xs font-bold font-mono text-[#D9480F]">STEP 01</span>
+                <span className="text-xs text-slate-500 font-sans">{language === 'ar' ? 'حجم المنشأة أو العمليات' : language === 'tr' ? 'Şirket Ölçeği' : 'Company Scale'}</span>
               </div>
-              
-              <div className="space-y-2">
-                {scaleOptions.map((opt) => {
-                  const val = language === 'ar' ? opt.labelAr : opt.labelEn
-                  const isSelected = companyScale === val
-                  return (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => setCompanyScale(val)}
-                      className={`w-full p-3.5 rounded-2xl text-xs font-semibold text-right transition-all border cursor-pointer flex items-center justify-between shadow-2xs min-h-[46px] ${
-                        isSelected
-                          ? 'bg-orange-50/80 text-slate-950 border-[#FF6B2C] ring-2 ring-[#FF6B2C]/20 font-bold'
-                          : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className={`w-3 h-3 rounded-full border flex-shrink-0 ${isSelected ? 'bg-[#FF6B2C] border-[#FF6B2C]' : 'border-slate-300'}`} />
-                        <span className="truncate">{val}</span>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-950 font-heading">
+                {language === 'ar' ? 'ما هو حجم نشاطك التجاري الحالي؟' : language === 'tr' ? 'Mevcut operasyon büyüklüğünüz nedir?' : 'What is your current operational scale?'}
+              </h3>
+              <div className="grid grid-cols-1 gap-2 pt-1">
+                {scaleOptions.map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => setSelectedScaleId(opt.id)}
+                    className={`p-3 rounded-2xl text-start transition-all flex items-center justify-between border cursor-pointer ${
+                      selectedScaleId === opt.id
+                        ? 'bg-orange-50/80 border-[#FF6B2C] text-slate-950 shadow-2xs'
+                        : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                          selectedScaleId === opt.id
+                            ? 'border-[#FF6B2C] bg-[#FF6B2C]'
+                            : 'border-slate-300 bg-white'
+                        }`}
+                      >
+                        {selectedScaleId === opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                       </div>
-                      <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 hidden sm:inline">
-                        {language === 'ar' ? opt.baseSavingsAr : opt.baseSavingsEn}
+                      <span className="text-xs sm:text-sm font-bold font-sans">
+                        {language === 'ar' ? opt.labelAr : language === 'tr' ? opt.labelTr : opt.labelEn}
                       </span>
-                    </button>
-                  )
-                })}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Step 2: Target Systems */}
-            <div className="space-y-2.5 pt-2 border-t border-slate-100">
-              <label className="block text-xs sm:text-sm font-extrabold text-slate-950 font-heading">
-                {language === 'ar' ? '2. الأنظمة ومصادر البيانات الحالية لديك:' : '2. Current Systems & Data Sources:'}
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {systemsOptions.map((opt) => {
-                  const val = language === 'ar' ? opt.labelAr : opt.labelEn
-                  const isSelected = targetSystems.includes(val)
+            {/* Step 2: Current Systems Sources */}
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-orange-200/80 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold font-mono text-sky-600">STEP 02</span>
+                <span className="text-xs text-slate-500 font-sans">{language === 'ar' ? 'المصادر والأنظمة' : language === 'tr' ? 'Kaynaklar & Sistemler' : 'Systems & Sources'}</span>
+              </div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-950 font-heading">
+                {language === 'ar' ? 'ما هي الأنظمة ومصادر البيانات المراد ربطها؟' : language === 'tr' ? 'Entegre edilecek veri kaynakları nelerdir?' : 'Which data sources do you need to integrate?'}
+              </h3>
+              <div className="grid grid-cols-1 gap-2 pt-1">
+                {systemsOptions.map((sys) => {
+                  const isChecked = selectedSystemIds.includes(sys.id)
                   return (
                     <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => toggleSystem(val)}
-                      className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all border cursor-pointer flex items-center gap-1.5 shadow-2xs ${
-                        isSelected
-                          ? 'bg-sky-50 text-sky-950 border-sky-400 font-bold'
-                          : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                      key={sys.id}
+                      onClick={() => toggleSystem(sys.id)}
+                      className={`p-3 rounded-2xl text-start transition-all flex items-center justify-between border cursor-pointer ${
+                        isChecked
+                          ? 'bg-sky-50/70 border-sky-400 text-slate-950 shadow-2xs'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
                       }`}
                     >
-                      <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[10px] ${isSelected ? 'bg-sky-600 text-white' : 'border border-slate-300'}`}>
-                        {isSelected ? '✓' : ''}
+                      <span className="text-xs sm:text-sm font-semibold font-sans">
+                        {language === 'ar' ? sys.labelAr : language === 'tr' ? sys.labelTr : sys.labelEn}
                       </span>
-                      <span>{val}</span>
+                      <div
+                        className={`w-5 h-5 rounded-lg flex items-center justify-center transition-colors flex-shrink-0 ${
+                          isChecked ? 'bg-sky-600 text-white' : 'border border-slate-300'
+                        }`}
+                      >
+                        {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                      </div>
                     </button>
                   )
                 })}
@@ -267,39 +308,42 @@ I would like to discuss implementation and technical feasibility.`
             </div>
 
             {/* Step 3: Required Core Services */}
-            <div className="space-y-2.5 pt-2 border-t border-slate-100">
-              <label className="block text-xs sm:text-sm font-extrabold text-slate-950 font-heading">
-                {language === 'ar' ? '3. الخدمات الأساسية المطلوبة:' : '3. Required Core Capabilities:'}
-              </label>
-              <div className="space-y-2">
-                {serviceOptions.map((opt) => {
-                  const val = language === 'ar' ? opt.labelAr : opt.labelEn
-                  const isSelected = selectedServices.includes(val)
-                  const Icon = opt.icon
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-orange-200/80 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold font-mono text-purple-600">STEP 03</span>
+                <span className="text-xs text-slate-500 font-sans">{language === 'ar' ? 'الخدمات المطلوبة' : language === 'tr' ? 'İstenen Hizmetler' : 'Required Services'}</span>
+              </div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-950 font-heading">
+                {language === 'ar' ? 'حدد الحلول الهندسية التي تحتاجها منشأتك:' : language === 'tr' ? 'İhtiyaç duyduğunuz mühendislik çözümlerini seçin:' : 'Select the services your company requires:'}
+              </h3>
+              <div className="grid grid-cols-1 gap-2 pt-1">
+                {serviceOptions.map((srv) => {
+                  const isChecked = selectedServiceIds.includes(srv.id)
+                  const Icon = srv.icon
                   return (
                     <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => toggleService(val)}
-                      className={`w-full p-3.5 rounded-2xl text-xs font-semibold text-right transition-all border flex items-center justify-between cursor-pointer shadow-2xs min-h-[46px] ${
-                        isSelected
-                          ? 'bg-purple-50/80 text-purple-950 border-purple-400 font-bold'
-                          : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                      key={srv.id}
+                      onClick={() => toggleService(srv.id)}
+                      className={`p-3.5 rounded-2xl text-start transition-all flex items-center justify-between border cursor-pointer ${
+                        isChecked
+                          ? 'bg-purple-50/70 border-purple-400 text-slate-950 shadow-2xs'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <div className={`w-7 h-7 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-2xs ${opt.color}`}>
+                        <div className={`w-7 h-7 rounded-xl bg-white border border-slate-200 flex items-center justify-center ${srv.color} shadow-xs`}>
                           <Icon className="w-4 h-4" />
                         </div>
-                        <span className="truncate">{val}</span>
+                        <span className="text-xs sm:text-sm font-bold font-sans">
+                          {language === 'ar' ? srv.labelAr : language === 'tr' ? srv.labelTr : srv.labelEn}
+                        </span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-white border border-purple-200 text-purple-800 hidden sm:inline">
-                          {language === 'ar' ? opt.badgeAr : opt.badgeEn}
-                        </span>
-                        <span className={`w-4 h-4 rounded flex items-center justify-center text-[10px] ${isSelected ? 'bg-purple-600 text-white' : 'border border-slate-300'}`}>
-                          {isSelected ? '✓' : ''}
-                        </span>
+                      <div
+                        className={`w-5 h-5 rounded-lg flex items-center justify-center transition-colors flex-shrink-0 ${
+                          isChecked ? 'bg-purple-600 text-white' : 'border border-slate-300'
+                        }`}
+                      >
+                        {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                       </div>
                     </button>
                   )
@@ -307,107 +351,129 @@ I would like to discuss implementation and technical feasibility.`
               </div>
             </div>
 
-            {/* Step 4: Deployment */}
-            <div className="space-y-2.5 pt-2 border-t border-slate-100">
-              <label className="block text-xs sm:text-sm font-extrabold text-slate-950 font-heading">
-                {language === 'ar' ? '4. طريقة النشر والتكامل المفضلة:' : '4. Preferred Deployment Mechanism:'}
-              </label>
-              <div className="space-y-2">
-                {deploymentOptions.map((opt, idx) => {
-                  const val = language === 'ar' ? opt.labelAr : opt.labelEn
-                  const isSelected = deploymentMethod === val
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setDeploymentMethod(val)}
-                      className={`w-full p-3 rounded-xl text-xs font-semibold text-right transition-all border cursor-pointer flex items-center justify-between ${
-                        isSelected
-                          ? 'bg-emerald-50 text-emerald-950 border-emerald-500 font-bold'
-                          : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+            {/* Step 4: Deployment & Security Mode */}
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-orange-200/80 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold font-mono text-emerald-600">STEP 04</span>
+                <span className="text-xs text-slate-500 font-sans">{language === 'ar' ? 'بيئة النشر والأمان' : language === 'tr' ? 'Kurulum & Güvenlik' : 'Deployment Mode'}</span>
+              </div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-950 font-heading">
+                {language === 'ar' ? 'طريقة النشر المفضلة للحلول:' : language === 'tr' ? 'Tercih edilen kurulum modeli:' : 'Preferred deployment & infrastructure model:'}
+              </h3>
+              <div className="grid grid-cols-1 gap-2 pt-1">
+                {deploymentOptions.map((dep) => (
+                  <button
+                    key={dep.id}
+                    onClick={() => setSelectedDeployId(dep.id)}
+                    className={`p-3 rounded-2xl text-start transition-all flex items-center justify-between border cursor-pointer ${
+                      selectedDeployId === dep.id
+                        ? 'bg-emerald-50/70 border-emerald-500 text-slate-950 shadow-2xs'
+                        : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
+                    }`}
+                  >
+                    <span className="text-xs sm:text-sm font-semibold font-sans">
+                      {language === 'ar' ? dep.labelAr : language === 'tr' ? dep.labelTr : dep.labelEn}
+                    </span>
+                    <div
+                      className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                        selectedDeployId === dep.id
+                          ? 'border-emerald-600 bg-emerald-600'
+                          : 'border-slate-300 bg-white'
                       }`}
                     >
-                      <span>{val}</span>
-                      <span className={`w-2.5 h-2.5 rounded-full ${isSelected ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-                    </button>
-                  )
-                })}
+                      {selectedDeployId === dep.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
 
           </div>
 
-          {/* Right / Sticky Summary & Instant ROI Card (5 cols) */}
-          <div className="lg:col-span-5 sticky top-28 space-y-4">
+          {/* Right Column: Live Sticky Summary Card */}
+          <div className="lg:col-span-5 sticky top-24 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
             
-            {/* Main Plan Spec Card */}
-            <div className="card-pastel-purple rounded-3xl p-6 sm:p-7 shadow-xl border-2 border-purple-200">
+            <div className="p-5 sm:p-7 rounded-3xl bg-slate-950 text-white shadow-2xl border border-slate-800 space-y-5 relative overflow-hidden">
               
-              <div className="flex items-center justify-between pb-4 border-b border-purple-100">
+              {/* Background gradient orb */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#FF6B2C]/20 blur-[60px] rounded-full pointer-events-none" />
+
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-[#FF6B2C]" />
-                  <span className="font-bold text-sm text-slate-950 font-heading">
-                    {language === 'ar' ? 'ملخص خطة المشروع والعائد' : 'Specification & Projected ROI'}
+                  <div className="w-7 h-7 rounded-lg bg-[#FF6B2C] text-white flex items-center justify-center">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold font-heading">
+                    {language === 'ar' ? 'ملخص خطة التطوير والمواصفات' : language === 'tr' ? 'Proje Özeti & Tasarruf Tahmini' : 'Architecture Plan Summary'}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                  {language === 'ar' ? 'جاهز للتنفيذ' : 'Ready to Deploy'}
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  {language === 'ar' ? 'عائد استثماري ملموس' : language === 'tr' ? 'Doğrudan ROI' : 'Measurable ROI'}
                 </span>
               </div>
 
-              {/* Dynamic Estimated Savings Box */}
-              <div className="my-4 p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200">
-                <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="text-slate-600 font-medium">
-                    {language === 'ar' ? 'الوفر المالي الشهري المتوقع:' : 'Estimated Monthly ROI:'}
-                  </span>
-                  <span className="text-[10px] font-mono font-bold text-[#D9480F] bg-white px-1.5 py-0.5 rounded border border-orange-200">
-                    -52% Cloud Spend
-                  </span>
+              {/* Estimated Savings */}
+              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                <span className="text-[10px] font-mono uppercase text-slate-400">
+                  {language === 'ar' ? 'الوفر المالي الشهري التقديري' : language === 'tr' ? 'Tahmini Aylık Maliyet Tasarrufu' : 'Estimated Monthly Savings'}
+                </span>
+                <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono">
+                  {language === 'ar' ? currentScale.baseSavingsAr : language === 'tr' ? currentScale.baseSavingsTr : currentScale.baseSavingsEn}
                 </div>
-                <div className="text-xl sm:text-2xl font-black font-mono text-[#D9480F]">
-                  {language === 'ar' ? currentScale.baseSavingsAr : currentScale.baseSavingsEn}
-                </div>
+                <span className="text-[10px] text-slate-400 block">
+                  {language === 'ar' ? 'خفض فواتير السحابة وإلغاء الهدر اليدوي' : language === 'tr' ? 'Bulut optimizasyonu ve manuel iş yükü tasarrufu' : 'Cloud compute trim & manual hours saved'}
+                </span>
               </div>
 
-              {/* Summary Items */}
+              {/* Selected Scope Spec List */}
               <div className="space-y-2 text-xs font-sans">
-                <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 flex items-center justify-between">
-                  <span className="text-slate-500 text-[11px]">{language === 'ar' ? 'حجم المنشأة:' : 'Scale:'}</span>
-                  <span className="text-slate-950 font-bold text-xs truncate max-w-[160px]">{companyScale}</span>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 flex items-center justify-between">
-                  <span className="text-slate-500 text-[11px]">{language === 'ar' ? 'الخدمات المحددة:' : 'Services:'}</span>
-                  <span className="text-purple-950 font-bold text-xs">
-                    {selectedServices.length} {language === 'ar' ? 'خدمات أساسية' : 'Core Services'}
+                <div className="flex items-center justify-between py-1.5 border-b border-slate-900">
+                  <span className="text-slate-400">{language === 'ar' ? 'حجم المنشأة:' : language === 'tr' ? 'Şirket Ölçeği:' : 'Scale:'}</span>
+                  <span className="font-bold text-white max-w-[170px] truncate text-right">
+                    {language === 'ar' ? currentScale.labelAr : language === 'tr' ? currentScale.labelTr : currentScale.labelEn}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 flex items-center justify-between">
-                  <span className="text-slate-500 text-[11px]">{language === 'ar' ? 'الأنظمة المستهدفة:' : 'Target Systems:'}</span>
-                  <span className="text-slate-950 font-bold text-xs">
-                    {targetSystems.length} {language === 'ar' ? 'أنظمة وقواعد بيانات' : 'Connected DBs'}
+                <div className="flex items-center justify-between py-1.5 border-b border-slate-900">
+                  <span className="text-slate-400">{language === 'ar' ? 'المصادر المحددة:' : language === 'tr' ? 'Seçili Kaynaklar:' : 'Sources:'}</span>
+                  <span className="font-bold text-[#FF6B2C] font-mono">
+                    {selectedSystemIds.length} {language === 'ar' ? 'أنظمة' : language === 'tr' ? 'sistem' : 'systems'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-1.5 border-b border-slate-900">
+                  <span className="text-slate-400">{language === 'ar' ? 'الخدمات المطلوبة:' : language === 'tr' ? 'İstenen Hizmetler:' : 'Services:'}</span>
+                  <span className="font-bold text-purple-400 font-mono">
+                    {selectedServiceIds.length} {language === 'ar' ? 'خدمات هندسية' : language === 'tr' ? 'hizmet' : 'services'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-1.5">
+                  <span className="text-slate-400">{language === 'ar' ? 'بيئة النشر:' : language === 'tr' ? 'Kurulum:' : 'Deployment:'}</span>
+                  <span className="font-bold text-emerald-400 max-w-[170px] truncate text-right">
+                    {language === 'ar' ? currentDeploy.labelAr : language === 'tr' ? currentDeploy.labelTr : currentDeploy.labelEn}
                   </span>
                 </div>
               </div>
 
-              {/* WhatsApp Action */}
-              <div className="pt-4 mt-2 border-t border-purple-100">
+              {/* Direct WhatsApp Call to Action */}
+              <div className="pt-2">
                 <a
                   href={calculatedWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl btn-rpc-orange font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer text-center"
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl btn-rpc-orange font-bold text-xs sm:text-sm shadow-xl cursor-pointer min-h-[46px]"
                 >
                   <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
-                  <span>{language === 'ar' ? 'إرسال الخطة ومناقشتها عبر واتساب' : 'Send Spec to WhatsApp (+90 553 745 76 44)'}</span>
+                  <span>{language === 'ar' ? 'إرسال المواصفات ومناقشتها مع المهندس' : language === 'tr' ? 'Planı Mühendisle Görüş (WhatsApp)' : 'Discuss Scope with Engineer'}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0" />
                 </a>
+              </div>
 
-                <div className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-sans text-center">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-                  <span>{language === 'ar' ? 'استشارة مجانية ودراسة جدوى فنية فورية' : 'Free consultation & feasibility study'}</span>
-                </div>
+              <div className="text-center">
+                <span className="text-[10px] text-slate-400 font-sans">
+                  {language === 'ar' ? 'استشارة مباشرة مع مهندس البيانات (+90 553 745 76 44)' : language === 'tr' ? 'Kıdemli veri mühendisiyle doğrudan iletişim (+90 553 745 76 44)' : 'Direct consultation on WhatsApp (+90 553 745 76 44)'}
+                </span>
               </div>
 
             </div>
