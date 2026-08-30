@@ -43,15 +43,15 @@ export function StackedFeatureCards() {
           : 'Hello, inquiring about Enterprise AI and RAG architecture for our company.',
       // Distinct Modern React Visual Card for RAG
       visualComponent: (
-        <div className="w-full max-w-sm bg-gradient-to-br from-purple-50 via-white to-purple-50/50 rounded-2xl p-4 sm:p-5 border border-purple-200 shadow-md space-y-3 relative overflow-hidden">
+        <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-purple-50 via-white to-purple-50/50 rounded-2xl p-3.5 sm:p-5 border border-purple-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
           {/* Top Node */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center shadow-xs">
+              <div className="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center shadow-xs flex-shrink-0">
                 <FileText className="w-4 h-4" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 font-heading">
+                <div className="text-xs font-bold text-slate-900 font-heading truncate max-w-[140px] sm:max-w-none">
                   {language === 'ar' ? 'المستندات والوثائق الخاصة' : 'Proprietary Company Docs'}
                 </div>
                 <div className="text-[10px] text-purple-700 font-mono">
@@ -59,16 +59,16 @@ export function StackedFeatureCards() {
                 </div>
               </div>
             </div>
-            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+            <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-200 whitespace-nowrap">
               {language === 'ar' ? 'صفر تسريب' : 'Zero Leaks'}
             </span>
           </div>
 
           {/* Central AI Vector Core */}
-          <div className="p-3 rounded-xl bg-slate-950 text-white space-y-2">
-            <div className="flex items-center justify-between text-[11px] font-mono">
-              <span className="text-purple-400 flex items-center gap-1">
-                <Bot className="w-3.5 h-3.5" />
+          <div className="p-2.5 sm:p-3 rounded-xl bg-slate-950 text-white space-y-1.5 sm:space-y-2">
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-mono">
+              <span className="text-purple-400 flex items-center gap-1 truncate">
+                <Bot className="w-3.5 h-3.5 flex-shrink-0" />
                 <span>RAG Vector Neural Engine</span>
               </span>
               <span className="text-emerald-400 font-bold">84ms</span>
@@ -79,9 +79,9 @@ export function StackedFeatureCards() {
           </div>
 
           {/* Grounded Citation Result */}
-          <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs">
+          <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-            <span className="text-[11px] text-emerald-900 font-sans font-medium">
+            <span className="text-[10px] sm:text-[11px] text-emerald-900 font-sans font-medium">
               {language === 'ar'
                 ? 'إجابة دقيقة 100% موثقة برقم الصفحة والمصدر دون هلوسة'
                 : '100% Grounded fact answer with exact citation'}
@@ -106,45 +106,45 @@ export function StackedFeatureCards() {
           : 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
       // Distinct Modern React Visual Card for ETL
       visualComponent: (
-        <div className="w-full max-w-sm bg-gradient-to-br from-sky-50 via-white to-blue-50/50 rounded-2xl p-4 sm:p-5 border border-sky-200 shadow-md space-y-3 relative overflow-hidden">
+        <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-sky-50 via-white to-blue-50/50 rounded-2xl p-3.5 sm:p-5 border border-sky-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
           {/* Multi Sources Grid */}
           <div className="grid grid-cols-3 gap-1.5 text-center">
-            <div className="p-2 rounded-lg bg-white border border-sky-200 shadow-2xs">
-              <span className="text-[9px] text-slate-500 block font-mono">E-COM</span>
-              <strong className="text-[10px] text-sky-950 font-bold block truncate">
+            <div className="p-1.5 sm:p-2 rounded-lg bg-white border border-sky-200 shadow-2xs">
+              <span className="text-[8px] sm:text-[9px] text-slate-500 block font-mono">E-COM</span>
+              <strong className="text-[9px] sm:text-[10px] text-sky-950 font-bold block truncate">
                 {language === 'ar' ? 'سلة وزد' : 'Shopify/Salla'}
               </strong>
             </div>
-            <div className="p-2 rounded-lg bg-white border border-sky-200 shadow-2xs">
-              <span className="text-[9px] text-slate-500 block font-mono">ADS</span>
-              <strong className="text-[10px] text-sky-950 font-bold block truncate">Meta/Google</strong>
+            <div className="p-1.5 sm:p-2 rounded-lg bg-white border border-sky-200 shadow-2xs">
+              <span className="text-[8px] sm:text-[9px] text-slate-500 block font-mono">ADS</span>
+              <strong className="text-[9px] sm:text-[10px] text-sky-950 font-bold block truncate">Meta/Google</strong>
             </div>
-            <div className="p-2 rounded-lg bg-white border border-sky-200 shadow-2xs">
-              <span className="text-[9px] text-slate-500 block font-mono">ERP</span>
-              <strong className="text-[10px] text-sky-950 font-bold block truncate">
+            <div className="p-1.5 sm:p-2 rounded-lg bg-white border border-sky-200 shadow-2xs">
+              <span className="text-[8px] sm:text-[9px] text-slate-500 block font-mono">ERP</span>
+              <strong className="text-[9px] sm:text-[10px] text-sky-950 font-bold block truncate">
                 {language === 'ar' ? 'المحاسبة' : 'Odoo/ERP'}
               </strong>
             </div>
           </div>
 
           {/* Pipeline Streaming Animation */}
-          <div className="p-3 rounded-xl bg-slate-950 text-white flex items-center justify-between text-xs font-mono">
+          <div className="p-2.5 sm:p-3 rounded-xl bg-slate-950 text-white flex items-center justify-between text-xs font-mono">
             <div className="flex items-center gap-1.5">
-              <Database className="w-4 h-4 text-sky-400" />
-              <span className="text-[11px] text-slate-200">
+              <Database className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400 flex-shrink-0" />
+              <span className="text-[10px] sm:text-[11px] text-slate-200 truncate">
                 {language === 'ar' ? 'مستودع بيانات مركزي' : 'Single Source of Truth'}
               </span>
             </div>
-            <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+            <span className="text-[9px] sm:text-[10px] text-emerald-400 font-bold flex items-center gap-1 whitespace-nowrap">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
               24/7 SYNC
             </span>
           </div>
 
           {/* Guarantee Badge */}
-          <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200 flex items-center gap-2 text-xs">
+          <div className="p-2 sm:p-2.5 rounded-xl bg-blue-50 border border-blue-200 flex items-center gap-2 text-xs">
             <Zap className="w-4 h-4 text-blue-600 flex-shrink-0" />
-            <span className="text-[11px] text-blue-950 font-sans font-medium">
+            <span className="text-[10px] sm:text-[11px] text-blue-950 font-sans font-medium">
               {language === 'ar'
                 ? 'أتمتة كاملة تلغي إدخال ملفات إكسل وتمنع تضارب الحسابات'
                 : 'Automated reconciliation eliminating manual data entry'}
@@ -169,41 +169,41 @@ export function StackedFeatureCards() {
           : 'Hello, inquiring about database performance and cloud cost reduction.',
       // Distinct Modern React Visual Card for Cloud Optimization
       visualComponent: (
-        <div className="w-full max-w-sm bg-gradient-to-br from-orange-50 via-white to-amber-50/50 rounded-2xl p-4 sm:p-5 border border-orange-200 shadow-md space-y-3 relative overflow-hidden">
+        <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-orange-50 via-white to-amber-50/50 rounded-2xl p-3.5 sm:p-5 border border-orange-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
           {/* Cost Comparison Metric */}
-          <div className="p-3 rounded-xl bg-white border border-orange-200 shadow-xs flex items-center justify-between">
+          <div className="p-2.5 sm:p-3 rounded-xl bg-white border border-orange-200 shadow-xs flex items-center justify-between">
             <div>
-              <span className="text-[9px] font-mono text-slate-500 uppercase block">
-                {language === 'ar' ? 'الفاتورة قبل التحسين' : 'Previous Cloud Spend'}
+              <span className="text-[8px] sm:text-[9px] font-mono text-slate-500 uppercase block">
+                {language === 'ar' ? 'الفاتورة قبل التحسين' : 'Previous Spend'}
               </span>
-              <div className="text-xs font-black text-slate-400 line-through font-mono">
-                {language === 'ar' ? '15,000 ر.س / شهر' : '$15,000 / mo'}
+              <div className="text-xs font-bold text-slate-400 line-through font-mono">
+                {language === 'ar' ? '15,000 ر.س' : '$15,000'}
               </div>
             </div>
             <div className="text-right">
-              <span className="text-[9px] font-mono text-[#D9480F] uppercase font-bold block">
+              <span className="text-[8px] sm:text-[9px] font-mono text-[#D9480F] uppercase font-bold block">
                 {language === 'ar' ? 'الفاتورة بعد الضبط' : 'Optimized Spend'}
               </span>
-              <div className="text-sm font-black text-[#D9480F] font-mono">
-                {language === 'ar' ? '7,200 ر.س / شهر' : '$7,200 / mo'}
+              <div className="text-xs sm:text-sm font-black text-[#D9480F] font-mono">
+                {language === 'ar' ? '7,200 ر.س' : '$7,200'}
               </div>
             </div>
           </div>
 
           {/* Speed Acceleration Metric */}
-          <div className="p-3 rounded-xl bg-slate-950 text-white flex items-center justify-between text-xs font-mono">
-            <span className="text-slate-300 text-[11px]">
-              {language === 'ar' ? 'زمن الاستعلام: 3.4 ثوانٍ ➔ 118 مللي ثانية' : 'Latency: 3.4s ➔ 118ms'}
+          <div className="p-2.5 sm:p-3 rounded-xl bg-slate-950 text-white flex items-center justify-between text-xs font-mono">
+            <span className="text-slate-300 text-[10px] sm:text-[11px] truncate">
+              {language === 'ar' ? 'الاستعلام: 3.4s ➔ 118ms' : 'Latency: 3.4s ➔ 118ms'}
             </span>
-            <span className="px-2 py-0.5 rounded bg-emerald-900 text-emerald-300 font-bold text-[10px]">
+            <span className="px-2 py-0.5 rounded bg-emerald-900 text-emerald-300 font-bold text-[9px] sm:text-[10px] whitespace-nowrap">
               {language === 'ar' ? '10 أضعاف أسرع' : '10X FASTER'}
             </span>
           </div>
 
           {/* ROI Badge */}
-          <div className="p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center gap-2 text-xs">
+          <div className="p-2 sm:p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center gap-2 text-xs">
             <TrendingDown className="w-4 h-4 text-[#FF6B2C] flex-shrink-0" />
-            <span className="text-[11px] text-orange-950 font-sans font-medium">
+            <span className="text-[10px] sm:text-[11px] text-orange-950 font-sans font-medium">
               {language === 'ar'
                 ? 'توفير 52% من تكاليف الخوادم السحابية مع عائد مالي مباشر'
                 : 'Direct measurable 52% reduction in cloud hosting invoices'}
@@ -228,24 +228,24 @@ export function StackedFeatureCards() {
           : 'Hello, inquiring about operational dashboards and automated WhatsApp alerts.',
       // Distinct Modern React Visual Card for Operational Dashboards
       visualComponent: (
-        <div className="w-full max-w-sm bg-gradient-to-br from-emerald-50 via-white to-teal-50/50 rounded-2xl p-4 sm:p-5 border border-emerald-200 shadow-md space-y-3 relative overflow-hidden">
+        <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-emerald-50 via-white to-teal-50/50 rounded-2xl p-3.5 sm:p-5 border border-emerald-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
           {/* Real-time KPI Dials */}
           <div className="grid grid-cols-2 gap-2">
-            <div className="p-2.5 rounded-xl bg-white border border-emerald-200 shadow-2xs">
-              <span className="text-[9px] font-mono text-slate-500 block">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-emerald-200 shadow-2xs">
+              <span className="text-[8px] sm:text-[9px] font-mono text-slate-500 block truncate">
                 {language === 'ar' ? 'صافي مبيعات اليوم' : "Today's Revenue"}
               </span>
-              <div className="text-sm font-black text-slate-950 font-mono">
+              <div className="text-xs sm:text-sm font-black text-slate-950 font-mono">
                 {language === 'ar' ? '28,450 ر.س' : '$28,450'}
               </div>
               <span className="text-[9px] text-emerald-600 font-bold font-mono">+18.2%</span>
             </div>
 
-            <div className="p-2.5 rounded-xl bg-white border border-emerald-200 shadow-2xs">
-              <span className="text-[9px] font-mono text-slate-500 block">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-emerald-200 shadow-2xs">
+              <span className="text-[8px] sm:text-[9px] font-mono text-slate-500 block truncate">
                 {language === 'ar' ? 'هامش الربح' : 'Gross Margin'}
               </span>
-              <div className="text-sm font-black text-emerald-700 font-mono">38.4%</div>
+              <div className="text-xs sm:text-sm font-black text-emerald-700 font-mono">38.4%</div>
               <span className="text-[9px] text-slate-500">
                 {language === 'ar' ? 'مستقر' : 'Healthy'}
               </span>
@@ -253,8 +253,8 @@ export function StackedFeatureCards() {
           </div>
 
           {/* Real-time WhatsApp Alert Node */}
-          <div className="p-2.5 rounded-xl bg-slate-950 text-white flex items-center gap-2 text-xs font-sans">
-            <MessageCircle className="w-4 h-4 text-[#FF6B2C] flex-shrink-0" />
+          <div className="p-2 sm:p-2.5 rounded-xl bg-slate-950 text-white flex items-center gap-2 text-xs font-sans">
+            <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FF6B2C] flex-shrink-0" />
             <span className="text-[10px] sm:text-[11px] text-slate-200 truncate">
               {language === 'ar'
                 ? 'إشعار واتساب: تم رصد نفاذ المخزون وتنبيه الإدارة آلياً'
@@ -263,9 +263,9 @@ export function StackedFeatureCards() {
           </div>
 
           {/* Decision Speed Badge */}
-          <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs">
+          <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs">
             <Activity className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-            <span className="text-[11px] text-emerald-950 font-sans font-medium">
+            <span className="text-[10px] sm:text-[11px] text-emerald-950 font-sans font-medium">
               {language === 'ar'
                 ? 'واجهات عربية لحظية تمنح الإدارة سرعة اتخاذ القرار بالوقت الفعلي'
                 : 'Real-time Arabic executive dashboard for sub-second decision making'}
@@ -277,19 +277,19 @@ export function StackedFeatureCards() {
   ]
 
   return (
-    <section id="services" className="w-full py-20 sm:py-28 bg-white relative border-b border-slate-100">
+    <section id="services" className="w-full py-16 sm:py-28 bg-white relative border-b border-slate-100">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
         {/* Section Headline */}
-        <div className="text-center mb-14 sm:mb-20 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-bold font-mono mb-3">
+        <div className="text-center mb-10 sm:mb-20 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-bold font-mono mb-2.5 sm:mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#FF6B2C]" />
             <span>{language === 'ar' ? 'الخدمات الهندسية الأربع' : 'Core Enterprise Capabilities'}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight font-heading leading-snug sm:leading-tight">
             {language === 'ar' ? 'خدمات هندسية متكاملة تصنع فارقاً حقيقياً في أرباحك' : 'Engineered Solutions Driving Real ROI'}
           </h2>
-          <p className="mt-3 text-xs sm:text-sm text-slate-600 font-sans max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans max-w-2xl mx-auto leading-relaxed">
             {language === 'ar'
               ? 'حلول تقنية متقدمة مصممة خصيصاً لربط البيانات بأمان، تسريع اتخاذ القرارات، وتخفيض التكاليف التشغيلية.'
               : 'End-to-end data architectures designed to securely empower AI, accelerate decision making, and cut operational costs.'}
@@ -297,13 +297,13 @@ export function StackedFeatureCards() {
         </div>
 
         {/* Stack of 4 Distinct Pastel Cards */}
-        <div className="space-y-8 sm:space-y-12">
+        <div className="space-y-6 sm:space-y-12">
           {services.map((srv) => (
             <div
               key={srv.id}
-              className={`${srv.cardClass} rounded-2xl sm:rounded-[2.5rem] p-5 sm:p-10 md:p-12 relative overflow-hidden transition-all hover:shadow-xl`}
+              className={`${srv.cardClass} rounded-2xl sm:rounded-[2.5rem] p-4 sm:p-10 md:p-12 relative overflow-hidden transition-all hover:shadow-xl`}
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-center">
                 
                 {/* Left: Modern React Interactive Visual Widget */}
                 <div className="md:col-span-5 flex items-center justify-center w-full">
@@ -311,17 +311,17 @@ export function StackedFeatureCards() {
                 </div>
 
                 {/* Right: Content & Action */}
-                <div className="md:col-span-7 space-y-3.5 sm:space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
+                <div className="md:col-span-7 space-y-3 sm:space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] sm:text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 shadow-2xs">
                       {srv.sub}
                     </span>
-                    <span className={`text-xl sm:text-2xl font-black font-mono ${srv.tagColor}`}>
+                    <span className={`text-lg sm:text-2xl font-black font-mono ${srv.tagColor}`}>
                       {srv.num}
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-950 font-heading">
+                  <h3 className="text-lg sm:text-2xl lg:text-3xl font-extrabold text-slate-950 font-heading">
                     {srv.title}
                   </h3>
 
@@ -345,7 +345,7 @@ export function StackedFeatureCards() {
                       href={generateWhatsAppLink(srv.whatsappPrompt, language)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-rpc-orange font-bold text-xs shadow-sm hover:shadow-md transition-all cursor-pointer min-h-[40px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl btn-rpc-orange font-bold text-xs shadow-sm hover:shadow-md transition-all cursor-pointer min-h-[40px]"
                     >
                       <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
                       <span>{language === 'ar' ? 'طلب استشارة حول هذه الخدمة عبر واتساب' : 'Inquire via WhatsApp'}</span>
