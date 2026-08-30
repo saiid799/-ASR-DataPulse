@@ -143,6 +143,15 @@ export function SmartDataCalculator() {
 - طريقة النشر: ${deploymentMethod}
 
 أود مناقشة خطة التنفيذ ودراسة الجدوى لمنشأتنا.`
+    } else if (language === 'tr') {
+      return `Merhaba, web sitenizdeki hesaplayıcı üzerinden şirketimiz için veri gereksinimlerimizi belirledim:
+
+- Şirket Ölçeği: ${companyScale}
+- Mevcut Sistemler: ${targetSystems.join(' + ')}
+- İstenen Hizmetler: ${selectedServices.length} temel hizmet
+- Kurulum Modeli: ${deploymentMethod}
+
+Şirketimiz için fizibilite ve uygulama planını görüşmek istiyorum.`
     } else {
       return `Hello, I configured our data requirements via your calculator:
 

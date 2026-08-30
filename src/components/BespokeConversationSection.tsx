@@ -8,9 +8,11 @@ export function BespokeConversationSection() {
   const { language, isRTL } = useLanguage()
 
   const bespokeWhatsAppUrl = generateWhatsAppLink(
-    language === 'ar'
-      ? 'السلام عليكم، أود مناقشة حلول مخصصة لبنية البيانات والذكاء الاصطناعي لمنشأتنا.'
-      : 'Hello, I would like to discuss custom data engineering and AI solutions for our company.',
+    {
+      ar: 'السلام عليكم، أود مناقشة حلول مخصصة لبنية البيانات والذكاء الاصطناعي لمنشأتنا.',
+      en: 'Hello, I would like to discuss custom data engineering and AI solutions for our company.',
+      tr: 'Merhaba, şirketimiz için özel veri mimarisi ve kurumsal yapay zeka çözümlerini görüşmek istiyorum.',
+    },
     language
   )
 

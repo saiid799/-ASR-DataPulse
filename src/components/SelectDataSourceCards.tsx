@@ -4,67 +4,79 @@ import { useLanguage } from '../context/LanguageContext'
 import { generateWhatsAppLink } from '../lib/whatsapp'
 
 export function SelectDataSourceCards() {
-  const { language, isRTL } = useLanguage()
+  const { language, isRTL, t } = useLanguage()
 
   const streams = [
     {
       id: 'rag',
       nameAr: 'بنية الذكاء الاصطناعي RAG',
       nameEn: 'AI & Enterprise RAG',
+      nameTr: 'Kurumsal RAG & Yapay Zeka',
       subAr: 'ربط آمن دون تسريب أو هلوسة مع Vector DBs',
       subEn: 'Zero-leak, zero-hallucination document AI',
+      subTr: 'Özel VPC içinde güvenli, halüsinasyonsuz RAG',
       icon: Bot,
       color: 'text-purple-600',
       bg: 'bg-purple-100/70',
       badgeAr: 'دقة 100%',
       badgeEn: '100% Precision',
+      badgeTr: '%100 Doğruluk',
     },
     {
       id: 'etl',
       nameAr: 'أتمتة خطوط البيانات ETL',
       nameEn: 'Automated ETL Pipelines',
+      nameTr: 'Otomatik ETL Veri Hatları',
       subAr: 'ربط المبيعات والإعلانات ونظام ERP المركزي',
       subEn: 'Autonomous ingestion & schema reconciliation',
+      subTr: 'E-ticaret, reklam ve ERP verilerinin merkezi entegrasyonu',
       icon: Database,
       color: 'text-blue-600',
       bg: 'bg-blue-100/70',
       badgeAr: 'تزامن 24/7',
       badgeEn: '24/7 Ingestion',
+      badgeTr: '7/24 Senkronizasyon',
     },
     {
       id: 'opt',
       nameAr: 'تحسين قواعد البيانات والسحابة',
       nameEn: 'Cloud & Database Optimization',
+      nameTr: 'Veritabanı & Bulut Tasarrufu',
       subAr: 'تسريع الاستعلامات وتوفير 50%+ بالفواتير',
       subEn: '10x query speedup & cloud rightsizing',
+      subTr: '10 kata varan sorgu hızlanması ve %50+ maliyet düşüşü',
       icon: DollarSign,
       color: 'text-[#FF6B2C]',
       bg: 'bg-orange-100/70',
       badgeAr: 'وفر 52%',
       badgeEn: '52% ROI',
+      badgeTr: '%52 ROI',
     },
     {
       id: 'dash',
       nameAr: 'تحليلات العمليات والمراقبة',
       nameEn: 'Operational Analytics',
+      nameTr: 'Operasyonel Analitik & Takip',
       subAr: 'لوحات عربية ذكية وتنبيهات واتساب فورية',
       subEn: 'Real-time KPIs & automated WhatsApp alerts',
+      subTr: 'Anlık yönetici panelleri ve otomatik WhatsApp bildirimleri',
       icon: Activity,
       color: 'text-emerald-600',
       bg: 'bg-emerald-100/70',
       badgeAr: 'تنبيهات فورية',
       badgeEn: 'Live Alerts',
+      badgeTr: 'Anlık Alarmlar',
     },
   ]
 
   const tags = [
-    { ar: 'نشر آمن داخل سحابتكم (Private VPC / On-Prem)', en: 'Private VPC & On-Prem Deployment' },
-    { ar: 'عائد مالي مباشر وملموس (Measurable ROI)', en: 'Direct Measurable ROI' },
-    { ar: 'تنبيهات فورية على واتساب (+90 553 745 76 44)', en: 'Instant WhatsApp Alerts' },
+    { ar: 'نشر آمن داخل سحابتكم (Private VPC / On-Prem)', en: 'Private VPC & On-Prem Deployment', tr: 'Özel Bulut (Private VPC) Güvenliği' },
+    { ar: 'عائد مالي مباشر وملموس (Measurable ROI)', en: 'Direct Measurable ROI', tr: 'Ölçülebilir Doğrudan Tasarruf (ROI)' },
+    { ar: 'تنبيهات فورية على واتساب (+90 553 745 76 44)', en: 'Instant WhatsApp Alerts', tr: 'Otomatik WhatsApp Bildirimleri' },
   ]
 
   return (
-    <section id="solutions" className="w-full py-20 sm:py-28 bg-[#DCEEFE] relative border-b border-sky-200">
+    <section id="solutions" className="w-full py-16 sm:py-28 bg-[#DCEEFE] relative border-b border-sky-200">
       
       {/* Background Soft Glows */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-sky-200/40 blur-[90px] rounded-full pointer-events-none" />
@@ -73,17 +85,19 @@ export function SelectDataSourceCards() {
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-sky-300 shadow-2xs text-sky-950 text-xs font-bold font-mono mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-sky-300 shadow-2xs text-sky-950 text-xs font-bold font-mono mb-2 sm:mb-3">
             <Zap className="w-3.5 h-3.5 text-[#FF6B2C]" />
-            <span>{language === 'ar' ? 'بنية الحلول الرقمية' : 'Enterprise Solution Architecture'}</span>
+            <span>{language === 'ar' ? 'بنية الحلول الرقمية' : language === 'tr' ? 'MİMARİ ÇÖZÜMLER' : 'Enterprise Solution Architecture'}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight font-heading leading-snug">
-            {language === 'ar' ? 'اختر البنية والحلول التي تحتاجها منشأتك' : 'Select the Solution Your Business Needs'}
+            {language === 'ar' ? 'اختر البنية والحلول التي تحتاجها منشأتك' : language === 'tr' ? 'Şirketinizin İhtiyaç Duyduğu Mimariyi Seçin' : 'Select the Solution Your Business Needs'}
           </h2>
-          <p className="mt-3 text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
             {language === 'ar'
               ? 'حلول برمجية وهندسية متكاملة مصممة لدعم الشركات في التحول الرقمي الذكي وتوفير التكاليف.'
+              : language === 'tr'
+              ? 'Akıllı dijital dönüşümü hızlandırmak ve operasyonel maliyetleri düşürmek için tasarlanmış uçtan uca veri mimarileri.'
               : 'End-to-end data architectures designed to accelerate enterprise digital transformation and trim expenses.'}
           </p>
         </div>
@@ -93,11 +107,17 @@ export function SelectDataSourceCards() {
           {streams.map((st) => {
             const Icon = st.icon
             const streamWhatsAppUrl = generateWhatsAppLink(
-              language === 'ar'
-                ? `السلام عليكم، أود استشارة حول خدمة ${st.nameAr} لمنشأتنا.`
-                : `Hello, inquiring about ${st.nameEn} for our organization.`,
+              {
+                ar: `السلام عليكم، أود استشارة حول خدمة ${st.nameAr} لمنشأتنا.`,
+                en: `Hello, inquiring about ${st.nameEn} for our organization.`,
+                tr: `Merhaba, şirketimiz için ${st.nameTr} hizmeti hakkında bilgi almak istiyorum.`,
+              },
               language
             )
+
+            const title = language === 'ar' ? st.nameAr : language === 'tr' ? st.nameTr : st.nameEn
+            const subtitle = language === 'ar' ? st.subAr : language === 'tr' ? st.subTr : st.subEn
+            const badge = language === 'ar' ? st.badgeAr : language === 'tr' ? st.badgeTr : st.badgeEn
 
             return (
               <a
@@ -113,21 +133,21 @@ export function SelectDataSourceCards() {
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
-                      {language === 'ar' ? st.badgeAr : st.badgeEn}
+                      {badge}
                     </span>
                   </div>
 
                   <h3 className="font-extrabold text-slate-950 text-sm sm:text-base font-heading mb-1.5 leading-snug">
-                    {language === 'ar' ? st.nameAr : st.nameEn}
+                    {title}
                   </h3>
 
                   <p className="text-[11px] text-slate-600 leading-relaxed font-sans font-medium">
-                    {language === 'ar' ? st.subAr : st.subEn}
+                    {subtitle}
                   </p>
                 </div>
 
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-800 group-hover:text-[#FF6B2C] transition-colors">
-                  <span>{language === 'ar' ? 'طلب تفاصيل الخدمة' : 'Explore Service'}</span>
+                  <span>{language === 'ar' ? 'طلب تفاصيل الخدمة' : language === 'tr' ? 'Hizmeti İncele' : 'Explore Service'}</span>
                   {isRTL ? <ArrowLeft className="w-3.5 h-3.5" /> : <ArrowRight className="w-3.5 h-3.5" />}
                 </div>
               </a>
@@ -136,14 +156,14 @@ export function SelectDataSourceCards() {
         </div>
 
         {/* Bottom Filter Tags */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           {tags.map((tag, idx) => (
             <div
               key={idx}
-              className="px-4 py-2 rounded-2xl bg-white/90 border border-sky-300 text-xs font-semibold text-slate-800 shadow-2xs flex items-center gap-1.5"
+              className="px-3.5 sm:px-4 py-2 rounded-2xl bg-white/90 border border-sky-300 text-xs font-semibold text-slate-800 shadow-2xs flex items-center gap-1.5"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-              <span>{language === 'ar' ? tag.ar : tag.en}</span>
+              <span>{language === 'ar' ? tag.ar : language === 'tr' ? tag.tr : tag.en}</span>
             </div>
           ))}
         </div>

@@ -43,9 +43,11 @@ export function EnterpriseArchitectureSimulator() {
   const annualSavings = calculatedSavings * 12
 
   const simulatorWhatsAppUrl = generateWhatsAppLink(
-    language === 'ar'
-      ? `السلام عليكم، جربت المحاكي التفاعلي للخدمات (${activeTab.toUpperCase()}) وأود مناقشة خطة التطوير لمنشأتنا.`
-      : `Hello, I tested your interactive simulator (${activeTab.toUpperCase()}) and would like to discuss implementation.`,
+    {
+      ar: `السلام عليكم، جربت المحاكي التفاعلي للخدمات (${activeTab.toUpperCase()}) وأود مناقشة خطة التطوير لمنشأتنا.`,
+      en: `Hello, I tested your interactive simulator (${activeTab.toUpperCase()}) and would like to discuss implementation.`,
+      tr: `Merhaba, interaktif mimari simülatörünüzü (${activeTab.toUpperCase()}) test ettim ve şirketimiz için uygulama planını görüşmek istiyorum.`,
+    },
     language
   )
 

@@ -13,20 +13,26 @@ export function SmartWhatsAppWidget() {
     {
       labelAr: 'استشارة حول بنية الذكاء الاصطناعي RAG',
       labelEn: 'Consultation on Enterprise RAG AI',
+      labelTr: 'Kurumsal RAG & Yapay Zeka Danışmanlığı',
       msgAr: 'السلام عليكم، أود استشارة حول ربط الذكاء الاصطناعي RAG ببيانات شركتنا.',
       msgEn: 'Hello, I would like to consult on private enterprise RAG and AI.',
+      msgTr: 'Merhaba, şirketimiz için kurumsal RAG ve yapay zeka altyapısı hakkında danışmanlık almak istiyorum.',
     },
     {
       labelAr: 'أتمتة خطوط البيانات وربط الأنظمة والمبيعات',
       labelEn: 'Automated Data Pipelines & ERP Sync',
+      labelTr: 'Otomatik Veri Hatları & ERP Entegrasyonu',
       msgAr: 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات وربط المبيعات بالنظام المحاسبي.',
       msgEn: 'Hello, inquiring about automated data pipelines and accounting integration.',
+      msgTr: 'Merhaba, otomatik veri boru hatları ve e-ticaret/ERP entegrasyonu hakkında bilgi almak istiyorum.',
     },
     {
       labelAr: 'تسريع قواعد البيانات وخفض فواتير السحابة',
       labelEn: 'Database Performance & Cloud Savings',
+      labelTr: 'Veritabanı Hızlandırma & Bulut Tasarrufu',
       msgAr: 'السلام عليكم، أود استشارة حول تسريع قواعد البيانات وخفض تكاليف السحابة.',
       msgEn: 'Hello, inquiring about database optimization and cloud cost reduction.',
+      msgTr: 'Merhaba, veritabanı performans analizi ve bulut maliyetlerini düşürme hakkında görüşmek istiyorum.',
     },
   ]
 
@@ -63,11 +69,11 @@ export function SmartWhatsAppWidget() {
                 </div>
                 <div>
                   <div className="text-xs sm:text-sm font-bold text-white font-heading">
-                    {language === 'ar' ? 'مهندس ASR DataPulse' : 'Lead Data Engineer'}
+                    {language === 'ar' ? 'مهندس ASR DataPulse' : language === 'tr' ? 'ASR DataPulse Veri Mühendisi' : 'Lead Data Engineer'}
                   </div>
                   <div className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>{language === 'ar' ? 'متصل الآن عبر واتساب' : 'Live on WhatsApp'}</span>
+                    <span>{language === 'ar' ? 'متصل الآن عبر واتساب' : language === 'tr' ? 'WhatsApp Üzerinde Aktif' : 'Live on WhatsApp'}</span>
                   </div>
                 </div>
               </div>
@@ -85,25 +91,31 @@ export function SmartWhatsAppWidget() {
             <div className="p-3.5 sm:p-4 space-y-3 bg-slate-50/70">
               <p className="text-[11px] sm:text-xs text-slate-700 leading-relaxed font-sans font-medium">
                 {language === 'ar'
-                  ? 'مرحباً بك 👋 اختر استفساراً سريعاً أو اكتب رسالتك لتتحدث مباشرة مع مهندس البيانات:'
-                  : 'Welcome 👋 Select a quick topic or type your custom requirement to chat directly:'}
+                  ? 'مرحباً بك، اختر موضوعاً للاستشارة السريعة أو اكتب طلبك لتتحدث مباشرة مع مهندس البيانات:'
+                  : language === 'tr'
+                  ? 'Merhaba, hızlı danışmanlık konusu seçin veya talebinizi yazıp doğrudan veri mühendisimize iletin:'
+                  : 'Welcome, select a topic or type your custom requirement to chat directly with our engineer:'}
               </p>
 
               {/* Quick Action Chips */}
               <div className="space-y-1.5">
-                {quickOptions.map((opt, idx) => (
-                  <a
-                    key={idx}
-                    href={generateWhatsAppLink(language === 'ar' ? opt.msgAr : opt.msgEn, language)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="w-full flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200 hover:border-[#FF6B2C] text-[11px] sm:text-xs font-semibold text-slate-800 hover:text-slate-950 transition-all group cursor-pointer shadow-2xs"
-                  >
-                    <span className="truncate pr-1">{language === 'ar' ? opt.labelAr : opt.labelEn}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#FF6B2C] flex-shrink-0" />
-                  </a>
-                ))}
+                {quickOptions.map((opt, idx) => {
+                  const label = language === 'ar' ? opt.labelAr : language === 'tr' ? opt.labelTr : opt.labelEn
+                  const msg = language === 'ar' ? opt.msgAr : language === 'tr' ? opt.msgTr : opt.msgEn
+                  return (
+                    <a
+                      key={idx}
+                      href={generateWhatsAppLink(msg, language)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className="w-full flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200 hover:border-[#FF6B2C] text-[11px] sm:text-xs font-semibold text-slate-800 hover:text-slate-950 transition-all group cursor-pointer shadow-2xs"
+                    >
+                      <span className="truncate pr-1">{label}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#FF6B2C] flex-shrink-0" />
+                    </a>
+                  )
+                })}
               </div>
 
               {/* Custom Input Form */}
@@ -113,7 +125,7 @@ export function SmartWhatsAppWidget() {
                     type="text"
                     value={customText}
                     onChange={(e) => setCustomText(e.target.value)}
-                    placeholder={language === 'ar' ? 'اكتب طلبك أو استفسارك هنا...' : 'Type your requirement...'}
+                    placeholder={language === 'ar' ? 'اكتب طلبك أو استفسارك هنا...' : language === 'tr' ? 'Talebinizi buraya yazın...' : 'Type your requirement...'}
                     className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-slate-200 focus:border-[#FF6B2C] text-xs text-slate-900 placeholder-slate-400 outline-none font-sans shadow-2xs min-h-[38px]"
                   />
                   <button
@@ -151,7 +163,9 @@ export function SmartWhatsAppWidget() {
       >
         <span className="w-2 h-2 rounded-full bg-white animate-ping" />
         <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
-        <span className="text-[11px] sm:text-xs">{language === 'ar' ? 'تواصل مع المهندس' : 'Chat with Engineer'}</span>
+        <span className="text-[11px] sm:text-xs">
+          {language === 'ar' ? 'تواصل مع المهندس' : language === 'tr' ? 'Mühendisle İletişim' : 'Chat with Engineer'}
+        </span>
       </motion.button>
 
     </div>

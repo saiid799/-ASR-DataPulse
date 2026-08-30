@@ -37,6 +37,7 @@ export function HeroSection() {
       borderColor: 'border-purple-300',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول ربط الذكاء الاصطناعي RAG ببيانات شركتنا.',
       whatsappMsgEn: 'Hello, inquiring about enterprise RAG and AI data integration.',
+      whatsappMsgTr: 'Merhaba, şirketimiz için kurumsal RAG ve yapay zeka veri entegrasyonu hakkında bilgi almak istiyorum.',
       badgeTextAr: 'RAG محمي ومشفّر',
       badgeTextEn: 'RAG-SECURED',
       badgeColor: '#A855F7',
@@ -54,6 +55,7 @@ export function HeroSection() {
       borderColor: 'border-blue-300',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات وربط أنظمتنا المحاسبية والمبيعات.',
       whatsappMsgEn: 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
+      whatsappMsgTr: 'Merhaba, otomatik ETL veri boru hatları ve e-ticaret/ERP entegrasyonu hakkında danışmanlık almak istiyorum.',
       badgeTextAr: 'أنابيب بيانات مؤتمتة',
       badgeTextEn: 'ETL-PIPELINE',
       badgeColor: '#38BDF8',
@@ -71,6 +73,7 @@ export function HeroSection() {
       borderColor: 'border-orange-300',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول فحص قواعد البيانات وخفض فواتير السحابة.',
       whatsappMsgEn: 'Hello, inquiring about database performance and cloud cost reduction.',
+      whatsappMsgTr: 'Merhaba, veritabanı performans analizi ve bulut maliyetlerini düşürme konusunda görüşmek istiyorum.',
       badgeTextAr: 'وفر مالي مباشر (ROI)',
       badgeTextEn: 'ROI-OPTIMIZED',
       badgeColor: '#FF6B2C',
@@ -88,6 +91,7 @@ export function HeroSection() {
       borderColor: 'border-emerald-300',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول بناء لوحة تحكم تفاعلية مع تنبيهات واتساب.',
       whatsappMsgEn: 'Hello, inquiring about real-time dashboards and automated WhatsApp alerts.',
+      whatsappMsgTr: 'Merhaba, anlık yönetici panelleri ve otomatik WhatsApp uyarı sistemleri hakkında bilgi almak istiyorum.',
       badgeTextAr: 'رادار العمليات اللحظي',
       badgeTextEn: 'LIVE-RADAR',
       badgeColor: '#10B981',
@@ -97,7 +101,11 @@ export function HeroSection() {
   const current = serviceData[activeService]
 
   const heroWhatsAppUrl = generateWhatsAppLink(
-    language === 'ar' ? current.whatsappMsgAr : current.whatsappMsgEn,
+    {
+      ar: current.whatsappMsgAr,
+      en: current.whatsappMsgEn,
+      tr: current.whatsappMsgTr,
+    },
     language
   )
 

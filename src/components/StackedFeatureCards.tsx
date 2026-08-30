@@ -36,11 +36,11 @@ export function StackedFeatureCards() {
       cardClass: 'card-pastel-purple',
       badgeClass: 'bg-purple-100 text-purple-900 border-purple-200',
       tagColor: 'text-purple-600',
-      features: [t('service1Feat1'), t('service1Feat2'), t('service1Feat3')],
-      whatsappPrompt:
-        language === 'ar'
-          ? 'السلام عليكم، أود استشارة حول خدمة الذكاء الاصطناعي وبنية RAG لمنشأتنا.'
-          : 'Hello, inquiring about Enterprise AI and RAG architecture for our company.',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول خدمة الذكاء الاصطناعي وبنية RAG لمنشأتنا.',
+        en: 'Hello, inquiring about Enterprise AI and RAG architecture for our company.',
+        tr: 'Merhaba, şirketimiz için kurumsal RAG ve yapay zeka altyapısı hakkında bilgi almak istiyorum.',
+      },
       // Distinct Modern React Visual Card for RAG
       visualComponent: (
         <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-purple-50 via-white to-purple-50/50 rounded-2xl p-3.5 sm:p-5 border border-purple-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
@@ -100,10 +100,11 @@ export function StackedFeatureCards() {
       badgeClass: 'bg-blue-100 text-blue-900 border-blue-200',
       tagColor: 'text-blue-600',
       features: [t('service2Feat1'), t('service2Feat2'), t('service2Feat3')],
-      whatsappPrompt:
-        language === 'ar'
-          ? 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات ETL وربط مبيعاتنا والمحاسبة.'
-          : 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات ETL وربط مبيعاتنا والمحاسبة.',
+        en: 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
+        tr: 'Merhaba, otomatik ETL veri hatları ve e-ticaret/ERP entegrasyonu hakkında bilgi almak istiyorum.',
+      },
       // Distinct Modern React Visual Card for ETL
       visualComponent: (
         <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-sky-50 via-white to-blue-50/50 rounded-2xl p-3.5 sm:p-5 border border-sky-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
@@ -163,10 +164,11 @@ export function StackedFeatureCards() {
       badgeClass: 'bg-orange-100 text-orange-900 border-orange-200',
       tagColor: 'text-[#FF6B2C]',
       features: [t('service3Feat1'), t('service3Feat2'), t('service3Feat3')],
-      whatsappPrompt:
-        language === 'ar'
-          ? 'السلام عليكم، أود استشارة حول تسريع قواعد البيانات وخفض فواتير السحابة.'
-          : 'Hello, inquiring about database performance and cloud cost reduction.',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول تسريع قواعد البيانات وخفض فواتير السحابة.',
+        en: 'Hello, inquiring about database performance and cloud cost reduction.',
+        tr: 'Merhaba, veritabanı performans analizi ve bulut maliyetlerini düşürme hakkında görüşmek istiyorum.',
+      },
       // Distinct Modern React Visual Card for Cloud Optimization
       visualComponent: (
         <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-orange-50 via-white to-amber-50/50 rounded-2xl p-3.5 sm:p-5 border border-orange-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
@@ -222,10 +224,11 @@ export function StackedFeatureCards() {
       badgeClass: 'bg-emerald-100 text-emerald-900 border-emerald-200',
       tagColor: 'text-emerald-600',
       features: [t('service4Feat1'), t('service4Feat2'), t('service4Feat3')],
-      whatsappPrompt:
-        language === 'ar'
-          ? 'السلام عليكم، أود استشارة حول بناء لوحة تحكم للعمليات وتنبيهات واتساب.'
-          : 'Hello, inquiring about operational dashboards and automated WhatsApp alerts.',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول بناء لوحة تحكم للعمليات وتنبيهات واتساب.',
+        en: 'Hello, inquiring about operational dashboards and automated WhatsApp alerts.',
+        tr: 'Merhaba, kurumsal yönetici panelleri ve anlık WhatsApp alarmları hakkında danışmanlık almak istiyorum.',
+      },
       // Distinct Modern React Visual Card for Operational Dashboards
       visualComponent: (
         <div className="w-full max-w-full sm:max-w-sm bg-gradient-to-br from-emerald-50 via-white to-teal-50/50 rounded-2xl p-3.5 sm:p-5 border border-emerald-200 shadow-md space-y-2.5 sm:space-y-3 relative overflow-hidden">
