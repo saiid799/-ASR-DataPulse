@@ -1,4 +1,4 @@
-export type Language = 'ar' | 'en'
+export type Language = 'ar' | 'en' | 'tr'
 
 export const translations = {
   ar: {
@@ -167,5 +167,89 @@ export const translations = {
 
     // Footer
     footerDesc: 'Leading data engineering and generative AI platform specializing in private RAG architectures, automated ETL pipelines, database optimization, and real-time operational analytics.',
-  }
+  },
+
+  tr: {
+    // Top banner
+    topBanner: '⚡ Kurumsal Veri Mühendisliği & Güvenli Üretken Yapay Zeka (RAG) Çözümleri · Ölçülebilir ROI',
+    joinWhatsApp: 'Veri Mühendisiyle Canlı İletişim →',
+    
+    // Header
+    brandTag: 'Veri Mühendisliği & Yapay Zeka',
+    brandDesc: 'Kurumsal RAG & Otomatik Veri Hatları',
+    navHome: 'Ana Sayfa',
+    navServices: 'Temel Hizmetler',
+    navDemo: 'Canlı Simülatör',
+    navRoi: 'ROI Hesaplayıcı',
+    navSolutions: 'Mimari Çözümler',
+    navFaq: 'Sıkça Sorulanlar',
+    chatWhatsApp: 'WhatsApp ile İletişim',
+    liveStatus: '%100 Mühendislik Hazırlığı',
+
+    // Hero
+    heroBadge: '⚡ Ölçülebilir Yatırım Getirisi (ROI) Sağlayan Veri ve Yapay Zeka Altyapısı',
+    heroTitlePrefix: 'Şirketinizin Verilerini ',
+    heroTitleHighlight: 'Akıllı ve Otomatik Varlıklara',
+    heroTitleSuffix: ' Dönüştürün',
+    heroSubtitle: 'Şirketlerin özel verilerini güvenle ve sıfır sızıntı/halüsinasyon riskiyle Yapay Zeka modellerine bağlamalarını (RAG), veri boru hatlarını otomatikleştirmelerini (ETL), veritabanlarını hızlandırmalarını ve bulut faturalarını %60’a varan oranda düşürmelerini sağlıyoruz.',
+    heroCtaPrimary: 'İnteraktif Çözümleri İncele',
+    heroCtaWhatsApp: 'Anında WhatsApp Danışmanlığı',
+    heroCardMsg: 'E-ticaret, reklam ve ERP muhasebe sistemlerinizi tek bir güvenilir veri ambarına bağlayın; verilerinizi anlayan, sızıntı ve halüsinasyon üretmeyen özel yapay zeka sistemleri kurun.',
+    heroStat1Val: '%100',
+    heroStat1Lbl: 'Özel VPC Güvenliği & Sıfır Veri Sızıntısı',
+    heroStat2Val: '%60',
+    heroStat2Lbl: 'Bulut Faturası Tasarrufu & 10x Sorgu Hızı',
+
+    // 4 Core Services
+    service1Title: '1. Üretken Yapay Zeka & Kurumsal Güvenli RAG',
+    service1Sub: 'Yapay Zeka Altyapısı & Kurumsal RAG',
+    service1Desc: 'Yapay zeka modellerini şirket içi belgelere bağlarken yaşanan veri sızıntısı ve halüsinasyon risklerini tamamen ortadan kaldırıyoruz. Özel VPC içerisinde %100 kaynak doğrulamalı RAG mimarisi kuruyoruz.',
+    service1Feat1: 'Belge ve SQL veritabanlarının özel bulutunuzdan (VPC) çıkmadan güvenli entegrasyonu',
+    service1Feat2: 'Yüksek hassasiyetli vektör veritabanları (Vector DB) ile halüsinasyonsuz yanıtlar',
+    service1Feat3: 'Çalışanlar ve yöneticiler için şirket verilerini saniyeler içinde yanıtlayan yapay zeka asistanları',
+
+    service2Title: '2. Veri Mühendisliği & Otomasyon (ETL/ELT Boru Hatları)',
+    service2Sub: 'Veri Boru Hatları & Merkezi Lakehouse',
+    service2Desc: 'Farklı kaynaklara dağılmış ham verileri temiz ve anlık karar alınabilir hale getiriyoruz. E-ticaret (Shopify, Salla, Zid), reklam (Meta, Google) ve ERP sistemlerini tek merkezde topluyoruz.',
+    service2Feat1: 'Manuel Excel girişlerini ortadan kaldıran 7/24 kesintisiz otomatik veri boru hatları',
+    service2Feat2: 'Gerçek zamanlı veri temizleme, satış-stok eşleştirme ve muhasebe mutabakatı',
+    service2Feat3: 'Rakam çelişkilerini önleyen güvenilir tek gerçeklik kaynağı (Single Source of Truth)',
+
+    service3Title: '3. Veritabanı Hızlandırma & Bulut Maliyet Optimizasyonu',
+    service3Sub: 'Performans İyileştirme & Doğrudan Tasarruf (ROI)',
+    service3Desc: 'Doğrudan maliyet tasarrufu sağlayan en hızlı yatırım getirisi (ROI) hizmetimiz. SQL sorgularınızı, indekslerinizi ve bulut sunucularınızı (AWS, Snowflake, GCP, Postgres) optimize ederek faturalarınızı %30-%60 düşürüyoruz.',
+    service3Feat1: 'İndeks ve şema optimizasyonu ile 10 kata varan sorgu hızlanması',
+    service3Feat2: 'Gereksiz kaynak tüketimini sıfırlayarak aylık bulut faturasını küçültme',
+    service3Feat3: 'İyileştirme öncesi ve sonrası net finansal tasarrufu gösteren kapsamlı mühendislik denetimi',
+
+    service4Title: '4. Operasyonel Analitik & Gerçek Zamanlı İzleme (Dashboard)',
+    service4Sub: 'Yönetici Panelleri & WhatsApp Alarmları',
+    service4Desc: 'Karmaşık dijital verileri herkesin kolayca anlayabileceği sade gösterge panellerine dönüştürüyor; stok bitmesi veya satış anomalilerinde anında WhatsApp bildirimleri gönderiyoruz.',
+    service4Feat1: 'Mobil ve masaüstü uyumlu, gerçek zamanlı Türkçe, Arapça ve İngilizce yönetici panelleri',
+    service4Feat2: 'Brüt kar marjı, stok tükenme riski ve şube performansının anlık takibi',
+    service4Feat3: 'Operasyonel aksamalarda anında cep telefonunuza iletilen otomatik WhatsApp uyarıları',
+
+    // Simulator
+    simBadge: '4 Temel Hizmet İçin Canlı İnteraktif Simülatör',
+    simTitle: 'Kurumsal Veri & Yapay Zeka Mimarisi Simülatörü',
+    simSubtitle: 'Dağınık verilerin nasıl anlık olarak güvenli ve yüksek değerli iş akışlarına dönüştüğünü test edin.',
+
+    // Calculator
+    calcBadge: 'Proje & Tasarruf Hesaplayıcı (ROI)',
+    calcTitle: 'Geliştirme Planını Belirleyin ve Mali Tasarrufu Hesaplayın',
+    calcSubtitle: 'Mühendisimizle doğrudan görüşmek üzere sistemlerinizi ve ihtiyaçlarınızı seçin.',
+
+    // FAQ
+    faqBadge: 'Sıkça Sorulan Sorular',
+    faqTitle: 'Veri ve Yapay Zeka Kararları İçin Temel Bilgiler',
+    faqSubtitle: 'Kurumsal altyapı gereksinimlerinizi netleştirecek teknik ve doğrudan yanıtlar.',
+
+    // Contact
+    contactTitle: 'Şirketiniz için teknik analiz ve tasarruf hesaplaması ister misiniz?',
+    contactDesc: 'Kıdemli veri mühendisimiz mevcut altyapınızı incelemek ve WhatsApp üzerinden canlı demo sunmak için hazır.',
+    contactBtn: 'WhatsApp ile Doğrudan Bağlanın (+90 553 745 76 44)',
+
+    // Footer
+    footerDesc: 'Güvenli kurumsal RAG mimarileri, otomatik ETL boru hatları, veritabanı optimizasyonu ve gerçek zamanlı analitik konularında uzmanlaşmış veri mühendisliği platformu.',
+  },
 }

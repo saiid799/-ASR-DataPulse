@@ -6,9 +6,10 @@ import { generateWhatsAppLink, WHATSAPP_CONFIG } from '../lib/whatsapp'
 import { BrandLogo } from './BrandLogo'
 
 export function Header() {
-  const { language, toggleLanguage, isRTL } = useLanguage()
+  const { language, setLanguage, toggleLanguage, isRTL, t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [langMenuOpen, setLangMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,20 +20,28 @@ export function Header() {
   }, [])
 
   const navItems = [
-    { label: language === 'ar' ? 'الرئيسية' : 'Home', href: '#hero' },
-    { label: language === 'ar' ? 'الخدمات الأربع' : 'Core Services', href: '#services' },
-    { label: language === 'ar' ? 'المحاكي المباشر' : 'Live Demo', href: '#simulator' },
-    { label: language === 'ar' ? 'حاسبة العائد ROI' : 'ROI Calculator', href: '#calculator' },
-    { label: language === 'ar' ? 'بنية الحلول' : 'Solutions', href: '#solutions' },
-    { label: language === 'ar' ? 'الأسئلة الشائعة' : 'FAQ', href: '#faq' },
+    { label: t('navHome'), href: '#hero' },
+    { label: t('navServices'), href: '#services' },
+    { label: t('navDemo'), href: '#simulator' },
+    { label: t('navRoi'), href: '#calculator' },
+    { label: t('navSolutions'), href: '#solutions' },
+    { label: t('navFaq'), href: '#faq' },
   ]
 
   const headerWhatsAppUrl = generateWhatsAppLink(
     language === 'ar'
       ? 'السلام عليكم، أود استشارة حول خدمات هندسة البيانات والذكاء الاصطناعي لمنشأتنا.'
+      : language === 'tr'
+      ? 'Merhaba, şirketimiz için veri mühendisliği ve yapay zeka çözümleri hakkında bilgi almak istiyorum.'
       : 'Hello, I would like to consult on data engineering and AI solutions for our company.',
     language
   )
+
+  const languageLabels = {
+    ar: { short: 'AR', label: 'العربية' },
+    en: { short: 'EN', label: 'English' },
+    tr: { short: 'TR', label: 'Türkçe' },
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 w-full max-w-[100vw] z-50 transition-all duration-300">
@@ -44,9 +53,7 @@ export function Header() {
           ENTERPRISE DATA & AI
         </span>
         <span className="font-medium text-slate-700">
-          {language === 'ar'
-            ? 'خدمات هندسة البيانات المتقدمة والذكاء الاصطناعي التوليدي RAG للمنشآت والمتاجر · عوائد قابلة للقياس'
-            : 'Enterprise Data Engineering & Secure Generative AI (RAG) Solutions · Direct Measurable ROI'}
+          {t('topBanner')}
         </span>
         <a
           href={headerWhatsAppUrl}
@@ -54,7 +61,7 @@ export function Header() {
           rel="noopener noreferrer"
           className="text-[#D9480F] hover:text-[#FF6B2C] font-bold transition-colors underline underline-offset-2 flex items-center gap-0.5"
         >
-          <span>{language === 'ar' ? 'تواصل فوري عبر واتساب →' : 'Instant WhatsApp Connect →'}</span>
+          <span>{t('joinWhatsApp')}</span>
         </a>
       </div>
 
@@ -76,7 +83,7 @@ export function Header() {
 
             <div className="hidden xl:inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{language === 'ar' ? 'جاهزية هندسية 100%' : '100% Ready'}</span>
+              <span>{t('liveStatus')}</span>
             </div>
           </div>
 
@@ -93,16 +100,25 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Right Action: Language Switcher + WhatsApp Button (Desktop) */}
-          <div className="hidden sm:flex items-center gap-2.5 flex-shrink-0">
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="h-9 inline-flex items-center gap-1.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-xs font-bold text-slate-800 transition-all shadow-2xs cursor-pointer hover:bg-slate-50"
-            >
-              <Globe className="w-3.5 h-3.5 text-[#FF6B2C]" />
-              <span>{language === 'ar' ? 'English' : 'عربي'}</span>
-            </button>
+          {/* Right Action: 3-Way Language Switcher + WhatsApp Button (Desktop) */}
+          <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+            
+            {/* Trilingual Segmented Pill */}
+            <div className="flex items-center p-0.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold">
+              {(['ar', 'en', 'tr'] as const).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLanguage(l)}
+                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer text-[11px] ${
+                    language === l
+                      ? 'bg-white text-slate-950 shadow-2xs font-extrabold text-[#FF6B2C]'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {languageLabels[l].short}
+                </button>
+              ))}
+            </div>
 
             {/* Direct WhatsApp Orange Button */}
             <a
@@ -112,18 +128,20 @@ export function Header() {
               className="h-9 inline-flex items-center gap-1.5 px-4 rounded-xl btn-rpc-orange font-bold text-xs shadow-sm hover:shadow-md cursor-pointer transition-all"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
-              <span>{language === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}</span>
+              <span>{t('chatWhatsApp')}</span>
             </a>
           </div>
 
-          {/* Mobile Right Controls: Ultra-compact, clean, and never causes horizontal overflow */}
+          {/* Mobile Right Controls */}
           <div className="flex lg:hidden items-center gap-1.5 flex-shrink-0">
+            {/* Quick Mobile 3-Way Cycle */}
             <button
               onClick={toggleLanguage}
-              className="h-8 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-800 cursor-pointer flex items-center gap-1"
+              className="h-8 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-800 cursor-pointer flex items-center gap-1"
+              title="Change Language"
             >
               <Globe className="w-3 h-3 text-[#FF6B2C]" />
-              <span>{language === 'ar' ? 'EN' : 'عربي'}</span>
+              <span>{languageLabels[language].short}</span>
             </button>
 
             <button
@@ -147,6 +165,26 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white/98 backdrop-blur-xl border-b border-slate-200 px-4 py-5 shadow-2xl space-y-3 w-full"
           >
+            {/* Language Selector in Drawer */}
+            <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 mb-2">
+              <span className="text-xs font-bold text-slate-600">Language / Dil / اللغة:</span>
+              <div className="flex items-center gap-1">
+                {(['ar', 'en', 'tr'] as const).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => {
+                      setLanguage(l)
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      language === l ? 'bg-[#FF6B2C] text-white' : 'bg-white text-slate-700 border border-slate-200'
+                    }`}
+                  >
+                    {languageLabels[l].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="flex flex-col space-y-1">
               {navItems.map((item) => (
                 <a
@@ -169,7 +207,7 @@ export function Header() {
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl btn-rpc-orange font-bold text-xs sm:text-sm shadow-md"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
-                <span>{language === 'ar' ? 'تواصل مع المهندس عبر واتساب' : 'Chat with Data Engineer on WhatsApp'}</span>
+                <span>{t('chatWhatsApp')} (+90 553 745 76 44)</span>
               </a>
             </div>
           </motion.div>
