@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { MessageCircle, ArrowUpRight, Cpu, Layers, Database, ShieldCheck } from 'lucide-react'
+import { MessageCircle, ArrowUpRight, Cpu, Layers, Database, ShieldCheck, Terminal } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { generateWhatsAppLink, WHATSAPP_CONFIG } from '../lib/whatsapp'
 
@@ -8,71 +8,82 @@ export function TrustLogosBanner() {
   const { language } = useLanguage()
 
   const ctaWhatsAppUrl = generateWhatsAppLink(
-    language === 'ar'
-      ? 'السلام عليكم، أود استشارة حول ربط وتطوير بنية البيانات لمنشأتنا.'
-      : 'Hello, I would like to consult on enterprise data architecture for our company.',
+    {
+      ar: 'السلام عليكم، أود استشارة حول ربط وتطوير بنية البيانات لمنشأتنا.',
+      en: 'Hello, I would like to consult on enterprise data architecture for our company.',
+      tr: 'Merhaba, şirketimiz için kurumsal veri mimarisi ve altyapı geliştirme hakkında danışmanlık almak istiyorum.',
+    },
     language
   )
 
   const techStack = [
-    { name: 'PostgreSQL', category: 'Database', font: 'font-mono' },
-    { name: 'Snowflake', category: 'Lakehouse', font: 'font-sans' },
-    { name: 'dbt Labs', category: 'Transformation', font: 'font-mono' },
-    { name: 'Apache Airflow', category: 'Orchestration', font: 'font-sans' },
-    { name: 'Amazon AWS', category: 'Cloud VPC', font: 'font-heading' },
-    { name: 'Google Cloud', category: 'Cloud Infrastructure', font: 'font-sans' },
-    { name: 'Shopify / Salla / Zid', category: 'E-Commerce', font: 'font-heading' },
-    { name: 'Meta & Google Ads', category: 'Marketing Analytics', font: 'font-mono' },
-    { name: 'Odoo / ERP', category: 'Accounting Sync', font: 'font-sans' },
+    { name: 'PostgreSQL', code: 'SQL' },
+    { name: 'Snowflake', code: 'LAKEHOUSE' },
+    { name: 'dbt Labs', code: 'TRANSFORM' },
+    { name: 'Apache Airflow', code: 'PIPELINES' },
+    { name: 'Amazon AWS (VPC)', code: 'CLOUD' },
+    { name: 'Google Cloud', code: 'INFRA' },
+    { name: 'Shopify / Salla / Zid', code: 'E-COM' },
+    { name: 'Meta & Google Ads', code: 'ADS' },
+    { name: 'Odoo / ERP', code: 'ERP' },
   ]
 
   return (
-    <section className="w-full py-16 sm:py-20 bg-[#EEF7FF] relative border-b border-sky-100">
+    <section className="w-full py-16 sm:py-20 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-dots">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Real Tech Stack Ecosystem Title */}
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-sky-200 shadow-2xs text-sky-900 text-xs font-bold font-mono mb-2">
-            <Cpu className="w-3.5 h-3.5 text-[#FF6B2C]" />
-            <span>{language === 'ar' ? 'منظومة التكامل والتقنيات المدعومة' : 'Supported Integration Ecosystem'}</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white border-2 border-black shadow-[2px_2px_0px_#38BDF8] text-xs font-mono font-bold mb-3">
+            <Cpu className="w-3.5 h-3.5 text-[#38BDF8]" />
+            <span>{language === 'ar' ? 'منظومة التكامل والتقنيات المدعومة' : language === 'tr' ? 'DESTEKLENEN TEKNOLOJİ YIĞINI' : 'Supported Integration Ecosystem'}</span>
           </div>
-          <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 font-heading">
+          <h3 className="text-xl sm:text-3xl font-black text-slate-950 font-heading">
             {language === 'ar'
               ? 'التقنيات السحابية ومصادر البيانات التي نبني عليها حلولك الهندسية'
+              : language === 'tr'
+              ? 'Mühendislik Çözümlerimizi Üzerine İnşa Ettiğimiz Bulut Teknolojileri'
               : 'Enterprise Cloud Technologies & Data Sources We Build Upon'}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600 font-sans mt-1 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 font-sans mt-2 max-w-xl mx-auto font-medium">
             {language === 'ar'
               ? 'ربط وتكامل مباشر مع أنظمتكم الحالية، قواعد البيانات، ومنصات التجارة دون انقطاع العمليات'
+              : language === 'tr'
+              ? 'Mevcut veritabanlarınız ve e-ticaret platformlarınızla kesintisiz doğrudan API entegrasyonu'
               : 'Direct API & database connectors with zero disruption to your active operations'}
           </p>
         </div>
 
-        {/* Real Stack Ribbon Cards */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 mb-12 sm:mb-14">
+        {/* 8-Bit Pixel Tech Stack Chips */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 mb-12 sm:mb-14 font-mono">
           {techStack.map((tech, idx) => (
             <div
               key={idx}
-              className="px-3.5 py-2 rounded-xl bg-white border border-sky-200/90 shadow-2xs flex items-center gap-2 hover:border-[#FF6B2C] hover:shadow-sm transition-all"
+              className="px-3 py-1.5 bg-white border-2 border-black shadow-[3px_3px_0px_#000] flex items-center gap-2 hover:bg-black hover:text-white transition-all cursor-default group"
             >
-              <span className="w-2 h-2 rounded-full bg-[#FF6B2C]" />
-              <span className={`text-xs sm:text-sm font-bold text-slate-800 ${tech.font}`}>
+              <span className="w-2 h-2 bg-[#24CB71] group-hover:bg-[#FF6B2C]" />
+              <span className="text-xs font-bold text-slate-900 group-hover:text-white">
                 {tech.name}
+              </span>
+              <span className="text-[9px] text-slate-400 group-hover:text-slate-300">
+                [{tech.code}]
               </span>
             </div>
           ))}
         </div>
 
-        {/* Pitch Black Rounded CTA Pill Banner */}
-        <div className="dark-cta-banner p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div className="text-center md:text-right font-sans">
-            <h4 className="text-base sm:text-xl font-bold text-white font-heading">
+        {/* Dark Pixel CTA Box */}
+        <div className="card-pixel-dark rounded-none p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 scanlines">
+          <div className="text-center md:text-start font-sans">
+            <h4 className="text-base sm:text-xl font-black text-white font-heading">
               {language === 'ar'
                 ? 'هل تبحث عن بنية تحتية مخصصة للذكاء الاصطناعي وهندسة بيانات لشركتك؟'
+                : language === 'tr'
+                ? 'Şirketiniz için özel yapay zeka altyapısı ve veri mühendisliği mi arıyorsunuz?'
                 : 'Ready to build high-velocity data pipelines & secure RAG AI architectures?'}
             </h4>
-            <p className="text-xs text-slate-400 mt-1">
-              {language === 'ar' ? 'استشارة مجانية ومباشرة مع مهندس البيانات لتحديد خطة التطوير' : 'Direct scoping consultation with senior data engineers'}
+            <p className="text-xs text-slate-400 mt-1 font-mono">
+              {language === 'ar' ? '&gt; استشارة مجانية ومباشرة مع مهندس البيانات لتحديد خطة التطوير' : language === 'tr' ? '&gt; Kıdemli veri mühendisi ile doğrudan mimari değerlendirme' : '&gt; Direct scoping consultation with senior data engineers'}
             </p>
           </div>
 
@@ -80,10 +91,10 @@ export function TrustLogosBanner() {
             href={ctaWhatsAppUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-6 py-3.5 rounded-xl btn-rpc-orange font-bold text-xs sm:text-sm whitespace-nowrap shadow-lg flex items-center justify-center gap-2 cursor-pointer flex-shrink-0 min-h-[44px]"
+            className="w-full sm:w-auto px-6 py-3.5 btn-pixel-green font-bold text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-2 cursor-pointer flex-shrink-0 min-h-[44px] font-sans"
           >
             <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
-            <span>{language === 'ar' ? 'تحدث مع المهندس عبر واتساب' : 'Connect on WhatsApp'}</span>
+            <span>{language === 'ar' ? 'تحدث مع المهندس عبر واتساب' : language === 'tr' ? 'WhatsApp ile Bağlan' : 'Connect on WhatsApp'}</span>
           </a>
         </div>
 

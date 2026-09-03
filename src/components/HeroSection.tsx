@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  MessageCircle,
-  ArrowUpRight,
-  Database,
-  Layers,
   Sparkles,
-  Bot,
+  ArrowRight,
+  ArrowLeft,
+  MessageCircle,
+  ShieldCheck,
   Zap,
   TrendingDown,
-  LineChart,
-  ShieldCheck,
-  CheckCircle2,
-  FileText,
   Activity,
-  Check
+  Bot,
+  Database,
+  Terminal,
+  Cpu,
+  Lock,
+  Layers,
+  CheckSquare
 } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { generateWhatsAppLink, WHATSAPP_CONFIG } from '../lib/whatsapp'
@@ -25,76 +26,80 @@ export function HeroSection() {
 
   const serviceData = {
     rag: {
-      titleAr: '1. بنية الذكاء الاصطناعي RAG',
-      titleEn: '1. Enterprise AI & RAG',
+      id: 'rag',
+      code: '01_RAG',
+      titleAr: '1. بنية الذكاء الاصطناعي RAG الآمنة',
+      titleEn: '1. Secure AI & Enterprise RAG',
+      titleTr: '1. Güvenli Yapay Zeka & Kurumsal RAG',
       descAr: 'ربط آمن للوثائق وقواعد البيانات دون تسريب مع منع الهلوسة 100%.',
       descEn: 'Zero-hallucination, private document RAG inside your VPC.',
+      descTr: 'Özel VPC içinde sıfır halüsinasyonlu kurumsal RAG mimarisi.',
       statVal: '100%',
       statLblAr: 'دقة وتوثيق المستندات',
       statLblEn: 'Fact-Grounded Accuracy',
-      color: 'from-purple-500 to-indigo-600',
-      tagBg: 'bg-purple-100 text-purple-900 border-purple-200',
-      borderColor: 'border-purple-300',
+      statLblTr: 'Kaynak Doğruluğu',
+      tagBg: 'badge-pixel-purple',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول ربط الذكاء الاصطناعي RAG ببيانات شركتنا.',
       whatsappMsgEn: 'Hello, inquiring about enterprise RAG and AI data integration.',
       whatsappMsgTr: 'Merhaba, şirketimiz için kurumsal RAG ve yapay zeka veri entegrasyonu hakkında bilgi almak istiyorum.',
-      badgeTextAr: 'RAG محمي ومشفّر',
-      badgeTextEn: 'RAG-SECURED',
-      badgeColor: '#A855F7',
+      badgeText: '[RAG_CORE_V1]',
     },
     etl: {
+      id: 'etl',
+      code: '02_ETL',
       titleAr: '2. أتمتة خطوط البيانات ETL',
       titleEn: '2. Automated ETL Pipelines',
+      titleTr: '2. Otomatik ETL Veri Boru Hatları',
       descAr: 'دمج المبيعات، الإعلانات، وأنظمة ERP المحاسبية في مكان موحد.',
       descEn: 'Autonomous data pipelines connecting Shopify, Ads & ERP.',
+      descTr: 'E-ticaret, reklam ve ERP verilerini tek merkezde toplayan veri hatları.',
       statVal: '24/7',
       statLblAr: 'تزامن آلي دون إكسل يدوي',
       statLblEn: 'Automated Sync, Zero Excel',
-      color: 'from-sky-500 to-blue-600',
-      tagBg: 'bg-blue-100 text-blue-900 border-blue-200',
-      borderColor: 'border-blue-300',
+      statLblTr: '7/24 Otomatik Eşitleme',
+      tagBg: 'badge-pixel-blue',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات وربط أنظمتنا المحاسبية والمبيعات.',
       whatsappMsgEn: 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
       whatsappMsgTr: 'Merhaba, otomatik ETL veri boru hatları ve e-ticaret/ERP entegrasyonu hakkında danışmanlık almak istiyorum.',
-      badgeTextAr: 'أنابيب بيانات مؤتمتة',
-      badgeTextEn: 'ETL-PIPELINE',
-      badgeColor: '#38BDF8',
+      badgeText: '[ETL_STREAM_V2]',
     },
     opt: {
+      id: 'opt',
+      code: '03_OPT',
       titleAr: '3. تحسين السحابة وقواعد البيانات',
       titleEn: '3. Cloud & DB Optimization',
+      titleTr: '3. Veritabanı & Bulut Optimizasyonu',
       descAr: 'تسريع الاستعلامات وتخفيض فواتير السحابة بنسبة 30% إلى 60% فوراً.',
       descEn: '10x faster queries & slash cloud spend by up to 60% with direct ROI.',
+      descTr: '10 kat sorgu hızı ve bulut faturalarında %50+ doğrudan tasarruf.',
       statVal: '52%',
       statLblAr: 'متوسط وفر مالي شهري',
       statLblEn: 'Direct Monthly Savings',
-      color: 'from-orange-500 to-amber-600',
-      tagBg: 'bg-orange-100 text-orange-900 border-orange-200',
-      borderColor: 'border-orange-300',
+      statLblTr: 'Aylık Fatura Tasarrufu',
+      tagBg: 'badge-pixel-orange',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول فحص قواعد البيانات وخفض فواتير السحابة.',
       whatsappMsgEn: 'Hello, inquiring about database performance and cloud cost reduction.',
       whatsappMsgTr: 'Merhaba, veritabanı performans analizi ve bulut maliyetlerini düşürme konusunda görüşmek istiyorum.',
-      badgeTextAr: 'وفر مالي مباشر (ROI)',
-      badgeTextEn: 'ROI-OPTIMIZED',
-      badgeColor: '#FF6B2C',
+      badgeText: '[ROI_BOOST_V3]',
     },
     dash: {
+      id: 'dash',
+      code: '04_DASH',
       titleAr: '4. تحليلات العمليات والمراقبة',
       titleEn: '4. Operational Dashboards',
+      titleTr: '4. Operasyonel Paneller & WhatsApp',
       descAr: 'لوحات عربية تفاعلية للمبيعات والأرباح مع تنبيهات واتساب لحظية.',
       descEn: 'Real-time KPI decision screens with instant WhatsApp alerts.',
+      descTr: 'Anlık yönetici göstergeleri ve otomatik WhatsApp uyarı sistemleri.',
       statVal: '10x',
       statLblAr: 'سرعة اتخاذ القرار بالوقت الفعلي',
       statLblEn: 'Real-time Decision Velocity',
-      color: 'from-emerald-500 to-teal-600',
-      tagBg: 'bg-emerald-100 text-emerald-900 border-emerald-200',
-      borderColor: 'border-emerald-300',
+      statLblTr: 'Anlık Karar Hızı',
+      tagBg: 'badge-pixel-green',
       whatsappMsgAr: 'السلام عليكم، أود استشارة حول بناء لوحة تحكم تفاعلية مع تنبيهات واتساب.',
       whatsappMsgEn: 'Hello, inquiring about real-time dashboards and automated WhatsApp alerts.',
       whatsappMsgTr: 'Merhaba, anlık yönetici panelleri ve otomatik WhatsApp uyarı sistemleri hakkında bilgi almak istiyorum.',
-      badgeTextAr: 'رادار العمليات اللحظي',
-      badgeTextEn: 'LIVE-RADAR',
-      badgeColor: '#10B981',
+      badgeText: '[RADAR_OPS_V4]',
     },
   }
 
@@ -112,339 +117,235 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="w-full bg-pastel-peach relative flex flex-col justify-between pt-20 sm:pt-28 lg:pt-32 pb-8 sm:pb-12 border-b border-orange-100/70 overflow-hidden"
+      className="relative w-full pt-20 sm:pt-28 pb-12 sm:pb-20 bg-pixel-grid overflow-hidden border-b-2 border-black"
     >
-      {/* Background Soft Glows */}
-      <div className="absolute top-1/4 left-5 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-purple-200/35 blur-[80px] sm:blur-[110px] rounded-full pointer-events-none" />
-      <div className="absolute top-10 right-5 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-orange-200/35 blur-[90px] sm:blur-[120px] rounded-full pointer-events-none" />
+      {/* Decorative Floating Pixel Cubes */}
+      <div className="absolute top-16 left-6 w-5 h-5 bg-[#FF6B2C] border-2 border-black shadow-[2px_2px_0px_#000] pointer-events-none hidden lg:block animate-bounce" />
+      <div className="absolute top-36 right-10 w-4 h-4 bg-[#24CB71] border-2 border-black shadow-[2px_2px_0px_#000] pointer-events-none hidden lg:block" />
+      <div className="absolute bottom-20 left-12 w-6 h-6 bg-[#38BDF8] border-2 border-black shadow-[2px_2px_0px_#000] pointer-events-none hidden lg:block" />
 
-      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center relative z-10 py-2 sm:py-4">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Main 2-Column Responsive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        {/* Main 2-Column Grid (PixelWhisk style) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           
-          {/* Left / Right Text Column (7 cols) */}
-          <div className="lg:col-span-7 space-y-3.5 sm:space-y-5 text-center lg:text-right" dir={isRTL ? 'rtl' : 'ltr'}>
+          {/* Left Column: Heading & Value Proposition */}
+          <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-center lg:text-start" dir={isRTL ? 'rtl' : 'ltr'}>
             
-            {/* Top Pill */}
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 rounded-full bg-white border border-orange-200 shadow-2xs text-[11px] sm:text-xs font-bold text-slate-800 max-w-full">
-              <span className="w-2 h-2 rounded-full bg-[#FF6B2C] animate-ping flex-shrink-0" />
-              <span className="truncate">
-                {language === 'ar' ? '⚡ بنية بيانات وذكاء اصطناعي بعوائد استثمارية (ROI)' : '⚡ Enterprise Data & AI Infrastructure with ROI'}
-              </span>
+            {/* Top Pixel Badge */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border-2 border-black shadow-[3px_3px_0px_#000] text-black text-xs font-mono font-bold">
+              <span className="w-2 h-2 bg-[#24CB71] animate-pulse" />
+              <span>{t('heroBadge')}</span>
             </div>
 
-            {/* Headline with Responsive Highlights */}
-            <h1 className="text-2xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-slate-950 tracking-tight leading-[1.25] sm:leading-[1.2] font-heading">
-              {language === 'ar' ? (
-                <>
-                  حوّل بيانات شركتك إلى{' '}
-                  <span className="pill-highlight-yellow">أصول ذكية</span>{' '}
-                  مع{' '}
-                  <span className="pill-highlight-purple">بنية RAG متطورة</span>{' '}
-                  و{' '}
-                  <span className="pill-highlight-blue">أنابيب مؤتمتة</span>
-                </>
-              ) : (
-                <>
-                  Transform Enterprise Data into{' '}
-                  <span className="pill-highlight-yellow">Intelligent Assets</span>{' '}
-                  with{' '}
-                  <span className="pill-highlight-purple">Secure RAG AI</span>{' '}
-                  and{' '}
-                  <span className="pill-highlight-blue">Automated Pipelines</span>
-                </>
-              )}
+            {/* Main Headline with Pixel Neo-Brutalist Highlighting */}
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-snug sm:leading-tight font-heading">
+              {t('heroTitlePrefix')}
+              <span className="inline-block mx-1 px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
+                {t('heroTitleHighlight')}
+              </span>
+              {t('heroTitleSuffix')}
             </h1>
 
-            {/* Subhead */}
-            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans max-w-2xl mx-auto lg:mx-0 font-medium px-1 sm:px-0">
+            {/* Subtitle */}
+            <p className="text-xs sm:text-sm lg:text-base text-slate-700 leading-relaxed font-sans font-medium max-w-xl mx-auto lg:mx-0">
               {t('heroSubtitle')}
             </p>
 
-            {/* 4 Interactive Service Selector Chips (Neat 2x2 Grid on Mobile) */}
-            <div className="space-y-1.5 pt-1">
-              <div className="text-[10px] sm:text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider text-center lg:text-right">
-                {language === 'ar' ? 'اختر الخدمة لمعاينتها فوراً:' : 'Select Service to Preview:'}
+            {/* 4 Pixel Service Selector Chips (2x2 Grid) */}
+            <div className="pt-1">
+              <div className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-[#FF6B2C]" />
+                <span>{language === 'ar' ? 'اختر الخدمة لمعاينتها بالمحاكي البكسلي:' : language === 'tr' ? 'Piksel Konsolda Test Etmek İçin Seçin:' : 'Select Core Service to Inspect:'}</span>
               </div>
-              <div className="grid grid-cols-2 gap-1.5 sm:gap-2 max-w-xl mx-auto lg:mx-0">
+              <div className="grid grid-cols-2 gap-2">
                 {(['rag', 'etl', 'opt', 'dash'] as const).map((key) => {
-                  const srv = serviceData[key]
+                  const s = serviceData[key]
                   const isSelected = activeService === key
+                  const title = language === 'ar' ? s.titleAr : language === 'tr' ? s.titleTr : s.titleEn
                   return (
                     <button
                       key={key}
                       onClick={() => setActiveService(key)}
-                      className={`p-2 sm:p-2.5 rounded-xl text-[11px] sm:text-xs font-bold text-right transition-all border cursor-pointer flex items-center justify-between shadow-2xs min-h-[38px] sm:min-h-[42px] ${
+                      className={`p-2 sm:p-2.5 text-start transition-all cursor-pointer border-2 border-black ${
                         isSelected
-                          ? 'bg-white border-[#FF6B2C] text-slate-950 ring-2 ring-[#FF6B2C]/20 font-extrabold'
-                          : 'bg-white/70 border-slate-200 text-slate-700 hover:bg-white hover:border-slate-300'
+                          ? 'bg-black text-white shadow-[3px_3px_0px_#FF6B2C] translate-x-[-1px] translate-y-[-1px]'
+                          : 'bg-white text-slate-800 hover:bg-slate-50 shadow-[2px_2px_0px_#000]'
                       }`}
                     >
-                      <span className="truncate pr-1">{language === 'ar' ? srv.titleAr : srv.titleEn}</span>
-                      <span className={`w-2 h-2 rounded-full flex-shrink-0 ${isSelected ? 'bg-[#FF6B2C]' : 'bg-slate-300'}`} />
+                      <div className="flex items-center justify-between">
+                        <span className={`text-[10px] font-mono font-bold ${isSelected ? 'text-[#24CB71]' : 'text-slate-500'}`}>
+                          {s.code}
+                        </span>
+                        {isSelected && <span className="w-1.5 h-1.5 bg-[#FF6B2C] animate-ping" />}
+                      </div>
+                      <div className="text-xs font-bold font-sans truncate mt-0.5">
+                        {title}
+                      </div>
                     </button>
                   )
                 })}
               </div>
             </div>
 
-            {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-3">
+            {/* Action Buttons (Pixel Style) */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
               <a
                 href={heroWhatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl btn-rpc-orange font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer min-h-[44px]"
+                className="w-full sm:w-auto px-6 py-3.5 btn-pixel-primary font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer font-sans min-h-[46px]"
               >
                 <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
-                <span>{language === 'ar' ? 'تحدث مع مهندس البيانات عبر واتساب' : 'Chat with Lead Engineer'}</span>
-                <ArrowUpRight className="w-4 h-4 flex-shrink-0" />
+                <span>{t('heroCtaWhatsApp')}</span>
+                {isRTL ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
               </a>
 
               <a
                 href="#simulator"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-bold text-xs sm:text-sm shadow-xs transition-colors min-h-[44px]"
+                className="w-full sm:w-auto px-6 py-3.5 btn-pixel-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer font-sans min-h-[46px]"
               >
-                <Sparkles className="w-4 h-4 text-[#FF6B2C] flex-shrink-0" />
-                <span>{language === 'ar' ? 'المحاكي التفاعلي' : 'Live Demo'}</span>
+                <Zap className="w-4 h-4 text-[#FF6B2C] flex-shrink-0" />
+                <span>{t('heroCtaPrimary')}</span>
               </a>
             </div>
 
-          </div>
-
-          {/* Right / Left Interactive Live React Flow Engine (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center w-full mt-2 lg:mt-0">
-            
-            {/* Modern React Live Architecture Card */}
-            <motion.div
-              key={activeService}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              className={`w-full max-w-full sm:max-w-md bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border-2 ${current.borderColor} shadow-xl relative overflow-hidden flex flex-col justify-between`}
-            >
-              {/* Card Header with Glowing Status */}
-              <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100">
-                <span className={`text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-md ${current.tagBg}`}>
-                  {language === 'ar' ? current.badgeTextAr : current.badgeTextEn}
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-mono text-emerald-700 font-bold flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="truncate">{current.statVal} {language === 'ar' ? current.statLblAr : current.statLblEn}</span>
-                </span>
-              </div>
-
-              {/* Dynamic Modern React Flow Visualizer */}
-              <div className="py-3 sm:py-4">
-                
-                {/* 1. RAG Interactive Flow Visualizer */}
-                {activeService === 'rag' && (
-                  <div className="space-y-2 sm:space-y-2.5">
-                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-purple-50/80 border border-purple-200 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-purple-600 text-white flex items-center justify-center text-xs font-bold shadow-xs flex-shrink-0">
-                          <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-purple-950 font-heading truncate max-w-[130px] sm:max-w-none">
-                            {language === 'ar' ? 'وثائق_الشركة_المالية.pdf' : 'Internal_Docs.pdf'}
-                          </div>
-                          <div className="text-[9px] sm:text-[10px] text-purple-600 font-mono">
-                            {language === 'ar' ? '10,480 متجه رقمي' : '10,480 Vector Embeddings'}
-                          </div>
-                        </div>
-                      </div>
-                      <span className="px-1.5 py-0.5 rounded bg-purple-200/70 text-purple-800 text-[9px] sm:text-[10px] font-mono font-bold whitespace-nowrap">
-                        {language === 'ar' ? 'مشفّر VPC' : 'VPC Encrypted'}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] font-mono text-purple-700 text-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-ping flex-shrink-0" />
-                      <span className="truncate">{language === 'ar' ? 'بحث موجه بالمتجهات دون تسريب (84ms)' : 'Zero-Leakage Vector Search (84ms)'}</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-ping flex-shrink-0" />
-                    </div>
-
-                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-50/80 border border-emerald-200 flex items-start gap-2">
-                      <div className="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3.5 h-3.5" />
-                      </div>
-                      <div className="text-[10px] sm:text-[11px] text-emerald-950 font-sans leading-snug">
-                        <strong className="block text-emerald-900 font-heading">
-                          {language === 'ar' ? 'إجابة دقيقة 100% موثقة بالمستندات' : '100% Fact-Checked Answer'}
-                        </strong>
-                        <span>
-                          {language === 'ar' ? 'مستندة لصفحة 14 دون أي هلوسة أو تخمين.' : 'Cited from Page 14 with Zero Hallucination.'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* 2. ETL Pipelines Interactive Ingestion Visualizer */}
-                {activeService === 'etl' && (
-                  <div className="space-y-2 sm:space-y-2.5">
-                    <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-blue-50/80 border border-blue-200 text-center">
-                        <div className="text-[9px] sm:text-[10px] text-blue-600 font-mono font-bold truncate">
-                          {language === 'ar' ? 'سلة وزد وShopify' : 'Shopify & Salla'}
-                        </div>
-                        <div className="text-[11px] sm:text-xs font-black text-blue-950 mt-0.5">
-                          {language === 'ar' ? '1,480 طلب جديد' : '1,480 Orders'}
-                        </div>
-                        <span className="text-[9px] text-emerald-600 font-bold">
-                          {language === 'ar' ? '● تدفق لحظي' : '● LIVE STREAM'}
-                        </span>
-                      </div>
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-blue-50/80 border border-blue-200 text-center">
-                        <div className="text-[9px] sm:text-[10px] text-blue-600 font-mono font-bold truncate">
-                          {language === 'ar' ? 'إعلانات Meta وجوجل' : 'Meta & Google'}
-                        </div>
-                        <div className="text-[11px] sm:text-xs font-black text-blue-950 mt-0.5">
-                          {language === 'ar' ? '18,200 ر.س' : '$18,200'}
-                        </div>
-                        <span className="text-[9px] text-emerald-600 font-bold">✓ ROAS: 4.8x</span>
-                      </div>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-slate-950 text-white flex items-center justify-between text-xs font-mono">
-                      <div className="flex items-center gap-1.5">
-                        <Database className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" />
-                        <span className="text-[10px] sm:text-[11px] text-slate-200 truncate">
-                          {language === 'ar' ? 'مستودع بيانات PostgreSQL' : 'PostgreSQL Lakehouse'}
-                        </span>
-                      </div>
-                      <span className="text-[9px] sm:text-[10px] text-emerald-400 font-bold whitespace-nowrap">
-                        100% SYNC
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {/* 3. Cost Optimizer */}
-                {activeService === 'opt' && (
-                  <div className="space-y-2 sm:space-y-2.5">
-                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-orange-50/80 border border-orange-200 flex items-center justify-between">
-                      <div>
-                        <span className="text-[9px] sm:text-[10px] font-mono text-slate-500 uppercase block">
-                          {language === 'ar' ? 'الفاتورة السابقة' : 'Previous Spend'}
-                        </span>
-                        <div className="text-xs font-bold text-slate-400 line-through font-mono">
-                          {language === 'ar' ? '15,000 ر.س' : '$15,000'}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-[9px] sm:text-[10px] font-mono text-[#D9480F] uppercase font-bold block">
-                          {language === 'ar' ? 'بعد التحسين (52% وفر)' : 'Optimized (52% ROI)'}
-                        </span>
-                        <div className="text-xs sm:text-sm font-black text-[#D9480F] font-mono">
-                          {language === 'ar' ? '7,200 ر.س / شهر' : '$7,200 / mo'}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-slate-950 text-white flex items-center justify-between text-xs font-mono">
-                      <span className="text-slate-300 text-[10px] sm:text-[11px] truncate">
-                        {language === 'ar' ? 'زمن الاستعلام: 3.4s ➔ 118ms' : 'Latency: 3.4s ➔ 118ms'}
-                      </span>
-                      <span className="px-1.5 py-0.5 rounded bg-emerald-900 text-emerald-300 font-bold text-[9px] sm:text-[10px] whitespace-nowrap">
-                        {language === 'ar' ? '10 أضعاف أسرع' : '10X FASTER'}
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. Dashboards */}
-                {activeService === 'dash' && (
-                  <div className="space-y-2 sm:space-y-2.5">
-                    <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200">
-                        <span className="text-[9px] sm:text-[10px] text-slate-500 block truncate">
-                          {language === 'ar' ? 'صافي مبيعات اليوم' : "Today's Revenue"}
-                        </span>
-                        <div className="text-xs font-black text-slate-950 font-mono">
-                          {language === 'ar' ? '28,450 ر.س' : '$28,450'}
-                        </div>
-                        <span className="text-[9px] text-emerald-600 font-bold">
-                          {language === 'ar' ? '+18.2% نمو' : '+18.2% Growth'}
-                        </span>
-                      </div>
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200">
-                        <span className="text-[9px] sm:text-[10px] text-slate-500 block truncate">
-                          {language === 'ar' ? 'هامش الربح التشغيلي' : 'Gross Margin'}
-                        </span>
-                        <div className="text-xs font-black text-emerald-700 font-mono">38.4%</div>
-                        <span className="text-[9px] text-slate-500">
-                          {language === 'ar' ? 'مستقر ومثالي' : 'Healthy'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-emerald-300 shadow-2xs flex items-center gap-2 text-xs">
-                      <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FF6B2C] flex-shrink-0" />
-                      <span className="text-[10px] sm:text-[11px] text-slate-800 font-sans truncate">
-                        {language === 'ar'
-                          ? 'تنبيه واتساب: تم إعادة طلب مخزون الفرع آلياً.'
-                          : 'WhatsApp Alert: Branch inventory reordered automatically.'}
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-              </div>
-
-              {/* Service Description & Subtitle */}
-              <div className="space-y-0.5 pt-2 border-t border-slate-100 text-center sm:text-right" dir={isRTL ? 'rtl' : 'ltr'}>
-                <h3 className="font-extrabold text-slate-950 text-xs sm:text-sm font-heading">
-                  {language === 'ar' ? current.titleAr : current.titleEn}
-                </h3>
-                <p className="text-[10px] sm:text-[11px] text-slate-600 font-sans leading-relaxed line-clamp-2 sm:line-clamp-none">
-                  {language === 'ar' ? current.descAr : current.descEn}
-                </p>
-              </div>
-
-              {/* Instant Inquiry Button */}
-              <div className="mt-2.5 sm:mt-3 pt-1">
-                <a
-                  href={heroWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-950 hover:bg-[#FF6B2C] text-white font-bold text-xs transition-colors cursor-pointer min-h-[38px]"
-                >
-                  <MessageCircle className="w-3.5 h-3.5 fill-current flex-shrink-0" />
-                  <span>{language === 'ar' ? 'طلب هذه الخدمة عبر واتساب' : 'Inquire via WhatsApp'}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0" />
-                </a>
-              </div>
-
-            </motion.div>
-
-            {/* Overlapping Quick Guarantee Pills */}
-            <div className="mt-2.5 sm:mt-3 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 w-full">
-              <div className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-slate-950 text-white text-[10px] sm:text-[11px] font-bold font-mono shadow-xs flex items-center gap-1.5">
-                <span className="text-[#FF6B2C]">100%</span>
-                <span>{language === 'ar' ? 'أمان وسرية تامة' : 'Zero Leakage'}</span>
-              </div>
-              <div className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-white border border-orange-300 text-slate-900 text-[10px] sm:text-[11px] font-bold font-mono shadow-xs flex items-center gap-1.5">
-                <span className="text-[#FF6B2C]">60%</span>
-                <span>{language === 'ar' ? 'خفض فواتير السحابة' : 'Cloud ROI'}</span>
-              </div>
+            {/* Guarantee Tag */}
+            <div className="flex items-center justify-center lg:justify-start gap-3 pt-1 text-[11px] font-mono text-slate-600">
+              <span className="flex items-center gap-1">
+                <CheckSquare className="w-3.5 h-3.5 text-[#24CB71]" />
+                <span>{language === 'ar' ? 'سحابة خاصة مشفرة (VPC)' : language === 'tr' ? 'Özel Bulut VPC' : '100% Private VPC'}</span>
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckSquare className="w-3.5 h-3.5 text-[#FF6B2C]" />
+                <span>{language === 'ar' ? 'عائد مالي مباشر وملموس' : language === 'tr' ? 'Doğrudan ROI' : 'Measurable ROI'}</span>
+              </span>
             </div>
 
           </div>
 
-        </div>
+          {/* Right Column: 8-Bit Interactive Pixel Console (PixelWhisk Showcase) */}
+          <div className="lg:col-span-6 w-full">
+            <div className="card-pixel-dark rounded-none p-4 sm:p-6 text-white relative overflow-hidden scanlines">
+              
+              {/* Terminal Titlebar */}
+              <div className="flex items-center justify-between border-b-2 border-slate-700 pb-3 mb-4 font-mono text-xs">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-[#FF5F56] border border-black" />
+                    <span className="w-2.5 h-2.5 bg-[#FFBD2E] border border-black" />
+                    <span className="w-2.5 h-2.5 bg-[#27C93F] border border-black" />
+                  </div>
+                  <span className="text-slate-400 text-[11px] font-bold">
+                    ASR_PULSE_NODE // {current.badgeText}
+                  </span>
+                </div>
+                <span className="text-[#24CB71] text-[10px] font-bold">
+                  [STATUS: ONLINE]
+                </span>
+              </div>
 
-        {/* Compact Bottom Trust Bar */}
-        <div className="mt-5 sm:mt-6 pt-3 border-t border-orange-200/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-600 font-sans text-center sm:text-right">
-          <div className="flex items-center justify-center sm:justify-start gap-1.5 font-semibold text-slate-800 text-[11px] sm:text-xs">
-            <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 flex-shrink-0" />
-            <span>{language === 'ar' ? 'بنية بيانات سحابية خاصة (Private VPC) مع عائد مالي مباشر' : 'Private VPC deployment with direct measurable ROI'}</span>
+              {/* Service Dynamic Visualizer Content */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.15 }}
+                  className="space-y-4"
+                >
+                  {/* Console Header Banner */}
+                  <div className="p-3 bg-black border-2 border-slate-700 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-mono text-[#FF6B2C] uppercase block font-bold">
+                        {current.code} ARCHITECTURE
+                      </span>
+                      <h3 className="text-xs sm:text-sm font-bold text-white font-sans">
+                        {language === 'ar' ? current.titleAr : language === 'tr' ? current.titleTr : current.titleEn}
+                      </h3>
+                    </div>
+                    <div className="text-right font-mono">
+                      <span className="text-[9px] text-slate-400 block">{language === 'ar' ? current.statLblAr : language === 'tr' ? current.statLblTr : current.statLblEn}</span>
+                      <strong className="text-sm sm:text-base font-black text-[#24CB71]">{current.statVal}</strong>
+                    </div>
+                  </div>
+
+                  {/* 8-Bit Pixel Simulation Matrix Box */}
+                  <div className="p-3.5 bg-[#0D1117] border-2 border-slate-800 space-y-3 font-mono">
+                    
+                    {/* Node 1: Input */}
+                    <div className="flex items-center justify-between text-xs p-2 bg-[#161B22] border border-slate-700">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 bg-[#38BDF8]" />
+                        <span className="text-slate-200 text-[11px]">
+                          {activeService === 'rag'
+                            ? (language === 'ar' ? 'وثائق الشركة وقواعد البيانات' : 'Company Docs & DBs')
+                            : activeService === 'etl'
+                            ? (language === 'ar' ? 'سلة وزد / Odoo / Meta Ads' : 'Shopify / Odoo / Meta')
+                            : activeService === 'opt'
+                            ? (language === 'ar' ? 'فواتير السحابة قبل التحسين' : 'Raw Cloud Server Spend')
+                            : (language === 'ar' ? 'بيانات المبيعات والمخزون' : 'Live Sales Stream')}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-sky-400">[CONNECTED]</span>
+                    </div>
+
+                    {/* Stepped Pixel Connection Wave */}
+                    <div className="flex items-center justify-center gap-1 text-[10px] text-slate-500 py-0.5">
+                      <span>■</span>
+                      <span className="text-[#FF6B2C]">■</span>
+                      <span className="text-[#24CB71] animate-pulse">■</span>
+                      <span>■</span>
+                      <span className="text-slate-400 text-[9px]">
+                        {activeService === 'rag' ? 'VECTOR_RAG_PIPELINE' : 'ZERO_LOSS_INGEST'}
+                      </span>
+                    </div>
+
+                    {/* Node 2: Output Verified Fact */}
+                    <div className="flex items-center justify-between text-xs p-2 bg-[#161B22] border border-[#24CB71]/50">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 bg-[#24CB71]" />
+                        <span className="text-white text-[11px] font-sans">
+                          {activeService === 'rag'
+                            ? (language === 'ar' ? 'إجابة دقيقة 100% موثقة برقم الصفحة' : '100% Fact Answer with Citation')
+                            : activeService === 'etl'
+                            ? (language === 'ar' ? 'مستودع بيانات موحد يلغي إكسل' : 'Unified Warehouse, Zero Excel')
+                            : activeService === 'opt'
+                            ? (language === 'ar' ? 'توفير مالي مباشر 52% مع تسريع 10x' : '52% Direct ROI + 10x Speedup')
+                            : (language === 'ar' ? 'إشعار واتساب فوري عند الخلل' : 'Instant WhatsApp Anomaly Alert')}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-[#24CB71] font-bold">[VERIFIED]</span>
+                    </div>
+
+                  </div>
+
+                  {/* Terminal Log Output */}
+                  <div className="p-2.5 bg-black border border-slate-800 text-[10px] font-mono text-slate-300 flex items-center justify-between">
+                    <span className="text-[#24CB71] truncate">
+                      &gt; system.exec(&quot;{activeService}_pipeline&quot;) // 0 errors
+                    </span>
+                    <span className="text-slate-500 text-[9px] whitespace-nowrap">84ms</span>
+                  </div>
+
+                  {/* WhatsApp Direct Action Trigger */}
+                  <a
+                    href={heroWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 bg-[#FF6B2C] hover:bg-[#FF5500] text-white border-2 border-black shadow-[2px_2px_0px_#000] font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                    <span>{language === 'ar' ? 'طلب استشارة فورية لهذه الخدمة عبر واتساب' : language === 'tr' ? 'Bu Hizmet İçin WhatsApp ile Görüş' : 'Request Architecture Scoping via WhatsApp'}</span>
+                  </a>
+
+                </motion.div>
+              </AnimatePresence>
+
+            </div>
           </div>
-          <div className="text-[10px] sm:text-[11px] font-mono text-slate-500">
-            <span>WhatsApp: <strong className="text-slate-800 font-bold">{WHATSAPP_CONFIG.displayNumber}</strong></span>
-          </div>
+
         </div>
 
       </div>

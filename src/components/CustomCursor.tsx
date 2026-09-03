@@ -9,7 +9,6 @@ export function CustomCursor() {
   const [isTouchDevice, setIsTouchDevice] = useState(true)
 
   useEffect(() => {
-    // Only enable on pointer-fine (desktop mouse) devices
     if (typeof window === 'undefined') return
     const isFinePointer = window.matchMedia('(pointer: fine)').matches
     setIsTouchDevice(!isFinePointer)
@@ -25,7 +24,6 @@ export function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false)
     const handleMouseEnter = () => setIsVisible(true)
 
-    // Check if hovering over clickable elements
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null
       if (!target) return
@@ -56,42 +54,43 @@ export function CustomCursor() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden">
-      {/* Outer Smooth Trailing Ring with Theme Glow */}
+      {/* 8-Bit Pixel Outer Frame */}
       <motion.div
         animate={{
-          x: mousePos.x - (isHovered ? 24 : 16),
-          y: mousePos.y - (isHovered ? 24 : 16),
-          width: isHovered ? 48 : 32,
-          height: isHovered ? 48 : 32,
-          scale: isClicked ? 0.85 : 1,
-          borderColor: isHovered ? '#FF6B2C' : 'rgba(255, 107, 44, 0.45)',
-          backgroundColor: isHovered ? 'rgba(255, 107, 44, 0.12)' : 'rgba(255, 107, 44, 0.04)',
+          x: mousePos.x - (isHovered ? 20 : 12),
+          y: mousePos.y - (isHovered ? 20 : 12),
+          width: isHovered ? 40 : 24,
+          height: isHovered ? 40 : 24,
+          scale: isClicked ? 0.8 : 1,
         }}
         transition={{
           type: 'spring',
-          damping: 28,
+          damping: 24,
           stiffness: 400,
-          mass: 0.5,
+          mass: 0.2,
         }}
-        className="fixed top-0 left-0 rounded-full border-2 backdrop-blur-[0.5px]"
-        style={{ willChange: 'transform' }}
+        className={`absolute border-2 ${
+          isHovered ? 'border-[#24CB71] bg-[#24CB71]/15' : 'border-black bg-black/5'
+        }`}
+        style={{
+          boxShadow: isHovered ? '2px 2px 0px #000' : 'none',
+        }}
       />
 
-      {/* Inner Precision Orange Dot */}
+      {/* Center 8-Bit Pixel Dot */}
       <motion.div
         animate={{
-          x: mousePos.x - 4,
-          y: mousePos.y - 4,
-          scale: isClicked ? 1.4 : isHovered ? 0.5 : 1,
-          backgroundColor: '#FF6B2C',
+          x: mousePos.x - 3,
+          y: mousePos.y - 3,
+          scale: isClicked ? 1.5 : 1,
+          backgroundColor: isHovered ? '#FF6B2C' : '#000000',
         }}
         transition={{
           type: 'spring',
-          damping: 35,
-          stiffness: 650,
+          damping: 40,
+          stiffness: 800,
         }}
-        className="fixed top-0 left-0 w-2 h-2 rounded-full shadow-[0_0_8px_rgba(255,107,44,0.8)]"
-        style={{ willChange: 'transform' }}
+        className="absolute w-1.5 h-1.5 border border-white"
       />
     </div>
   )

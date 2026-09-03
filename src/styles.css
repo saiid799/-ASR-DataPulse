@@ -14,9 +14,9 @@
     --font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'Roboto Mono', monospace;
   }
 
-  /* Global Custom Themed Scrollbar */
+  /* Global Pixel Scrollbar */
   html {
-    scrollbar-color: #FF6B2C #FFF6EE;
+    scrollbar-color: #FF6B2C #0D1117;
     scrollbar-width: thin;
     width: 100%;
     max-width: 100vw;
@@ -24,7 +24,7 @@
   }
 
   body {
-    background-color: #FFFFFF;
+    background-color: #FAFAF9;
     color: #0F172A;
     font-family: var(--font-arabic-body);
     width: 100%;
@@ -36,31 +36,25 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* WebKit Scrollbar Styling (Chrome, Safari, Edge) */
+  /* WebKit Scrollbar Styling (Pixel Theme) */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #FFF6EE;
-    border-left: 1px solid rgba(255, 230, 213, 0.8);
+    background: #161B22;
+    border-left: 2px solid #000000;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #FF8540 0%, #FF6B2C 100%);
-    border-radius: 9999px;
-    border: 2px solid #FFF6EE;
-    transition: background 0.2s ease;
+    background: #FF6B2C;
+    border: 2px solid #000000;
+    transition: background 0.15s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #FF6B2C 0%, #D9480F 100%);
-    box-shadow: 0 0 10px rgba(255, 107, 44, 0.5);
-  }
-
-  ::-webkit-scrollbar-corner {
-    background: #FFF6EE;
+    background: #24CB71;
   }
 
   [dir="rtl"] body, [dir="rtl"] {
@@ -95,107 +89,176 @@
 .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
 .font-mono { font-family: var(--font-mono); }
 
-/* rpcfast Authentic Pastel Colors */
-.bg-pastel-peach {
-  background-color: #FFF6EE;
+/* =========================================================
+   PIXEL ART & PIXELWHISK THEME UTILITIES
+   ========================================================= */
+
+/* Pixel Grid Backgrounds */
+.bg-pixel-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-.bg-pastel-blue {
-  background-color: #EEF7FF;
+.bg-pixel-dark-grid {
+  background-color: #0B0F19;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-.bg-pastel-purple {
-  background-color: #F8F3FF;
+.bg-pixel-dots {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.15) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
 }
 
-.bg-pastel-green {
-  background-color: #F0FDF4;
-}
-
-/* Highlighted Text Badges (rpcfast hero style) */
-.pill-highlight-orange {
-  background-color: #FFE6D5;
-  color: #D9480F;
-  padding: 0.08em 0.35em;
-  border-radius: 0.35em;
-  font-weight: 800;
-  display: inline-block;
-}
-
-.pill-highlight-purple {
-  background-color: #F0DEFF;
-  color: #6B21A8;
-  padding: 0.08em 0.35em;
-  border-radius: 0.35em;
-  font-weight: 800;
-  display: inline-block;
-}
-
-.pill-highlight-blue {
-  background-color: #D8ECFF;
-  color: #0369A1;
-  padding: 0.08em 0.35em;
-  border-radius: 0.35em;
-  font-weight: 800;
-  display: inline-block;
-}
-
-.pill-highlight-yellow {
-  background-color: #FEF3C7;
-  color: #B45309;
-  padding: 0.08em 0.35em;
-  border-radius: 0.35em;
-  font-weight: 800;
-  display: inline-block;
-}
-
-/* Pastel Borders & Card Containers */
-.card-pastel-purple {
-  background-color: #FFFFFF;
-  border: 2px solid #E9D5FF;
-  box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.08);
-}
-
-.card-pastel-blue {
-  background-color: #FFFFFF;
-  border: 2px solid #BAE6FD;
-  box-shadow: 0 10px 30px -5px rgba(56, 189, 248, 0.08);
-}
-
-.card-pastel-orange {
-  background-color: #FFFFFF;
-  border: 2px solid #FED7AA;
-  box-shadow: 0 10px 30px -5px rgba(255, 107, 44, 0.08);
-}
-
-.card-pastel-green {
-  background-color: #FFFFFF;
-  border: 2px solid #86EFAC;
-  box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.08);
-}
-
-/* Primary High-Impact Orange Button */
-.btn-rpc-orange {
+/* Pixel Art Buttons (Pixel Neobrutalism) */
+.btn-pixel-primary {
   background-color: #FF6B2C;
   color: #FFFFFF;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  transition: all 0.12s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.btn-rpc-orange:hover {
-  background-color: #F05A19;
-  box-shadow: 0 8px 20px -4px rgba(255, 107, 44, 0.4);
-  transform: translateY(-1px);
+.btn-pixel-primary:hover {
+  background-color: #FF5500;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #000000;
 }
 
-.btn-rpc-orange:active {
-  transform: translateY(0);
+.btn-pixel-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #000000;
 }
 
-/* Pitch Black Rounded CTA Banner Container */
-.dark-cta-banner {
+.btn-pixel-green {
+  background-color: #24CB71;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  transition: all 0.12s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.btn-pixel-green:hover {
+  background-color: #1EB865;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.btn-pixel-green:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #000000;
+}
+
+.btn-pixel-white {
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  transition: all 0.12s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.btn-pixel-white:hover {
+  background-color: #F4F4F5;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.btn-pixel-white:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #000000;
+}
+
+/* Pixel Card Containers with Hard Contrast Offset Shadows */
+.card-pixel-box {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.card-pixel-purple {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #7E22CE;
+}
+
+.card-pixel-blue {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #0284C7;
+}
+
+.card-pixel-orange {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #FF6B2C;
+}
+
+.card-pixel-green {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #15803D;
+}
+
+.card-pixel-dark {
   background-color: #12161F;
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #24CB71;
+}
+
+/* Pixel Badges */
+.badge-pixel {
+  font-family: var(--font-mono);
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  font-weight: 800;
+}
+
+.badge-pixel-orange {
+  background-color: #FFE6D5;
+  color: #C2410C;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.badge-pixel-green {
+  background-color: #D1FAE5;
+  color: #065F46;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.badge-pixel-purple {
+  background-color: #F3E8FF;
+  color: #6B21A8;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.badge-pixel-blue {
+  background-color: #E0F2FE;
+  color: #0369A1;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* CRT / Scanline subtle overlay */
+.scanlines {
+  position: relative;
+}
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%);
+  background-size: 100% 4px;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 /* Custom Scrollbar for Pre and JSON */
@@ -210,7 +273,7 @@ pre::-webkit-scrollbar-track {
 
 pre::-webkit-scrollbar-thumb {
   background: #FF6B2C;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .scrollbar-none::-webkit-scrollbar {

@@ -20,7 +20,9 @@ import {
   FileText,
   Lock,
   Check,
-  Server
+  Server,
+  Terminal,
+  Cpu
 } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { generateWhatsAppLink } from '../lib/whatsapp'
@@ -32,8 +34,10 @@ export function EnterpriseArchitectureSimulator() {
   // Tab 1 (RAG) State
   const [ragQuery, setRagQuery] = useState(
     language === 'ar'
-      ? 'كم بلغ صافي أرباح الفرع الرئيسي وما هي أكثر المنتجات مبيعاً بالربع الثالث؟'
-      : 'What was the Q3 net profit for the main branch, and what was the top seller?'
+      ? 'كم بلغ صافي أرباح الفرع وما هي المنتجات الأكثر طلباً؟'
+      : language === 'tr'
+      ? 'Merkez şubenin net karı ve en çok satan ürünler nelerdir?'
+      : 'What was the net profit and top-selling product?'
   )
   const [isSearchingRAG, setIsSearchingRAG] = useState(false)
 
@@ -55,285 +59,255 @@ export function EnterpriseArchitectureSimulator() {
     setIsSearchingRAG(true)
     setTimeout(() => {
       setIsSearchingRAG(false)
-    }, 400)
+    }, 350)
   }
 
   return (
-    <section id="simulator" className="w-full py-20 sm:py-28 bg-white border-b border-slate-200 relative">
-      
-      {/* Background Glow */}
-      <div className="absolute top-1/4 right-10 w-96 h-96 bg-purple-100/40 blur-[120px] rounded-full pointer-events-none" />
-
+    <section id="simulator" className="w-full py-16 sm:py-28 bg-[#FAFAF9] border-b-2 border-black bg-pixel-grid relative">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-[#D9480F] text-xs font-bold font-mono mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{language === 'ar' ? 'محاكي الحلول المباشر' : 'Live Interactive Simulator'}</span>
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white text-xs font-mono font-bold border-2 border-black shadow-[2px_2px_0px_#24CB71] mb-3">
+            <Terminal className="w-3.5 h-3.5 text-[#24CB71]" />
+            <span>{language === 'ar' ? 'المحاكي البكسلي المباشر' : language === 'tr' ? 'CANLI PİKSEL SİMÜLATÖR' : 'Live Interactive Sandbox'}</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight font-heading leading-snug">
-            {language === 'ar' ? 'جرّب كيف تعمل خدماتنا على أرض الواقع' : 'Experience How Our Services Transform Operations'}
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight font-heading leading-snug">
+            {language === 'ar' ? 'جرّب كيف تعمل خدماتنا على أرض الواقع' : language === 'tr' ? 'Hizmetlerimizin Nasıl Çalıştığını Canlı Test Edin' : 'Experience How Our Services Transform Operations'}
           </h2>
-          <p className="mt-3 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
             {language === 'ar'
               ? 'انقر بين التبويبات بالأسفل لاختبار استرجاع الذكاء الاصطناعي RAG، أتمتة خطوط البيانات، وتوفير التكاليف السحابية.'
+              : language === 'tr'
+              ? 'Aşağıdaki modüller arasında geçiş yaparak kurumsal RAG, otomatik ETL ve bulut tasarrufunu test edin.'
               : 'Switch tabs below to test enterprise RAG retrieval, ETL pipelines, and cloud cost savings.'}
           </p>
         </div>
 
-        {/* Interactive Sandbox Container */}
-        <div className="card-pastel-purple rounded-3xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl border-2 border-purple-200">
+        {/* 8-Bit Pixel Simulation Deck */}
+        <div className="card-pixel-dark rounded-none overflow-hidden shadow-[6px_6px_0px_#000] border-2 border-black scanlines text-white">
           
-          {/* Scrollable Tabs Header */}
-          <div className="p-3 sm:p-4 bg-slate-50 border-b border-purple-100 overflow-x-auto scrollbar-none">
-            <div className="flex items-center justify-between gap-2 min-w-max">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setActiveTab('rag')}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap min-h-[38px] ${
-                    activeTab === 'rag'
-                      ? 'bg-purple-600 text-white shadow-sm font-extrabold'
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                  }`}
-                >
-                  <Bot className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>{language === 'ar' ? '1. ذكاء اصطناعي و RAG' : '1. AI & RAG'}</span>
-                </button>
+          {/* Deck Tabs Header (Pixel buttons) */}
+          <div className="p-2 sm:p-3 bg-[#0B0F19] border-b-2 border-slate-700 overflow-x-auto scrollbar-none font-mono text-xs">
+            <div className="flex items-center gap-2 min-w-max">
+              <button
+                onClick={() => setActiveTab('rag')}
+                className={`px-3 py-1.5 border-2 border-black font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === 'rag'
+                    ? 'bg-purple-600 text-white shadow-[2px_2px_0px_#000]'
+                    : 'bg-[#161B22] text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                <Bot className="w-3.5 h-3.5" />
+                <span>[01_RAG]</span>
+              </button>
 
-                <button
-                  onClick={() => setActiveTab('etl')}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap min-h-[38px] ${
-                    activeTab === 'etl'
-                      ? 'bg-blue-600 text-white shadow-sm font-extrabold'
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                  }`}
-                >
-                  <Database className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>{language === 'ar' ? '2. أتمتة خطوط ETL' : '2. ETL Pipelines'}</span>
-                </button>
+              <button
+                onClick={() => setActiveTab('etl')}
+                className={`px-3 py-1.5 border-2 border-black font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === 'etl'
+                    ? 'bg-sky-600 text-white shadow-[2px_2px_0px_#000]'
+                    : 'bg-[#161B22] text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                <Database className="w-3.5 h-3.5" />
+                <span>[02_ETL]</span>
+              </button>
 
-                <button
-                  onClick={() => setActiveTab('cost')}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap min-h-[38px] ${
-                    activeTab === 'cost'
-                      ? 'bg-[#FF6B2C] text-white shadow-sm font-extrabold'
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                  }`}
-                >
-                  <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>{language === 'ar' ? '3. خفض تكاليف السحابة' : '3. Cloud ROI'}</span>
-                </button>
+              <button
+                onClick={() => setActiveTab('cost')}
+                className={`px-3 py-1.5 border-2 border-black font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === 'cost'
+                    ? 'bg-[#FF6B2C] text-white shadow-[2px_2px_0px_#000]'
+                    : 'bg-[#161B22] text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                <DollarSign className="w-3.5 h-3.5" />
+                <span>[03_OPTIMIZER]</span>
+              </button>
 
-                <button
-                  onClick={() => setActiveTab('dashboards')}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap min-h-[38px] ${
-                    activeTab === 'dashboards'
-                      ? 'bg-emerald-600 text-white shadow-sm font-extrabold'
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                  }`}
-                >
-                  <Activity className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>{language === 'ar' ? '4. تحليلات العمليات' : '4. Dashboards'}</span>
-                </button>
-              </div>
-
-              <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-mono font-bold text-slate-500 pr-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{language === 'ar' ? 'محاكي حي جاهز' : 'LIVE ENGINE READY'}</span>
-              </div>
+              <button
+                onClick={() => setActiveTab('dashboards')}
+                className={`px-3 py-1.5 border-2 border-black font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === 'dashboards'
+                    ? 'bg-[#24CB71] text-black shadow-[2px_2px_0px_#000]'
+                    : 'bg-[#161B22] text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                <Activity className="w-3.5 h-3.5" />
+                <span>[04_RADAR]</span>
+              </button>
             </div>
           </div>
 
-          {/* Sandbox Body */}
-          <div className="p-5 sm:p-8 bg-white min-h-[320px]">
-            
-            {/* View 1: RAG & AI Agent */}
-            {activeTab === 'rag' && (
-              <div className="space-y-4 sm:space-y-5" dir={isRTL ? 'rtl' : 'ltr'}>
-                <div>
-                  <div className="text-xs font-bold text-slate-700 mb-1.5">
-                    {language === 'ar' ? 'استعلام مباشر لمساعد الذكاء الاصطناعي المؤسسي (RAG):' : 'Direct Query to Enterprise RAG Copilot:'}
-                  </div>
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-semibold text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                    <span className="font-heading">{ragQuery}</span>
-                    <button
-                      onClick={handleSimulateRAG}
-                      className="px-3 py-1.5 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-mono font-bold transition-colors cursor-pointer self-start sm:self-auto flex items-center gap-1"
-                    >
-                      <RotateCw className={`w-3.5 h-3.5 ${isSearchingRAG ? 'animate-spin' : ''}`} />
-                      <span>{language === 'ar' ? 'إعادة الاستعلام (84ms)' : 'Re-Query (84ms)'}</span>
-                    </button>
-                  </div>
+          {/* Tab 1: RAG Neural Retrieval */}
+          {activeTab === 'rag' && (
+            <div className="p-4 sm:p-8 space-y-5" dir={isRTL ? 'rtl' : 'ltr'}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="font-mono text-xs text-purple-400 font-bold flex items-center gap-2">
+                  <span className="w-2 h-2 bg-purple-400" />
+                  <span>PRIVATE_VPC_NEURAL_SEARCH // 0% LEAKS</span>
                 </div>
-
-                {/* Grounded Fact Response Box */}
-                <div className="p-5 rounded-2xl bg-purple-50/70 border border-purple-200 space-y-3 shadow-2xs">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xs font-bold shadow-xs">
-                        AI
-                      </div>
-                      <span className="font-bold text-xs sm:text-sm text-purple-950 font-heading">
-                        {language === 'ar' ? 'إجابة دقيقة 100% موثقة بالمستندات (Zero Hallucination)' : '100% Fact-Checked RAG Response (Zero Hallucination)'}
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                      VERIFIED
-                    </span>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-slate-800 whitespace-pre-line leading-relaxed font-sans font-medium">
-                    {language === 'ar'
-                      ? 'وفقاً لسجلات المحاسبة وقاعدة بيانات المبيعات (المستند: Q3_Financials_Page14.pdf):\n• صافي أرباح الفرع الرئيسي: 248,500 ر.س (هامش 34.2%).\n• أكثر المنتجات مبيعاً: باقة الاشتراك الماسي (412 عملية بيع).\n• التحقق: تم تدقيق الأرقام ومطابقتها مع قيود الحسابات بنسبة دقة 100% دون أي تخمين.'
-                      : 'According to accounting records and sales database (Document: Q3_Financials_Page14.pdf):\n• Main Branch Net Profit: $66,200 (34.2% margin).\n• Top Selling Product: Diamond Plan (412 units).\n• Verification: 100% fact-checked against internal ERP records with zero hallucination.'}
-                  </p>
-
-                  <div className="pt-2 border-t border-purple-200/60 flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-600">
-                    <span className="font-bold text-slate-700">{language === 'ar' ? 'المصادر المستند إليها:' : 'Cited Documents:'}</span>
-                    <span className="px-2.5 py-0.5 rounded-lg bg-white border border-purple-200 text-purple-900 font-bold">
-                      📄 Q3_Financials_Page14.pdf
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-lg bg-white border border-purple-200 text-purple-900 font-bold">
-                      🗄️ Sales_Postgres_Table_v2
-                    </span>
-                  </div>
-                </div>
+                <span className="text-xs font-mono text-[#24CB71]">[VECTOR_INDEX: OK]</span>
               </div>
-            )}
 
-            {/* View 2: ETL Pipelines */}
-            {activeTab === 'etl' && (
-              <div className="space-y-4 sm:space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
-                <div className="text-xs font-bold text-slate-700">
-                  {language === 'ar' ? 'خط الأنابيب المؤتمت: توحيد قنوات المبيعات والإعلانات آلياً' : 'Automated Ingestion: Unifying Sales, Ads & Accounting in Real Time'}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-center">
-                    <div className="text-xs font-bold text-blue-900 mb-1">{language === 'ar' ? 'المتاجر (سلة / زد / Shopify)' : 'E-Commerce Stores'}</div>
-                    <div className="text-lg font-black font-mono text-blue-700">1,480 {language === 'ar' ? 'طلب جديد' : 'Orders'}</div>
-                    <span className="text-[11px] text-emerald-600 font-semibold">✓ {language === 'ar' ? 'تزامن لحظي' : 'Synced'}</span>
-                  </div>
-
-                  <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-center">
-                    <div className="text-xs font-bold text-blue-900 mb-1">{language === 'ar' ? 'حملات إعلانات (Meta / Google)' : 'Ad Spend & CAC'}</div>
-                    <div className="text-lg font-black font-mono text-blue-700">18,200 {language === 'ar' ? 'ر.س مصروف' : '$ Spend'}</div>
-                    <span className="text-[11px] text-emerald-600 font-semibold">✓ ROAS: 4.8x</span>
-                  </div>
-
-                  <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-center">
-                    <div className="text-xs font-bold text-blue-900 mb-1">{language === 'ar' ? 'النظام المحاسبي و ERP' : 'Accounting & ERP'}</div>
-                    <div className="text-lg font-black font-mono text-emerald-700">{language === 'ar' ? 'مطابق 100%' : '100% Matched'}</div>
-                    <span className="text-[11px] text-slate-500 font-semibold">{language === 'ar' ? 'دون أي تضارب' : 'Zero Discrepancy'}</span>
-                  </div>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700 font-mono flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5">
-                  <span>Postgres Lakehouse ➔ dbt transform ➔ Clean Single Source of Truth</span>
-                  <span className="text-emerald-600 font-bold">24/7 ACTIVE</span>
-                </div>
-              </div>
-            )}
-
-            {/* View 3: Cost Optimizer */}
-            {activeTab === 'cost' && (
-              <div className="space-y-4 sm:space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs sm:text-sm font-extrabold text-slate-900 font-heading">
-                      {language === 'ar' ? 'فاتورتك السحابية الحالية شهرياً:' : 'Current Monthly Cloud Bill:'}
-                    </label>
-                    <span className="text-base sm:text-lg font-extrabold font-mono text-[#D9480F]">
-                      {monthlySpend.toLocaleString()} {language === 'ar' ? 'ر.س / شهر' : '$ / mo'}
-                    </span>
-                  </div>
+              {/* Mock Search Bar */}
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="relative flex-1">
                   <input
-                    type="range"
-                    min="3000"
-                    max="100000"
-                    step="1000"
-                    value={monthlySpend}
-                    onChange={(e) => setMonthlySpend(Number(e.target.value))}
-                    className="w-full h-2.5 bg-orange-100 rounded-lg appearance-none cursor-pointer accent-[#FF6B2C]"
+                    type="text"
+                    value={ragQuery}
+                    onChange={(e) => setRagQuery(e.target.value)}
+                    className="w-full pl-3 pr-3 py-2.5 bg-black border-2 border-slate-700 text-xs sm:text-sm text-white font-sans focus:border-purple-500 outline-none"
+                    placeholder="Enter business question..."
                   />
                 </div>
+                <button
+                  onClick={handleSimulateRAG}
+                  className="px-4 py-2.5 btn-pixel-primary font-mono text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Search className="w-3.5 h-3.5" />
+                  <span>{language === 'ar' ? 'تنفيذ استعلام RAG' : language === 'tr' ? 'Sorguyu Çalıştır' : 'Execute Query'}</span>
+                </button>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 rounded-2xl bg-orange-50/70 border border-orange-200">
-                  <div>
-                    <span className="text-xs text-slate-600 block mb-1">
-                      {language === 'ar' ? 'الوفر المالي الشهري (52% خفض):' : 'Estimated Monthly Savings (52%):'}
-                    </span>
-                    <div className="text-2xl sm:text-3xl font-black font-mono text-[#D9480F]">
-                      {calculatedSavings.toLocaleString()} {language === 'ar' ? 'ر.س / شهر' : '$ / mo'}
-                    </div>
-                  </div>
+              {/* RAG Fact Output Box */}
+              <div className="p-4 bg-black border-2 border-slate-800 space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between text-slate-400 text-[11px] border-b border-slate-900 pb-2">
+                  <span>GROUNDED_OUTPUT:</span>
+                  <span className="text-[#24CB71]">LATENCY: 84ms</span>
+                </div>
 
-                  <div>
-                    <span className="text-xs text-slate-600 block mb-1">
-                      {language === 'ar' ? 'الوفر السنوي التراكمي المتوقع:' : 'Projected Annual Savings:'}
-                    </span>
-                    <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-700">
-                      {annualSavings.toLocaleString()} {language === 'ar' ? 'ر.س / سنة' : '$ / year'}
-                    </div>
-                  </div>
+                <p className="text-slate-200 leading-relaxed font-sans text-xs sm:text-sm">
+                  {language === 'ar'
+                    ? 'وفقاً لبيانات نظام المحاسبة وتقارير الفرع (المستند: Q3_Financials_v2.pdf - صفحة 14): بلغ صافي الأرباح 428,500 ر.س بنمو 22.4%، وتصدرت باقة الخدمات الهندسية قائمة المبيعات.'
+                    : language === 'tr'
+                    ? 'ERP muhasebe ve şube raporlarına göre (Belge: Q3_Mali_Rapor.pdf - Sayfa 14): Net kar %22,4 artışla 428.500 TL olarak gerçekleşmiş ve veri mühendisliği paketi en çok satan kalem olmuştur.'
+                    : 'According to ERP accounting reports (Source: Q3_Financials_v2.pdf - Page 14): Net profit reached $428,500 (+22.4% YoY) led by Enterprise Data Engineering.'}
+                </p>
+
+                <div className="flex items-center gap-2 pt-1 text-[11px] text-purple-300">
+                  <span className="w-2 h-2 bg-purple-400" />
+                  <span>{language === 'ar' ? 'مستند موثق 100% بدون هلوسة' : language === 'tr' ? '%100 Doğrulanmış Kaynak' : '100% Fact Checked Citation'}</span>
                 </div>
               </div>
-            )}
-
-            {/* View 4: Real-time Dashboards */}
-            {activeTab === 'dashboards' && (
-              <div className="space-y-4 sm:space-y-5" dir={isRTL ? 'rtl' : 'ltr'}>
-                <div className="text-xs font-bold text-slate-700">
-                  {language === 'ar' ? 'لوحة تحكم تنفيذية مع تنبيهات واتساب الفورية:' : 'Executive Real-Time Dashboard with WhatsApp Alerts:'}
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                    <span className="text-[11px] text-slate-500 block mb-1">{language === 'ar' ? 'صافي المبيعات' : "Revenue"}</span>
-                    <div className="text-lg font-black font-mono text-slate-950">28,450 {language === 'ar' ? 'ر.س' : '$'}</div>
-                    <span className="text-[10px] text-emerald-600 font-bold">+18.2%</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                    <span className="text-[11px] text-slate-500 block mb-1">{language === 'ar' ? 'هامش الربح' : 'Margin'}</span>
-                    <div className="text-lg font-black font-mono text-emerald-700">38.4%</div>
-                    <span className="text-[10px] text-slate-500">{language === 'ar' ? 'مستقر' : 'Healthy'}</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                    <span className="text-[11px] text-slate-500 block mb-1">{language === 'ar' ? 'المخزون' : 'Stock'}</span>
-                    <div className="text-xs sm:text-sm font-bold text-amber-700">{language === 'ar' ? '3 أصناف منخفضة' : '3 Items Low'}</div>
-                    <span className="text-[10px] text-slate-500">{language === 'ar' ? 'تنبيه آلي' : 'Auto Alert'}</span>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                    <span className="text-[11px] text-slate-500 block mb-1">{language === 'ar' ? 'التنبيهات' : 'Channel'}</span>
-                    <div className="text-xs sm:text-sm font-bold text-emerald-700">WhatsApp</div>
-                    <span className="text-[10px] text-emerald-600 font-semibold">{WHATSAPP_CONFIG.displayNumber}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </div>
-
-          {/* Action Footer */}
-          <div className="p-4 sm:p-5 bg-slate-50 border-t border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-xs text-slate-700 font-sans text-center sm:text-right">
-              {language === 'ar'
-                ? 'تريد تطبيق هذه الحلول على أنظمة وبيانات شركتك مباشرة؟'
-                : 'Ready to deploy these architectures across your infrastructure?'}
             </div>
+          )}
 
+          {/* Tab 2: ETL Pipeline Stream */}
+          {activeTab === 'etl' && (
+            <div className="p-4 sm:p-8 space-y-5" dir={isRTL ? 'rtl' : 'ltr'}>
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3 font-mono text-xs">
+                <span className="text-sky-400 font-bold">ETL_STREAM_MONITOR // 3 ACTIVE CHANNELS</span>
+                <span className="text-[#24CB71]">[24/7 AUTO SYNC]</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+                <div className="p-3 bg-black border border-slate-800 space-y-1">
+                  <span className="text-[10px] text-slate-500 block">E-COM SOURCE</span>
+                  <strong className="text-white text-xs block truncate">Salla / Shopify</strong>
+                  <span className="text-[#24CB71] text-[10px]">SYNCED: 1,420 orders</span>
+                </div>
+
+                <div className="p-3 bg-black border border-slate-800 space-y-1">
+                  <span className="text-[10px] text-slate-500 block">MARKETING ADS</span>
+                  <strong className="text-white text-xs block truncate">Meta &amp; Google Ads</strong>
+                  <span className="text-[#24CB71] text-[10px]">SYNCED: ROAS 3.8x</span>
+                </div>
+
+                <div className="p-3 bg-black border border-slate-800 space-y-1">
+                  <span className="text-[10px] text-slate-500 block">ERP ACCOUNTING</span>
+                  <strong className="text-white text-xs block truncate">Odoo / ERP Ledger</strong>
+                  <span className="text-[#24CB71] text-[10px]">MATCHED: 100% reconciled</span>
+                </div>
+              </div>
+
+              <div className="p-3 bg-[#161B22] border border-sky-500/50 flex items-center justify-between font-mono text-xs text-sky-200">
+                <span>&gt; RECONCILIATION_ENGINE: ZERO_EXCEL_REQUIRED</span>
+                <span className="text-[#24CB71] font-bold">[ONLINE]</span>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: Cloud & DB Cost Optimizer */}
+          {activeTab === 'cost' && (
+            <div className="p-4 sm:p-8 space-y-5" dir={isRTL ? 'rtl' : 'ltr'}>
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3 font-mono text-xs">
+                <span className="text-[#FF6B2C] font-bold">CLOUD_COMPUTE_ROI_CALCULATOR</span>
+                <span className="text-[#24CB71]">[ESTIMATED: 52% TRIM]</span>
+              </div>
+
+              {/* Slider for monthly spend */}
+              <div className="space-y-2 font-mono">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-400">
+                    {language === 'ar' ? 'فاتورة السحابة وقواعد البيانات الحالية:' : language === 'tr' ? 'Mevcut Aylık Bulut Faturanız:' : 'Current Monthly Cloud Spend:'}
+                  </span>
+                  <strong className="text-[#FF6B2C] text-sm">${monthlySpend.toLocaleString()} / mo</strong>
+                </div>
+                <input
+                  type="range"
+                  min={3000}
+                  max={50000}
+                  step={1000}
+                  value={monthlySpend}
+                  onChange={(e) => setMonthlySpend(Number(e.target.value))}
+                  className="w-full accent-[#FF6B2C] cursor-pointer"
+                />
+              </div>
+
+              {/* Metric Card */}
+              <div className="grid grid-cols-2 gap-3 font-mono text-xs">
+                <div className="p-3 bg-black border border-slate-800">
+                  <span className="text-[10px] text-slate-500 block">MONTHLY SAVINGS</span>
+                  <strong className="text-[#24CB71] text-sm sm:text-base font-bold">${calculatedSavings.toLocaleString()}</strong>
+                </div>
+                <div className="p-3 bg-black border border-slate-800">
+                  <span className="text-[10px] text-slate-500 block">ANNUAL SAVINGS</span>
+                  <strong className="text-[#24CB71] text-sm sm:text-base font-bold">${annualSavings.toLocaleString()}</strong>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 4: Live Telemetry Radar */}
+          {activeTab === 'dashboards' && (
+            <div className="p-4 sm:p-8 space-y-5" dir={isRTL ? 'rtl' : 'ltr'}>
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3 font-mono text-xs">
+                <span className="text-[#24CB71] font-bold">OPERATIONAL_TELEMETRY // LIVE FEED</span>
+                <span className="text-[#24CB71]">[RADAR: ACTIVE]</span>
+              </div>
+
+              <div className="p-3 bg-black border border-slate-800 space-y-2 font-mono text-xs">
+                <div className="flex items-center justify-between text-[#24CB71]">
+                  <span>WHATSAPP_ALERT_TRIGGER:</span>
+                  <span>[DISPATCHED]</span>
+                </div>
+                <p className="text-slate-300 font-sans text-xs">
+                  {language === 'ar'
+                    ? 'تم إرسال إشعار فوري لإدارة المبيعات على واتساب: نمو المبيعات تجاوز المستهدف بنسبة 18.2% وتم تفادي نفاذ المخزون آلياً.'
+                    : language === 'tr'
+                    ? 'WhatsApp bildirimi iletildi: Satış hedefi %18,2 aşıldı ve kritik stok seviyesi otomatik olarak bildirildi.'
+                    : 'Instant WhatsApp alert sent to Ops Lead: Sales exceeded target by 18.2% and low inventory anomaly mitigated.'}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Bottom Action Footer */}
+          <div className="p-4 bg-[#0D1117] border-t-2 border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono">
+            <span className="text-xs text-slate-400">
+              {language === 'ar' ? 'تحدث مباشرة مع مهندس البيانات المسؤول:' : language === 'tr' ? 'Kıdemli veri mühendisimizle canlı görüşün:' : 'Connect directly with lead engineer:'}
+            </span>
             <a
               href={simulatorWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl btn-rpc-orange font-bold text-xs shadow-sm cursor-pointer min-h-[40px]"
+              className="w-full sm:w-auto px-5 py-2.5 btn-pixel-green font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer font-sans"
             >
-              <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
-              <span>{language === 'ar' ? 'طلب دراسة تطبيق للحلول عبر واتساب' : 'Inquire on WhatsApp (+90 553 745 76 44)'}</span>
+              <MessageCircle className="w-4 h-4 fill-current" />
+              <span>{language === 'ar' ? 'مناقشة خطة التطوير عبر واتساب' : language === 'tr' ? 'Geliştirme Planını WhatsApp ile Görüş' : 'Discuss Implementation on WhatsApp'}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 

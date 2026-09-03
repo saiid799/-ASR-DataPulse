@@ -12,9 +12,9 @@ export function BrandLogo({ size = 'md', showTagline = false, className = '' }: 
   const { language } = useLanguage()
 
   const iconSizes = {
-    sm: 'w-6 h-6 sm:w-8 sm:h-8',
-    md: 'w-7 h-7 sm:w-9 sm:h-9',
-    lg: 'w-9 h-9 sm:w-11 sm:h-11',
+    sm: 'w-7 h-7 sm:w-8 sm:h-8',
+    md: 'w-8 h-8 sm:w-9 sm:h-9',
+    lg: 'w-10 h-10 sm:w-12 sm:h-12',
   }
 
   const textSizes = {
@@ -26,78 +26,59 @@ export function BrandLogo({ size = 'md', showTagline = false, className = '' }: 
   return (
     <div className={`flex items-center gap-2 sm:gap-2.5 group cursor-pointer select-none ${className}`}>
       
-      {/* Bespoke 3D Neural DataPulse Monogram Icon */}
+      {/* 8-Bit Pixel Art Monogram Icon Box */}
       <motion.div
-        whileHover={{ scale: 1.05, rotate: 2 }}
-        whileTap={{ scale: 0.95 }}
-        className={`${iconSizes[size]} relative flex items-center justify-center rounded-xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-1 sm:p-1.5 shadow-sm border border-slate-800/80 group-hover:border-[#FF6B2C]/60 transition-all duration-300 flex-shrink-0`}
+        whileHover={{ scale: 1.06, rotate: -2 }}
+        whileTap={{ scale: 0.94 }}
+        className={`${iconSizes[size]} relative flex items-center justify-center bg-black border-2 border-black shadow-[2px_2px_0px_#FF6B2C] group-hover:shadow-[3px_3px_0px_#24CB71] p-1 transition-all duration-150 flex-shrink-0`}
       >
-        {/* Ambient Glow inside */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B2C]/20 via-transparent to-[#38BDF8]/20 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity" />
+        {/* Pixel Matrix SVG */}
+        <svg viewBox="0 0 32 32" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg" shapeRendering="crispEdges">
+          {/* Pixelated Hexagon Frame */}
+          <rect x="10" y="2" width="12" height="3" fill="#38BDF8" />
+          <rect x="4" y="5" width="6" height="3" fill="#38BDF8" />
+          <rect x="22" y="5" width="6" height="3" fill="#38BDF8" />
+          <rect x="2" y="8" width="3" height="16" fill="#38BDF8" />
+          <rect x="27" y="8" width="3" height="16" fill="#38BDF8" />
+          <rect x="4" y="24" width="6" height="3" fill="#38BDF8" />
+          <rect x="22" y="24" width="6" height="3" fill="#38BDF8" />
+          <rect x="10" y="27" width="12" height="3" fill="#38BDF8" />
 
-        {/* Custom SVG Monogram */}
-        <svg viewBox="0 0 100 100" className="w-full h-full relative z-10 overflow-visible" fill="none">
-          <defs>
-            <linearGradient id="logoPulseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFA45B" />
-              <stop offset="50%" stopColor="#FF6B2C" />
-              <stop offset="100%" stopColor="#D9480F" />
-            </linearGradient>
-            <linearGradient id="logoNeuralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38BDF8" />
-              <stop offset="100%" stopColor="#818CF8" />
-            </linearGradient>
-          </defs>
+          {/* Pixel 'A' Monogram Backbone */}
+          <rect x="13" y="7" width="6" height="3" fill="#FFFFFF" />
+          <rect x="10" y="10" width="3" height="14" fill="#FFFFFF" />
+          <rect x="19" y="10" width="3" height="14" fill="#FFFFFF" />
+          <rect x="13" y="16" width="6" height="3" fill="#FFFFFF" />
 
-          <path
-            d="M 50 12 L 84 32 L 84 68 L 50 88 L 16 68 L 16 32 Z"
-            stroke="url(#logoNeuralGrad)"
-            strokeWidth="4"
-            strokeLinejoin="round"
-            opacity="0.3"
-          />
-
-          <path
-            d="M 28 68 L 42 30 L 58 30 L 72 68 M 36 55 L 64 55"
-            stroke="#FFFFFF"
-            strokeWidth="5.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-
-          <path
-            d="M 54 22 L 40 48 L 54 48 L 46 76 L 66 42 L 52 42 Z"
-            fill="url(#logoPulseGrad)"
-            filter="drop-shadow(0 2px 4px rgba(255,107,44,0.6))"
-          />
-
-          <circle cx="50" cy="12" r="3" fill="#38BDF8" />
-          <circle cx="84" cy="32" r="2.5" fill="#A855F7" />
-          <circle cx="16" cy="32" r="2.5" fill="#FF6B2C" />
+          {/* Stepped Pixel Lightning / Data Pulse */}
+          <rect x="16" y="6" width="3" height="4" fill="#FF6B2C" />
+          <rect x="13" y="10" width="4" height="3" fill="#FF6B2C" />
+          <rect x="11" y="13" width="5" height="3" fill="#FF8540" />
+          <rect x="16" y="16" width="6" height="3" fill="#FFA45B" />
+          <rect x="14" y="19" width="4" height="3" fill="#FF6B2C" />
+          <rect x="12" y="22" width="3" height="4" fill="#D9480F" />
         </svg>
 
-        {/* Live Status LED Dot */}
-        <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#FF6B2C] ring-2 ring-white animate-pulse" />
+        {/* 8-Bit Glowing Pixel Status LED */}
+        <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#24CB71] border border-black animate-pulse" />
       </motion.div>
 
       {/* Brand Typography */}
       <div className="flex flex-col">
         <div className={`flex items-center gap-1 font-heading tracking-tight leading-none ${textSizes[size]}`}>
-          <span className="font-black text-slate-950 font-heading">
+          <span className="font-black text-black font-heading">
             ASR
           </span>
-          <span className="font-extrabold bg-gradient-to-r from-[#FF6B2C] via-[#FF8540] to-[#D9480F] bg-clip-text text-transparent">
+          <span className="font-black text-[#FF6B2C] font-heading underline decoration-2 decoration-black underline-offset-4">
             DataPulse
           </span>
         </div>
 
         {showTagline && (
-          <div className="hidden md:flex items-center gap-1.5 mt-0.5">
-            <span className="text-[9px] font-mono tracking-wider uppercase text-slate-500 font-semibold leading-none">
-              {language === 'ar' ? 'هندسة البيانات والذكاء الاصطناعي' : 'Enterprise Data & AI'}
+          <div className="hidden md:flex items-center gap-1.5 mt-1">
+            <span className="text-[9px] font-mono tracking-wider uppercase text-slate-700 font-bold leading-none bg-slate-100 px-1.5 py-0.5 border border-slate-300">
+              {language === 'ar' ? 'هندسة البيانات والذكاء الاصطناعي' : language === 'tr' ? 'Veri Mühendisliği & Yapay Zeka' : 'Enterprise Data & AI'}
             </span>
-            <span className="w-1 h-1 rounded-full bg-emerald-500 animate-ping" />
           </div>
         )}
       </div>
