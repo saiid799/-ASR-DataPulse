@@ -14,330 +14,341 @@ import {
   Terminal,
   Cpu,
   Lock,
-  Layers,
-  CheckSquare
+  CheckCircle2,
+  DollarSign,
+  TrendingUp,
+  FileSearch,
+  Check,
+  Server
 } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { generateWhatsAppLink, WHATSAPP_CONFIG } from '../lib/whatsapp'
 
 export function HeroSection() {
   const { language, isRTL, t } = useLanguage()
-  const [activeService, setActiveService] = useState<'rag' | 'etl' | 'opt' | 'dash'>('rag')
+  const [activeTab, setActiveTab] = useState<'rag' | 'etl' | 'opt' | 'dash'>('rag')
 
-  const serviceData = {
+  const tabData = {
     rag: {
       id: 'rag',
-      code: '01_RAG',
-      titleAr: '1. بنية الذكاء الاصطناعي RAG الآمنة',
-      titleEn: '1. Secure AI & Enterprise RAG',
-      titleTr: '1. Güvenli Yapay Zeka & Kurumsal RAG',
-      descAr: 'ربط آمن للوثائق وقواعد البيانات دون تسريب مع منع الهلوسة 100%.',
-      descEn: 'Zero-hallucination, private document RAG inside your VPC.',
-      descTr: 'Özel VPC içinde sıfır halüsinasyonlu kurumsal RAG mimarisi.',
-      statVal: '100%',
-      statLblAr: 'دقة وتوثيق المستندات',
-      statLblEn: 'Fact-Grounded Accuracy',
-      statLblTr: 'Kaynak Doğruluğu',
-      tagBg: 'badge-pixel-purple',
-      whatsappMsgAr: 'السلام عليكم، أود استشارة حول ربط الذكاء الاصطناعي RAG ببيانات شركتنا.',
-      whatsappMsgEn: 'Hello, inquiring about enterprise RAG and AI data integration.',
-      whatsappMsgTr: 'Merhaba, şirketimiz için kurumsal RAG ve yapay zeka veri entegrasyonu hakkında bilgi almak istiyorum.',
-      badgeText: '[RAG_CORE_V1]',
+      code: '01. RAG AI',
+      navLabelAr: 'ذكاء اصطناعي RAG',
+      navLabelEn: 'AI & RAG',
+      navLabelTr: 'Yapay Zeka RAG',
+      titleAr: 'ذكاء اصطناعي آمن يجيب من وثائق وأرقام شركتك بدقة 100%',
+      titleEn: 'Zero-Leak AI Answering Directly from Your Private Company Docs',
+      titleTr: 'Şirket Belgelerinizden Beslenen %100 Güvenli Kurumsal Yapay Zeka',
+      userQueryAr: 'ما هي المنتجات الأكثر ربحية هذا الربع ومقارنتها بالعام الماضي؟',
+      userQueryEn: 'What are our highest-margin products this quarter vs last year?',
+      userQueryTr: 'Bu çeyrekte en yüksek kar marjına sahip ürünler ve geçen yıl kıyası nedir?',
+      aiAnswerAr: 'بناءً على فواتير المبيعات ونظام المحاسبة (سجل Q3_Sales.pdf - ص 18): تصدرت باقة المؤسسات بصافي أرباح 428,500 ر.س بنمو +24.8%.',
+      aiAnswerEn: 'Based on verified ERP invoices (Q3_Sales.pdf - Page 18): Enterprise Tier led with $428,500 net profit (+24.8% YoY).',
+      aiAnswerTr: 'Doğrulanmış ERP ve satış kayıtlarına göre (Q3_Rapor.pdf - Sayfa 18): Kurumsal Paket 428.500 TL net kar (+%24.8 büyüme) ile birinci sıradadır.',
+      badgeAr: 'دقة 100% موثقة برقم الصفحة',
+      badgeEn: '100% Fact Checked Citation',
+      badgeTr: '%100 Kaynak Doğrulamalı',
+      kpiVal: '100%',
+      kpiLabelAr: 'انعدام الهلوسة',
+      kpiLabelEn: 'Zero Hallucination',
+      kpiLabelTr: 'Sıfır Hata',
+      kpiColor: 'text-[#24CB71]',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول ربط الذكاء الاصطناعي وبنية RAG الآمنة ببيانات شركتنا.',
+        en: 'Hello, inquiring about private enterprise RAG and AI data integration.',
+        tr: 'Merhaba, şirketimiz için özel kurumsal RAG ve yapay zeka altyapısı hakkında bilgi almak istiyorum.',
+      },
     },
     etl: {
       id: 'etl',
-      code: '02_ETL',
-      titleAr: '2. أتمتة خطوط البيانات ETL',
-      titleEn: '2. Automated ETL Pipelines',
-      titleTr: '2. Otomatik ETL Veri Boru Hatları',
-      descAr: 'دمج المبيعات، الإعلانات، وأنظمة ERP المحاسبية في مكان موحد.',
-      descEn: 'Autonomous data pipelines connecting Shopify, Ads & ERP.',
-      descTr: 'E-ticaret, reklam ve ERP verilerini tek merkezde toplayan veri hatları.',
-      statVal: '24/7',
-      statLblAr: 'تزامن آلي دون إكسل يدوي',
-      statLblEn: 'Automated Sync, Zero Excel',
-      statLblTr: '7/24 Otomatik Eşitleme',
-      tagBg: 'badge-pixel-blue',
-      whatsappMsgAr: 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات وربط أنظمتنا المحاسبية والمبيعات.',
-      whatsappMsgEn: 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
-      whatsappMsgTr: 'Merhaba, otomatik ETL veri boru hatları ve e-ticaret/ERP entegrasyonu hakkında danışmanlık almak istiyorum.',
-      badgeText: '[ETL_STREAM_V2]',
+      code: '02. ETL SYNC',
+      navLabelAr: 'أتمتة المبيعات والحسابات',
+      navLabelEn: 'Automated ETL',
+      navLabelTr: 'Otomatik Veri Hatları',
+      titleAr: 'دمج آلي فوري بين مبيعات المتاجر، الإعلانات، ونظام المحاسبة',
+      titleEn: 'Real-Time Sync Across E-Commerce, Ad Spend & ERP Accounting',
+      titleTr: 'E-Ticaret, Reklam ve Muhasebe Verilerinizin 7/24 Otomatik Eşitlemesi',
+      userQueryAr: 'تزامن لحظي لبيانات: سلة / زد / Shopify + Meta Ads + Odoo ERP',
+      userQueryEn: 'Live Ingestion: Shopify/Salla + Meta Ads + ERP Accounting',
+      userQueryTr: 'Anlık Eşitleme: E-Ticaret + Meta/Google Ads + ERP Muhasebe',
+      aiAnswerAr: 'تمت مطابقة 1,840 طلب وحساب تكلفة الإعلانات ومطابقتها دفترياً تلقائياً دون الحاجة لأي ملف إكسل يدوي.',
+      aiAnswerEn: '1,840 orders reconciled with ad spend & ledger accounts automatically. Zero manual spreadsheets required.',
+      aiAnswerTr: '1.840 sipariş, reklam maliyetleri ve muhasebe kayıtları otomatik mutabakatla birleştirildi. Manuel Excel ihtiyacı sıfırlandı.',
+      badgeAr: 'تزامن آلي 24/7 دون إكسل',
+      badgeEn: 'Autonomous 24/7 Sync',
+      badgeTr: '7/24 Otomatik Eşitleme',
+      kpiVal: '0 Excel',
+      kpiLabelAr: 'أتمتة كاملة للعمليات',
+      kpiLabelEn: 'Zero Manual Work',
+      kpiLabelTr: 'Tam Otomasyon',
+      kpiColor: 'text-sky-400',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول أتمتة خطوط البيانات وربط المبيعات بالنظام المحاسبي.',
+        en: 'Hello, inquiring about automated ETL data pipelines and ERP integration.',
+        tr: 'Merhaba, otomatik veri boru hatları ve e-ticaret/ERP entegrasyonu hakkında bilgi almak istiyorum.',
+      },
     },
     opt: {
       id: 'opt',
-      code: '03_OPT',
-      titleAr: '3. تحسين السحابة وقواعد البيانات',
-      titleEn: '3. Cloud & DB Optimization',
-      titleTr: '3. Veritabanı & Bulut Optimizasyonu',
-      descAr: 'تسريع الاستعلامات وتخفيض فواتير السحابة بنسبة 30% إلى 60% فوراً.',
-      descEn: '10x faster queries & slash cloud spend by up to 60% with direct ROI.',
-      descTr: '10 kat sorgu hızı ve bulut faturalarında %50+ doğrudan tasarruf.',
-      statVal: '52%',
-      statLblAr: 'متوسط وفر مالي شهري',
-      statLblEn: 'Direct Monthly Savings',
-      statLblTr: 'Aylık Fatura Tasarrufu',
-      tagBg: 'badge-pixel-orange',
-      whatsappMsgAr: 'السلام عليكم، أود استشارة حول فحص قواعد البيانات وخفض فواتير السحابة.',
-      whatsappMsgEn: 'Hello, inquiring about database performance and cloud cost reduction.',
-      whatsappMsgTr: 'Merhaba, veritabanı performans analizi ve bulut maliyetlerini düşürme konusunda görüşmek istiyorum.',
-      badgeText: '[ROI_BOOST_V3]',
-    },
-    dash: {
-      id: 'dash',
-      code: '04_DASH',
-      titleAr: '4. تحليلات العمليات والمراقبة',
-      titleEn: '4. Operational Dashboards',
-      titleTr: '4. Operasyonel Paneller & WhatsApp',
-      descAr: 'لوحات عربية تفاعلية للمبيعات والأرباح مع تنبيهات واتساب لحظية.',
-      descEn: 'Real-time KPI decision screens with instant WhatsApp alerts.',
-      descTr: 'Anlık yönetici göstergeleri ve otomatik WhatsApp uyarı sistemleri.',
-      statVal: '10x',
-      statLblAr: 'سرعة اتخاذ القرار بالوقت الفعلي',
-      statLblEn: 'Real-time Decision Velocity',
-      statLblTr: 'Anlık Karar Hızı',
-      tagBg: 'badge-pixel-green',
-      whatsappMsgAr: 'السلام عليكم، أود استشارة حول بناء لوحة تحكم تفاعلية مع تنبيهات واتساب.',
-      whatsappMsgEn: 'Hello, inquiring about real-time dashboards and automated WhatsApp alerts.',
-      whatsappMsgTr: 'Merhaba, anlık yönetici panelleri ve otomatik WhatsApp uyarı sistemleri hakkında bilgi almak istiyorum.',
-      badgeText: '[RADAR_OPS_V4]',
+      code: '03. CLOUD ROI',
+      navLabelAr: 'توفير فواتير السحابة 52%',
+      navLabelEn: 'Cloud Optimization',
+      navLabelTr: 'Bulut Tasarrufu (%52)',
+      titleAr: 'تسريع استعلامات قواعد البيانات وخفض فواتير السحابة إلى النصف',
+      titleEn: '10x Faster Database Queries & Cut Cloud Compute Invoices by 52%',
+      titleTr: '10 Kat Hızlı Veritabanı Sorguları ve %52 Doğrudan Bulut Faturası Tasarrufu',
+      userQueryAr: 'فحص استعلامات SQL البطيئة وإعادة ضبط خوادم AWS و Snowflake و GCP',
+      userQueryEn: 'Audit slow SQL queries & rightsize AWS / Snowflake / GCP compute',
+      userQueryTr: 'Yavaş SQL sorgularının iyileştirilmesi ve AWS / Snowflake optimizasyonu',
+      aiAnswerAr: 'انخفضت الفاتورة الشهرية من 15,000$ إلى 7,200$ مع تسريع فتح التقارير من 18 ثانية إلى 1.2 ثانية فقط.',
+      aiAnswerEn: 'Monthly bill trimmed from $15,000 to $7,200 while reporting load time accelerated from 18s to 1.2s.',
+      aiAnswerTr: 'Aylık bulut faturası 15.000 dolardan 7.200 dolara düşürüldü; rapor yüklenme süresi 18 saniyeden 1.2 saniyeye indi.',
+      badgeAr: 'وفر مباشر 52% في المصاريف',
+      badgeEn: '52% Direct Cloud ROI',
+      badgeTr: '%52 Doğrudan Tasarruf',
+      kpiVal: '52%',
+      kpiLabelAr: 'وفر فواتير السحابة',
+      kpiLabelEn: 'Cloud Cost Cut',
+      kpiLabelTr: 'Maliyet Düşüşü',
+      kpiColor: 'text-[#FF6B2C]',
+      whatsappPrompt: {
+        ar: 'السلام عليكم، أود استشارة حول تسريع قواعد البيانات وتخفيض فواتير السحابة لمنشأتنا.',
+        en: 'Hello, inquiring about database performance optimization and cloud cost reduction.',
+        tr: 'Merhaba, veritabanı hızlandırma ve bulut maliyet tasarrufu danışmanlığı almak istiyorum.',
+      },
     },
   }
 
-  const current = serviceData[activeService]
+  const current = tabData[activeTab]
 
-  const heroWhatsAppUrl = generateWhatsAppLink(
+  const mainWhatsAppUrl = generateWhatsAppLink(
     {
-      ar: current.whatsappMsgAr,
-      en: current.whatsappMsgEn,
-      tr: current.whatsappMsgTr,
+      ar: 'السلام عليكم، أود بدء استشارة فنية حول خدمات هندسة البيانات والذكاء الاصطناعي لمنشأتنا.',
+      en: 'Hello, I would like to start a consultation on enterprise data architecture and AI.',
+      tr: 'Merhaba, şirketimiz için veri mimarisi ve yapay zeka altyapısı hakkında danışmanlık almak istiyorum.',
     },
     language
   )
 
+  const tabWhatsAppUrl = generateWhatsAppLink(current.whatsappPrompt, language)
+
   return (
     <section
       id="hero"
-      className="relative w-full pt-20 sm:pt-28 pb-12 sm:pb-20 bg-pixel-grid overflow-hidden border-b-2 border-black"
+      className="relative w-full pt-20 sm:pt-22 lg:pt-24 pb-8 sm:pb-12 bg-pixel-grid border-b-2 border-black flex flex-col justify-center min-h-[calc(100vh-65px)]"
     >
-      {/* Decorative Floating Pixel Cubes */}
-      <div className="absolute top-16 left-6 w-5 h-5 bg-[#FF6B2C] border-2 border-black shadow-[2px_2px_0px_#000] pointer-events-none hidden lg:block animate-bounce" />
-      <div className="absolute top-36 right-10 w-4 h-4 bg-[#24CB71] border-2 border-black shadow-[2px_2px_0px_#000] pointer-events-none hidden lg:block" />
-      <div className="absolute bottom-20 left-12 w-6 h-6 bg-[#38BDF8] border-2 border-black shadow-[2px_2px_0px_#000] pointer-events-none hidden lg:block" />
-
-      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 w-full relative z-10">
         
-        {/* Main 2-Column Grid (PixelWhisk style) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
+        {/* Main 2-Column Responsive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
-          {/* Left Column: Heading & Value Proposition */}
-          <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-center lg:text-start" dir={isRTL ? 'rtl' : 'ltr'}>
+          {/* Right Column (in RTL): Core Message, Immediate CTAs, Trust Pills */}
+          <div className="lg:col-span-6 space-y-4 sm:space-y-5 text-center lg:text-start" dir={isRTL ? 'rtl' : 'ltr'}>
             
-            {/* Top Pixel Badge */}
-            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-white border-2 border-black shadow-[2px_2px_0px_#000] sm:shadow-[3px_3px_0px_#000] text-black text-[10px] sm:text-xs font-mono font-bold">
-              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#24CB71] animate-pulse" />
+            {/* Top Eyebrow Badge */}
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-white border-2 border-black shadow-[2px_2px_0px_#000] text-black text-[11px] sm:text-xs font-mono font-bold">
+              <span className="w-2 h-2 bg-[#24CB71] animate-pulse" />
               <span>{t('heroBadge')}</span>
             </div>
 
-            {/* Main Headline with Pixel Neo-Brutalist Highlighting */}
-            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight sm:leading-snug font-heading">
-              {t('heroTitlePrefix')}
-              <span className="inline-block mx-1 px-1.5 sm:px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[2px_2px_0px_#FF6B2C] sm:shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
-                {t('heroTitleHighlight')}
-              </span>
-              {t('heroTitleSuffix')}
+            {/* Main Punchy Modern Headline */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-black text-slate-950 tracking-tight leading-[1.18] font-heading">
+              {language === 'ar' ? (
+                <>
+                  حوّل بيانات شركتك إلى{' '}
+                  <span className="inline-block px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
+                    أصول ذكية ومؤتمتة
+                  </span>{' '}
+                  تضاعف أرباحك وتخفض التكاليف
+                </>
+              ) : language === 'tr' ? (
+                <>
+                  Şirket Verilerinizi{' '}
+                  <span className="inline-block px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
+                    Akıllı &amp; Kazançlı
+                  </span>{' '}
+                  Bir Altyapıya Dönüştürün
+                </>
+              ) : (
+                <>
+                  Transform Your Business Data into{' '}
+                  <span className="inline-block px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
+                    High-ROI Autonomous Assets
+                  </span>{' '}
+                  that Slash Costs
+                </>
+              )}
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-xs sm:text-sm lg:text-base text-slate-700 leading-relaxed font-sans font-medium max-w-xl mx-auto lg:mx-0">
-              {t('heroSubtitle')}
+            {/* Clear, Customer-Friendly Subtitle */}
+            <p className="text-xs sm:text-sm lg:text-[15px] text-slate-700 leading-relaxed font-sans font-medium max-w-xl mx-auto lg:mx-0">
+              {language === 'ar'
+                ? 'نربط الذكاء الاصطناعي ببياناتك الخاصة بأمان دون تسريب أو أخطاء، نؤتمت خطوط المبيعات والمحاسبة دون إكسل، ونخفض فواتير السحابة بنسبة 52%.'
+                : language === 'tr'
+                ? 'Yapay zekayı şirket verilerinize sıfır sızıntı ile bağlıyor, satış ve muhasebeyi otomatikleştiriyor ve bulut faturalarınızı %52 düşürüyoruz.'
+                : 'Connect secure RAG AI to your internal databases without leaks, automate sales and accounting without manual spreadsheets, and cut cloud compute bills by 52%.'}
             </p>
 
-            {/* 4 Pixel Service Selector Chips (Responsive 2x2 Grid) */}
-            <div className="pt-1">
-              <div className="text-[10px] sm:text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
-                <Terminal className="w-3.5 h-3.5 text-[#FF6B2C]" />
-                <span>{language === 'ar' ? 'اختر الخدمة لمعاينتها بالمحاكي البكسلي:' : language === 'tr' ? 'Piksel Konsolda Test Etmek İçin Seçin:' : 'Select Core Service to Inspect:'}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
-                {(['rag', 'etl', 'opt', 'dash'] as const).map((key) => {
-                  const s = serviceData[key]
-                  const isSelected = activeService === key
-                  const title = language === 'ar' ? s.titleAr : language === 'tr' ? s.titleTr : s.titleEn
-                  return (
-                    <button
-                      key={key}
-                      onClick={() => setActiveService(key)}
-                      className={`p-2 sm:p-2.5 text-start transition-all cursor-pointer border-2 border-black ${
-                        isSelected
-                          ? 'bg-black text-white shadow-[2px_2px_0px_#FF6B2C] sm:shadow-[3px_3px_0px_#FF6B2C] translate-x-[-1px] translate-y-[-1px]'
-                          : 'bg-white text-slate-800 hover:bg-slate-50 shadow-[1.5px_1.5px_0px_#000] sm:shadow-[2px_2px_0px_#000]'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className={`text-[9px] sm:text-[10px] font-mono font-bold ${isSelected ? 'text-[#24CB71]' : 'text-slate-500'}`}>
-                          {s.code}
-                        </span>
-                        {isSelected && <span className="w-1.5 h-1.5 bg-[#FF6B2C] animate-ping" />}
-                      </div>
-                      <div className="text-[11px] sm:text-xs font-bold font-sans truncate mt-0.5">
-                        {title}
-                      </div>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Action Buttons (Pixel Style) */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+            {/* Primary Action Buttons (PROMINENT, VISIBLE IMMEDIATELY ABOVE THE FOLD) */}
+            <div className="pt-1 sm:pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-3">
               <a
-                href={heroWhatsAppUrl}
+                href={mainWhatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-6 py-3.5 btn-pixel-primary font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer font-sans min-h-[46px]"
+                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 btn-pixel-primary font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer font-sans shadow-[3px_3px_0px_#000] min-h-[46px]"
               >
                 <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
-                <span>{t('heroCtaWhatsApp')}</span>
+                <span>{language === 'ar' ? 'ابدأ استشارتك عبر واتساب' : language === 'tr' ? 'WhatsApp ile Hemen Danışın' : 'Chat with Lead Engineer'}</span>
                 {isRTL ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
               </a>
 
               <a
                 href="#simulator"
-                className="w-full sm:w-auto px-6 py-3.5 btn-pixel-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer font-sans min-h-[46px]"
+                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 btn-pixel-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer font-sans shadow-[2px_2px_0px_#000] min-h-[46px]"
               >
                 <Zap className="w-4 h-4 text-[#FF6B2C] flex-shrink-0" />
-                <span>{t('heroCtaPrimary')}</span>
+                <span>{language === 'ar' ? 'جرّب المحاكي التفاعلي' : language === 'tr' ? 'Canlı Simülatörü Test Et' : 'Test Live Simulator'}</span>
               </a>
             </div>
 
-            {/* Guarantee Tag */}
-            <div className="flex items-center justify-center lg:justify-start gap-3 pt-1 text-[11px] font-mono text-slate-600">
-              <span className="flex items-center gap-1">
-                <CheckSquare className="w-3.5 h-3.5 text-[#24CB71]" />
-                <span>{language === 'ar' ? 'سحابة خاصة مشفرة (VPC)' : language === 'tr' ? 'Özel Bulut VPC' : '100% Private VPC'}</span>
+            {/* 3 Clear Customer Value Guarantees */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 font-mono text-[11px]">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-black shadow-[1.5px_1.5px_0px_#000] text-slate-800">
+                <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />
+                <span>{language === 'ar' ? 'سحابة خاصة مشفرة (VPC)' : language === 'tr' ? 'Özel Bulut (Private VPC)' : '100% Private VPC'}</span>
               </span>
-              <span className="flex items-center gap-1">
-                <CheckSquare className="w-3.5 h-3.5 text-[#FF6B2C]" />
-                <span>{language === 'ar' ? 'عائد مالي مباشر وملموس' : language === 'tr' ? 'Doğrudan ROI' : 'Measurable ROI'}</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-black shadow-[1.5px_1.5px_0px_#000] text-slate-800">
+                <DollarSign className="w-3.5 h-3.5 text-[#24CB71]" />
+                <span>{language === 'ar' ? 'توفير 52% بالفواتير' : language === 'tr' ? '%52 Fatura Tasarrufu' : '52% Cost Trim'}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-black shadow-[1.5px_1.5px_0px_#000] text-slate-800">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#FF6B2C]" />
+                <span>{language === 'ar' ? 'دقة إجابات 100% موثقة' : language === 'tr' ? '%100 Doğrulanmış Yanıt' : '100% Grounded Fact'}</span>
               </span>
             </div>
 
           </div>
 
-          {/* Right Column: 8-Bit Interactive Pixel Console (PixelWhisk Showcase) */}
+          {/* Left Column: Interactive Executive AI & Business Deck (Modern, Crystal Clear, Engaging) */}
           <div className="lg:col-span-6 w-full">
-            <div className="card-pixel-dark rounded-none p-4 sm:p-6 text-white relative overflow-hidden scanlines">
+            <div className="card-pixel-dark rounded-none p-3.5 sm:p-5 text-white relative overflow-hidden scanlines shadow-[4px_4px_0px_#000]">
               
-              {/* Terminal Titlebar */}
-              <div className="flex items-center justify-between border-b-2 border-slate-700 pb-3 mb-4 font-mono text-xs">
+              {/* Top Cockpit Bar */}
+              <div className="flex items-center justify-between border-b-2 border-slate-700 pb-2.5 mb-3 font-mono text-xs">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1.5">
                     <span className="w-2.5 h-2.5 bg-[#FF5F56] border border-black" />
                     <span className="w-2.5 h-2.5 bg-[#FFBD2E] border border-black" />
                     <span className="w-2.5 h-2.5 bg-[#27C93F] border border-black" />
                   </div>
-                  <span className="text-slate-400 text-[11px] font-bold">
-                    ASR_PULSE_NODE // {current.badgeText}
+                  <span className="text-slate-300 text-[11px] font-bold">
+                    DATAPULSE // EXECUTIVE_COCKPIT
                   </span>
                 </div>
                 <span className="text-[#24CB71] text-[10px] font-bold">
-                  [STATUS: ONLINE]
+                  [LIVE_DEMO]
                 </span>
               </div>
 
-              {/* Service Dynamic Visualizer Content */}
+              {/* 3 Executive Service Selector Tabs */}
+              <div className="grid grid-cols-3 gap-1.5 mb-3.5 font-mono text-xs">
+                {(['rag', 'etl', 'opt'] as const).map((tabKey) => {
+                  const tItem = tabData[tabKey]
+                  const isSelected = activeTab === tabKey
+                  const label = language === 'ar' ? tItem.navLabelAr : language === 'tr' ? tItem.navLabelTr : tItem.navLabelEn
+                  return (
+                    <button
+                      key={tabKey}
+                      onClick={() => setActiveTab(tabKey)}
+                      className={`p-1.5 sm:p-2 text-center transition-all cursor-pointer border-2 border-black font-bold text-[10px] sm:text-[11px] truncate ${
+                        isSelected
+                          ? 'bg-[#FF6B2C] text-white shadow-[2px_2px_0px_#000]'
+                          : 'bg-[#161B22] text-slate-300 hover:bg-slate-800'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Dynamic Interactive Preview Card */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current.id}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
+                  exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.15 }}
-                  className="space-y-4"
+                  className="space-y-3"
                 >
-                  {/* Console Header Banner */}
-                  <div className="p-3 bg-black border-2 border-slate-700 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-mono text-[#FF6B2C] uppercase block font-bold">
-                        {current.code} ARCHITECTURE
+                  {/* Metric Ribbon */}
+                  <div className="p-2.5 bg-black border border-slate-700 flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-mono text-slate-400 block">
+                        {language === 'ar' ? current.kpiLabelAr : language === 'tr' ? current.kpiLabelTr : current.kpiLabelEn}
                       </span>
-                      <h3 className="text-xs sm:text-sm font-bold text-white font-sans">
-                        {language === 'ar' ? current.titleAr : language === 'tr' ? current.titleTr : current.titleEn}
-                      </h3>
+                      <div className={`text-base sm:text-lg font-black font-mono ${current.kpiColor}`}>
+                        {current.kpiVal}
+                      </div>
                     </div>
-                    <div className="text-right font-mono">
-                      <span className="text-[9px] text-slate-400 block">{language === 'ar' ? current.statLblAr : language === 'tr' ? current.statLblTr : current.statLblEn}</span>
-                      <strong className="text-sm sm:text-base font-black text-[#24CB71]">{current.statVal}</strong>
+                    <div className="text-right">
+                      <span className="text-[9px] font-mono px-2 py-0.5 bg-[#24CB71] text-black font-bold border border-black">
+                        {current.badgeAr}
+                      </span>
                     </div>
                   </div>
 
-                  {/* 8-Bit Pixel Simulation Matrix Box */}
-                  <div className="p-3.5 bg-[#0D1117] border-2 border-slate-800 space-y-3 font-mono">
+                  {/* Visual Conversational Simulation Box */}
+                  <div className="p-3 bg-[#0B0F19] border border-slate-800 space-y-2.5 text-xs font-sans">
                     
-                    {/* Node 1: Input */}
-                    <div className="flex items-center justify-between text-xs p-2 bg-[#161B22] border border-slate-700">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 bg-[#38BDF8]" />
-                        <span className="text-slate-200 text-[11px]">
-                          {activeService === 'rag'
-                            ? (language === 'ar' ? 'وثائق الشركة وقواعد البيانات' : 'Company Docs & DBs')
-                            : activeService === 'etl'
-                            ? (language === 'ar' ? 'سلة وزد / Odoo / Meta Ads' : 'Shopify / Odoo / Meta')
-                            : activeService === 'opt'
-                            ? (language === 'ar' ? 'فواتير السحابة قبل التحسين' : 'Raw Cloud Server Spend')
-                            : (language === 'ar' ? 'بيانات المبيعات والمخزون' : 'Live Sales Stream')}
-                        </span>
+                    {/* User Action / Question */}
+                    <div className="p-2 bg-[#161B22] border border-slate-700 flex items-start gap-2">
+                      <div className="w-5 h-5 bg-purple-600 text-white flex items-center justify-center font-bold text-[10px] flex-shrink-0 font-mono mt-0.5">
+                        Q
                       </div>
-                      <span className="text-[10px] text-sky-400">[CONNECTED]</span>
+                      <div>
+                        <span className="text-[10px] font-mono text-slate-400 block">
+                          {language === 'ar' ? 'سؤال الإدارة أو الطلب:' : language === 'tr' ? 'Yönetici Talebi:' : 'Executive Query:'}
+                        </span>
+                        <p className="text-slate-200 font-semibold text-xs leading-snug">
+                          {language === 'ar' ? current.userQueryAr : language === 'tr' ? current.userQueryTr : current.userQueryEn}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Stepped Pixel Connection Wave */}
-                    <div className="flex items-center justify-center gap-1 text-[10px] text-slate-500 py-0.5">
-                      <span>■</span>
-                      <span className="text-[#FF6B2C]">■</span>
-                      <span className="text-[#24CB71] animate-pulse">■</span>
-                      <span>■</span>
-                      <span className="text-slate-400 text-[9px]">
-                        {activeService === 'rag' ? 'VECTOR_RAG_PIPELINE' : 'ZERO_LOSS_INGEST'}
-                      </span>
-                    </div>
-
-                    {/* Node 2: Output Verified Fact */}
-                    <div className="flex items-center justify-between text-xs p-2 bg-[#161B22] border border-[#24CB71]/50">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 bg-[#24CB71]" />
-                        <span className="text-white text-[11px] font-sans">
-                          {activeService === 'rag'
-                            ? (language === 'ar' ? 'إجابة دقيقة 100% موثقة برقم الصفحة' : '100% Fact Answer with Citation')
-                            : activeService === 'etl'
-                            ? (language === 'ar' ? 'مستودع بيانات موحد يلغي إكسل' : 'Unified Warehouse, Zero Excel')
-                            : activeService === 'opt'
-                            ? (language === 'ar' ? 'توفير مالي مباشر 52% مع تسريع 10x' : '52% Direct ROI + 10x Speedup')
-                            : (language === 'ar' ? 'إشعار واتساب فوري عند الخلل' : 'Instant WhatsApp Anomaly Alert')}
-                        </span>
+                    {/* Verified System Output */}
+                    <div className="p-2 bg-[#0E1E17] border border-emerald-500/60 flex items-start gap-2">
+                      <div className="w-5 h-5 bg-[#24CB71] text-black flex items-center justify-center font-bold text-[10px] flex-shrink-0 font-mono mt-0.5">
+                        ✓
                       </div>
-                      <span className="text-[10px] text-[#24CB71] font-bold">[VERIFIED]</span>
+                      <div>
+                        <span className="text-[10px] font-mono text-[#24CB71] font-bold block">
+                          {language === 'ar' ? 'الإجابة الموثقة لحظياً بالدليل:' : language === 'tr' ? 'Anlık Doğrulanmış Sistem Yanıtı:' : 'Verified Instant Fact Output:'}
+                        </span>
+                        <p className="text-emerald-200 font-medium text-xs leading-snug">
+                          {language === 'ar' ? current.aiAnswerAr : language === 'tr' ? current.aiAnswerTr : current.aiAnswerEn}
+                        </p>
+                      </div>
                     </div>
 
                   </div>
 
-                  {/* Terminal Log Output */}
-                  <div className="p-2.5 bg-black border border-slate-800 text-[10px] font-mono text-slate-300 flex items-center justify-between">
-                    <span className="text-[#24CB71] truncate">
-                      &gt; system.exec(&quot;{activeService}_pipeline&quot;) // 0 errors
-                    </span>
-                    <span className="text-slate-500 text-[9px] whitespace-nowrap">84ms</span>
-                  </div>
-
-                  {/* WhatsApp Direct Action Trigger */}
+                  {/* Immediate Direct Action inside Cockpit */}
                   <a
-                    href={heroWhatsAppUrl}
+                    href={tabWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 bg-[#FF6B2C] hover:bg-[#FF5500] text-white border-2 border-black shadow-[2px_2px_0px_#000] font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                    className="w-full py-2.5 px-3 bg-[#FF6B2C] hover:bg-[#FF5500] text-white border-2 border-black shadow-[2px_2px_0px_#000] font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
                     <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                    <span>{language === 'ar' ? 'طلب استشارة فورية لهذه الخدمة عبر واتساب' : language === 'tr' ? 'Bu Hizmet İçin WhatsApp ile Görüş' : 'Request Architecture Scoping via WhatsApp'}</span>
+                    <span>
+                      {language === 'ar'
+                        ? `طلب استشارة حول (${language === 'ar' ? current.navLabelAr : current.navLabelEn})`
+                        : language === 'tr'
+                        ? `Bu Modül İçin WhatsApp ile Görüş (${current.navLabelTr})`
+                        : `Inquire About ${current.navLabelEn} via WhatsApp`}
+                    </span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
 
                 </motion.div>

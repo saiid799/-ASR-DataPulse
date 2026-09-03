@@ -46,7 +46,7 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 w-full max-w-[100vw] z-50 transition-all duration-200">
       
       {/* Top Pixel Announcement Ribbon - Desktop Only */}
-      <div className="hidden sm:flex bg-[#0D1117] border-b-2 border-black text-xs py-1.5 px-4 text-center font-mono items-center justify-center gap-2 text-white">
+      <div className="hidden sm:flex bg-[#0D1117] border-b-2 border-black text-xs py-1 px-4 text-center font-mono items-center justify-center gap-2 text-white">
         <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#24CB71] text-black font-extrabold text-[10px] border border-black shadow-[1px_1px_0px_#000]">
           <span className="w-1.5 h-1.5 bg-black animate-pulse" />
           [SYS_READY: 100%]
@@ -68,8 +68,8 @@ export function Header() {
       <div
         className={`w-full transition-all duration-200 ${
           scrolled
-            ? 'py-2 bg-white/95 backdrop-blur-md border-b-2 border-black shadow-[0_4px_0px_rgba(0,0,0,0.06)]'
-            : 'py-3 bg-[#FAFAF9] border-b-2 border-black'
+            ? 'py-1.5 sm:py-2 bg-white/95 backdrop-blur-md border-b-2 border-black shadow-[0_4px_0px_rgba(0,0,0,0.06)]'
+            : 'py-2 bg-[#FAFAF9] border-b-2 border-black'
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
