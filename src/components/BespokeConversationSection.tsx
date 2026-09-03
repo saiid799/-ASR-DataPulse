@@ -98,29 +98,29 @@ export function BespokeConversationSection() {
   ]
 
   return (
-    <section id="bespoke" className="w-full py-16 sm:py-28 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-grid">
+    <section id="bespoke" className="w-full py-12 sm:py-20 lg:py-28 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-grid">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 sm:mb-16">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-8 sm:mb-14">
           <div className="text-center sm:text-start" dir={isRTL ? 'rtl' : 'ltr'}>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white border-2 border-black shadow-[2px_2px_0px_#FF6B2C] text-xs font-mono font-bold mb-3">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-black text-white border-2 border-black shadow-[2px_2px_0px_#FF6B2C] text-[11px] sm:text-xs font-mono font-bold mb-2.5 sm:mb-3">
               <Sparkles className="w-3.5 h-3.5 text-[#FF6B2C]" />
               <span>{language === 'ar' ? 'حلول مصممة هندسياً' : language === 'tr' ? 'ÖZEL MİMARİ DİYALOGLARI' : 'Bespoke Engineering Solutions'}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight font-heading leading-snug">
+            <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight font-heading leading-tight sm:leading-snug">
               {language === 'ar' ? 'حلول مصممة خصيصاً لتحديات أعمالكم' : language === 'tr' ? 'İşinizin Zorluklarına Özel Tasarlanmış Çözümler' : 'Tailored Solutions for Your Business Challenges'}
             </h2>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border-2 border-black text-black text-xs font-mono font-bold shadow-[2px_2px_0px_#000]">
+          <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-white border-2 border-black text-black text-[11px] sm:text-xs font-mono font-bold shadow-[2px_2px_0px_#000]">
             <span className="w-2 h-2 bg-[#24CB71]" />
             <span>ENTERPRISE_SLA_V2</span>
           </div>
         </div>
 
         {/* Retro RPG Conversational Dialogue Cards */}
-        <div className="space-y-4 sm:space-y-6 max-w-4xl mx-auto mb-14 sm:mb-16">
+        <div className="space-y-3.5 sm:space-y-5 max-w-4xl mx-auto mb-10 sm:mb-14">
           {dialogues.map((d) => {
             const justifyClass =
               d.align === 'start'
@@ -135,9 +135,9 @@ export function BespokeConversationSection() {
             return (
               <div key={d.id} className={`flex ${justifyClass}`} dir={isRTL ? 'rtl' : 'ltr'}>
                 <div
-                  className={`p-4 sm:p-5 bg-white border-2 border-black ${d.borderClass} max-w-xl w-full sm:w-auto space-y-2 relative`}
+                  className={`p-3.5 sm:p-5 bg-white border-2 border-black ${d.borderClass} max-w-xl w-full sm:w-auto space-y-2 relative`}
                 >
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-1.5 sm:pb-2">
                     <div className="flex items-center gap-2">
                       <div className={`w-6 h-6 ${d.avatarBg} text-white flex items-center justify-center font-mono text-[10px] font-bold border border-black`}>
                         {d.avatarCode.slice(0, 3)}

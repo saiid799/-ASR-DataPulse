@@ -133,15 +133,15 @@ export function HeroSection() {
           <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-center lg:text-start" dir={isRTL ? 'rtl' : 'ltr'}>
             
             {/* Top Pixel Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border-2 border-black shadow-[3px_3px_0px_#000] text-black text-xs font-mono font-bold">
-              <span className="w-2 h-2 bg-[#24CB71] animate-pulse" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-white border-2 border-black shadow-[2px_2px_0px_#000] sm:shadow-[3px_3px_0px_#000] text-black text-[10px] sm:text-xs font-mono font-bold">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#24CB71] animate-pulse" />
               <span>{t('heroBadge')}</span>
             </div>
 
             {/* Main Headline with Pixel Neo-Brutalist Highlighting */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-snug sm:leading-tight font-heading">
+            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight sm:leading-snug font-heading">
               {t('heroTitlePrefix')}
-              <span className="inline-block mx-1 px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
+              <span className="inline-block mx-1 px-1.5 sm:px-2 py-0.5 bg-[#FFE6D5] border-2 border-black shadow-[2px_2px_0px_#FF6B2C] sm:shadow-[3px_3px_0px_#FF6B2C] text-[#C2410C]">
                 {t('heroTitleHighlight')}
               </span>
               {t('heroTitleSuffix')}
@@ -152,13 +152,13 @@ export function HeroSection() {
               {t('heroSubtitle')}
             </p>
 
-            {/* 4 Pixel Service Selector Chips (2x2 Grid) */}
+            {/* 4 Pixel Service Selector Chips (Responsive 2x2 Grid) */}
             <div className="pt-1">
-              <div className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
+              <div className="text-[10px] sm:text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
                 <Terminal className="w-3.5 h-3.5 text-[#FF6B2C]" />
                 <span>{language === 'ar' ? 'اختر الخدمة لمعاينتها بالمحاكي البكسلي:' : language === 'tr' ? 'Piksel Konsolda Test Etmek İçin Seçin:' : 'Select Core Service to Inspect:'}</span>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                 {(['rag', 'etl', 'opt', 'dash'] as const).map((key) => {
                   const s = serviceData[key]
                   const isSelected = activeService === key
@@ -169,17 +169,17 @@ export function HeroSection() {
                       onClick={() => setActiveService(key)}
                       className={`p-2 sm:p-2.5 text-start transition-all cursor-pointer border-2 border-black ${
                         isSelected
-                          ? 'bg-black text-white shadow-[3px_3px_0px_#FF6B2C] translate-x-[-1px] translate-y-[-1px]'
-                          : 'bg-white text-slate-800 hover:bg-slate-50 shadow-[2px_2px_0px_#000]'
+                          ? 'bg-black text-white shadow-[2px_2px_0px_#FF6B2C] sm:shadow-[3px_3px_0px_#FF6B2C] translate-x-[-1px] translate-y-[-1px]'
+                          : 'bg-white text-slate-800 hover:bg-slate-50 shadow-[1.5px_1.5px_0px_#000] sm:shadow-[2px_2px_0px_#000]'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={`text-[10px] font-mono font-bold ${isSelected ? 'text-[#24CB71]' : 'text-slate-500'}`}>
+                        <span className={`text-[9px] sm:text-[10px] font-mono font-bold ${isSelected ? 'text-[#24CB71]' : 'text-slate-500'}`}>
                           {s.code}
                         </span>
                         {isSelected && <span className="w-1.5 h-1.5 bg-[#FF6B2C] animate-ping" />}
                       </div>
-                      <div className="text-xs font-bold font-sans truncate mt-0.5">
+                      <div className="text-[11px] sm:text-xs font-bold font-sans truncate mt-0.5">
                         {title}
                       </div>
                     </button>

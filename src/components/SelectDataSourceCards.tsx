@@ -76,19 +76,19 @@ export function SelectDataSourceCards() {
   ]
 
   return (
-    <section id="solutions" className="w-full py-16 sm:py-28 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-dots">
+    <section id="solutions" className="w-full py-12 sm:py-20 lg:py-28 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-dots">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white border-2 border-black shadow-[2px_2px_0px_#38BDF8] text-xs font-mono font-bold mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-black text-white border-2 border-black shadow-[2px_2px_0px_#38BDF8] text-[11px] sm:text-xs font-mono font-bold mb-2.5 sm:mb-3">
             <Zap className="w-3.5 h-3.5 text-[#38BDF8]" />
             <span>{language === 'ar' ? 'بنية الحلول الرقمية' : language === 'tr' ? 'MİMARİ ÇÖZÜMLER' : 'Enterprise Solution Architecture'}</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight font-heading leading-snug">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight font-heading leading-tight sm:leading-snug">
             {language === 'ar' ? 'اختر البنية والحلول التي تحتاجها منشأتك' : language === 'tr' ? 'Şirketinizin İhtiyaç Duyduğu Mimariyi Seçin' : 'Select the Solution Your Business Needs'}
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
+          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
             {language === 'ar'
               ? 'حلول برمجية وهندسية متكاملة مصممة لدعم الشركات في التحول الرقمي الذكي وتوفير التكاليف.'
               : language === 'tr'
@@ -98,7 +98,7 @@ export function SelectDataSourceCards() {
         </div>
 
         {/* 4 Pixel Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4.5 mb-8">
           {streams.map((st) => {
             const Icon = st.icon
             const streamWhatsAppUrl = generateWhatsAppLink(

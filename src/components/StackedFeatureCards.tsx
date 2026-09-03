@@ -240,19 +240,19 @@ export function StackedFeatureCards() {
   ]
 
   return (
-    <section id="services" className="w-full py-16 sm:py-28 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-dots">
+    <section id="services" className="w-full py-12 sm:py-20 lg:py-28 bg-[#FAFAF9] relative border-b-2 border-black bg-pixel-dots">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
         {/* Section Headline */}
-        <div className="text-center mb-10 sm:mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white text-xs font-bold font-mono border-2 border-black shadow-[2px_2px_0px_#FF6B2C] mb-3">
+        <div className="text-center mb-8 sm:mb-14 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-black text-white text-[11px] sm:text-xs font-bold font-mono border-2 border-black shadow-[2px_2px_0px_#FF6B2C] mb-2.5 sm:mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#24CB71]" />
             <span>{language === 'ar' ? 'الخدمات الهندسية الأربع' : language === 'tr' ? '4 TEMEL MÜHENDİSLİK HİZMETİ' : 'Core Enterprise Capabilities'}</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight font-heading leading-snug sm:leading-tight">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight font-heading leading-tight sm:leading-snug">
             {language === 'ar' ? 'خدمات هندسية متكاملة تصنع فارقاً حقيقياً في أرباحك' : language === 'tr' ? 'Kazancınızı Katlayan Uçtan Uca Mühendislik Hizmetleri' : 'Engineered Solutions Driving Real ROI'}
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-slate-600 font-sans max-w-2xl mx-auto leading-relaxed font-medium">
             {language === 'ar'
               ? 'حلول تقنية متقدمة مصممة خصيصاً لربط البيانات بأمان، تسريع اتخاذ القرارات، وتخفيض التكاليف التشغيلية.'
               : language === 'tr'
@@ -262,11 +262,11 @@ export function StackedFeatureCards() {
         </div>
 
         {/* Stack of 4 Pixel Cartridges */}
-        <div className="space-y-6 sm:space-y-8">
+        <div className="space-y-5 sm:space-y-7">
           {services.map((srv) => (
             <div
               key={srv.id}
-              className={`${srv.cardClass} p-4 sm:p-8 relative overflow-hidden transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]`}
+              className={`${srv.cardClass} p-3.5 sm:p-7 md:p-8 relative overflow-hidden transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]`}
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-center">
                 
@@ -276,17 +276,17 @@ export function StackedFeatureCards() {
                 </div>
 
                 {/* Right: Content & Action */}
-                <div className="md:col-span-7 space-y-3 sm:space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
+                <div className="md:col-span-7 space-y-2.5 sm:space-y-3.5" dir={isRTL ? 'rtl' : 'ltr'}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 bg-black text-white border border-black shadow-[1px_1px_0px_#000]">
+                    <span className="text-[9px] sm:text-xs font-mono font-bold px-2 py-0.5 bg-black text-white border border-black shadow-[1px_1px_0px_#000]">
                       {srv.code}
                     </span>
-                    <span className={`text-xl sm:text-2xl font-black font-mono ${srv.tagColor}`}>
+                    <span className={`text-lg sm:text-2xl font-black font-mono ${srv.tagColor}`}>
                       {srv.num}
                     </span>
                   </div>
 
-                  <h3 className="text-lg sm:text-2xl font-black text-slate-950 font-heading">
+                  <h3 className="text-base sm:text-xl lg:text-2xl font-black text-slate-950 font-heading">
                     {srv.title}
                   </h3>
 

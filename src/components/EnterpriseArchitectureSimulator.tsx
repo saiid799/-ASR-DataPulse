@@ -63,19 +63,19 @@ export function EnterpriseArchitectureSimulator() {
   }
 
   return (
-    <section id="simulator" className="w-full py-16 sm:py-28 bg-[#FAFAF9] border-b-2 border-black bg-pixel-grid relative">
+    <section id="simulator" className="w-full py-12 sm:py-20 lg:py-28 bg-[#FAFAF9] border-b-2 border-black bg-pixel-grid relative">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white text-xs font-mono font-bold border-2 border-black shadow-[2px_2px_0px_#24CB71] mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-black text-white text-[11px] sm:text-xs font-mono font-bold border-2 border-black shadow-[2px_2px_0px_#24CB71] mb-2.5 sm:mb-3">
             <Terminal className="w-3.5 h-3.5 text-[#24CB71]" />
             <span>{language === 'ar' ? 'المحاكي البكسلي المباشر' : language === 'tr' ? 'CANLI PİKSEL SİMÜLATÖR' : 'Live Interactive Sandbox'}</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight font-heading leading-snug">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight font-heading leading-tight sm:leading-snug">
             {language === 'ar' ? 'جرّب كيف تعمل خدماتنا على أرض الواقع' : language === 'tr' ? 'Hizmetlerimizin Nasıl Çalıştığını Canlı Test Edin' : 'Experience How Our Services Transform Operations'}
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
+          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
             {language === 'ar'
               ? 'انقر بين التبويبات بالأسفل لاختبار استرجاع الذكاء الاصطناعي RAG، أتمتة خطوط البيانات، وتوفير التكاليف السحابية.'
               : language === 'tr'
@@ -85,10 +85,10 @@ export function EnterpriseArchitectureSimulator() {
         </div>
 
         {/* 8-Bit Pixel Simulation Deck */}
-        <div className="card-pixel-dark rounded-none overflow-hidden shadow-[6px_6px_0px_#000] border-2 border-black scanlines text-white">
+        <div className="card-pixel-dark rounded-none overflow-hidden shadow-[3px_3px_0px_#000] sm:shadow-[5px_5px_0px_#000] border-2 border-black scanlines text-white">
           
           {/* Deck Tabs Header (Pixel buttons) */}
-          <div className="p-2 sm:p-3 bg-[#0B0F19] border-b-2 border-slate-700 overflow-x-auto scrollbar-none font-mono text-xs">
+          <div className="p-2 sm:p-3 bg-[#0B0F19] border-b-2 border-slate-700 overflow-x-auto scrollbar-none font-mono text-[11px] sm:text-xs">
             <div className="flex items-center gap-2 min-w-max">
               <button
                 onClick={() => setActiveTab('rag')}

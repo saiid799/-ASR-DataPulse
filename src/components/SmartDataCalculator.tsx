@@ -203,31 +203,31 @@ I would like to discuss implementation and technical feasibility.`
   const calculatedWhatsAppUrl = generateWhatsAppLink(generateCleanWhatsAppMessage(), language)
 
   return (
-    <section id="calculator" className="w-full py-16 sm:py-28 bg-[#FAFAF9] border-b-2 border-black bg-pixel-grid relative">
+    <section id="calculator" className="w-full py-12 sm:py-20 lg:py-28 bg-[#FAFAF9] border-b-2 border-black bg-pixel-grid relative">
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white text-xs font-mono font-bold border-2 border-black shadow-[2px_2px_0px_#FF6B2C] mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-black text-white text-[11px] sm:text-xs font-mono font-bold border-2 border-black shadow-[2px_2px_0px_#FF6B2C] mb-2.5 sm:mb-3">
             <Calculator className="w-3.5 h-3.5 text-[#FF6B2C]" />
             <span>{t('calcBadge')}</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight font-heading leading-snug">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight font-heading leading-tight sm:leading-snug">
             {t('calcTitle')}
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
+          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed font-medium">
             {t('calcSubtitle')}
           </p>
         </div>
 
         {/* Wizard Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
           
           {/* Left Column: Interactive Controls */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8" dir={isRTL ? 'rtl' : 'ltr'}>
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
             
             {/* Step 1: Company Scale */}
-            <div className="card-pixel-box p-4 sm:p-6 space-y-3">
+            <div className="card-pixel-box p-3.5 sm:p-5 md:p-6 space-y-2.5 sm:space-y-3">
               <div className="flex items-center justify-between border-b-2 border-slate-100 pb-2">
                 <span className="text-xs font-bold font-mono text-[#FF6B2C]">[STEP 01]</span>
                 <span className="text-xs text-slate-500 font-mono">{language === 'ar' ? 'حجم المنشأة' : language === 'tr' ? 'Şirket Ölçeği' : 'Company Scale'}</span>
