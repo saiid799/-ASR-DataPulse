@@ -4,6 +4,7 @@ import {
   Sparkles,
   ArrowRight,
   ArrowLeft,
+  ArrowUpRight,
   MessageCircle,
   ShieldCheck,
   Zap,

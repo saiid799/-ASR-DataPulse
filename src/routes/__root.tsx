@@ -46,6 +46,23 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  errorComponent: ({ error }) => (
+    <div className="p-8 text-center font-mono">
+      <h1 className="text-lg font-bold text-red-600">Application Error</h1>
+      <p className="text-xs text-slate-600 mt-2">{error?.message}</p>
+      <a href="/" className="mt-4 inline-block px-4 py-2 bg-black text-white text-xs border border-black shadow-[2px_2px_0px_#000]">
+        Return Home
+      </a>
+    </div>
+  ),
+  notFoundComponent: () => (
+    <div className="p-8 text-center font-mono">
+      <h1 className="text-lg font-bold">404 - Page Not Found</h1>
+      <a href="/" className="mt-4 inline-block px-4 py-2 bg-black text-white text-xs border border-black shadow-[2px_2px_0px_#000]">
+        Return Home
+      </a>
+    </div>
+  ),
   shellComponent: RootDocument,
 })
 
